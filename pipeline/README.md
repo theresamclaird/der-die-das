@@ -21,9 +21,15 @@ pipeline/
 ```bash
 pip install german-nouns
 cd pipeline
-python build_nouns.py            # uses data/a1_nouns.csv -> out/nouns.json
+python build_nouns.py --all      # builds A1-C2 from data/*_nouns.csv -> out/nouns.json
+python build_nouns.py            # single-level mode: data/a1_nouns.csv -> out/nouns.json
 ```
-Options: `--in`, `--out`, `--review`, `--level`, `--level-source`.
+Options: `--all`, `--in`, `--out`, `--review`, `--level`, `--level-source`.
+
+`--all` iterates the `LEVELS` manifest at the top of `build_nouns.py` (one CSV per
+CEFR level), **dedupes lemmas across levels** (a noun is kept at the lowest level
+it appears in), and emits one merged `nouns.json`. A1–B1 are curated lists; B2–C2
+are a frequency-band proxy (see `SOURCES.md`). Current volume: ~800 nouns.
 
 ## Input format (`data/a1_nouns.csv`)
 `lemma,article,topic,translation,example`

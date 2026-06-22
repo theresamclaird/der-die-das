@@ -1,0 +1,45 @@
+version: 1
+# Monorepo build spec. The PWA lives in web/ (pipeline/ and docs/ are not built).
+applications:
+  - appRoot: web
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            # Vite 6 needs Node 18+; pin 20 LTS so we don't depend on the image default.
+            - nvm use 20 || nvm install 20
+            # Use `npm install`, NOT `npm ci`: avoids the rollup optional-dependency
+            # bug (npm/cli#4828) that fails fresh Linux installs with
+            # "Cannot find module @rollup/rollup-linux-x64-gnu".
+            - npm install
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        # Relative to appRoot (web/), so this is web/dist.
+        baseDirectory: dist
+        files:
+          - '**/*'
+      # No node_modules cache: a stale partial cache re-triggers the rollup bug.
+      cache:
+        paths: []
+
+# Cache-control so service-worker / shell updates actually reach returning users.
+# Hashed assets are immutable; sw.js, index.html and the manifest must revalidate.
+customHeaders:
+  - pattern: '/sw.js'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache, no-store, must-revalidate'
+  - pattern: '/index.html'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache'
+  - pattern: '/manifest.webmanifest'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache'
+  - pattern: '/assets/**'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'

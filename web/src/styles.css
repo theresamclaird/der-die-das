@@ -20,6 +20,31 @@ html,body,#root{height:100%;margin:0;}
 .dq-info{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px;
   font-size:13px;line-height:1.5;color:#3a4047;}
 .dq-info b{color:var(--ink);} .dq-info em{font-style:italic;}
+.dq-head-actions{display:flex;align-items:center;gap:8px;}
+.dq-icon.on{border-color:#26408A;color:#26408A;}
+.dq-pill{height:30px;padding:0 13px;border-radius:99px;border:1px solid var(--line);background:var(--surface);
+  color:var(--muted);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.04em;
+  cursor:pointer;line-height:1;white-space:nowrap;}
+.dq-pill:hover{color:var(--ink);}
+.dq-pill.on{border-color:#26408A;color:#26408A;background:#EEF2FA;}
+
+/* level selector */
+.dq-levels{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px;
+  display:flex;flex-direction:column;gap:11px;animation:dq-in .2s ease;}
+.dq-levels-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;}
+.dq-lvl{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:10px;
+  border:1.5px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;
+  transition:transform .08s ease,border-color .12s ease,background .12s ease;}
+.dq-lvl:hover{border-color:#9fb3d6;} .dq-lvl:active{transform:scale(.96);}
+.dq-lvl.on{border-color:#26408A;background:#EEF2FA;color:#26408A;}
+.dq-lvl-name{font-family:'Fraunces',serif;font-weight:600;font-size:16px;line-height:1;}
+.dq-lvl-count{font-family:'Space Mono',monospace;font-size:10px;opacity:.7;}
+.dq-presets{display:flex;flex-wrap:wrap;gap:6px;}
+.dq-preset{font-size:12px;padding:5px 11px;border-radius:99px;border:1px solid var(--line);background:var(--surface);
+  color:var(--muted);cursor:pointer;font-weight:500;}
+.dq-preset:hover{color:var(--ink);border-color:#9fb3d6;}
+.dq-preset.on{border-color:#26408A;color:#26408A;background:#EEF2FA;font-weight:600;}
+.dq-levels-note{font-size:11px;line-height:1.45;color:var(--muted);}
 .dq-bar{height:5px;border-radius:99px;background:#D5D9DE;overflow:hidden;}
 .dq-bar-fill{height:100%;background:linear-gradient(90deg,#2D68A8,#2F7D58);border-radius:99px;transition:width .35s ease;}
 .dq-meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);font-family:'Space Mono',monospace;}

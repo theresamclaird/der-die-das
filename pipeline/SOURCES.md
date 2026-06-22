@@ -12,14 +12,21 @@
   article and selects the primary plural; every such resolution is logged to
   `to_review.csv`.
 
-## CEFR leveling (A1)
-- **Current input:** `data/a1_nouns.csv` is a **curated A1 starter set** (~124
-  common beginner nouns) assembled for development, *not* the official list.
-  `level_source` is therefore `curated_a1_starter`.
-- **To use the official list:** replace `data/a1_nouns.csv` with one derived from
-  the **Goethe-Institut A1 Wortliste** (free official PDF) and run with
-  `--level-source goethe`. The Goethe lists are **Goethe-Institut copyright** —
-  fine for personal use; revisit before any public/commercial release.
+## CEFR leveling (A1–C2)
+- **Inputs:** one CSV per level under `data/` — `a1_nouns.csv` … `c2_nouns.csv`.
+  Build the whole set with `python build_nouns.py --all`, which dedupes lemmas
+  across levels (keeping the lowest level a noun appears in). The level→file→source
+  manifest lives in `LEVELS` at the top of `build_nouns.py`.
+- **A1–B1** are **curated CEFR lists** (`level_source` `curated_a1_starter` /
+  `curated`), assembled for development — *not* the official Goethe lists.
+- **B2–C2** are a **frequency-band proxy** (`level_source` `frequency`), per
+  DESIGN §3.1: Goethe maintains no single canonical wordlist at these levels, so
+  difficulty is approximated by lexical frequency/register. This is a heuristic,
+  not an official CEFR mapping, and should be labelled as such in the UI.
+- **To use the official lists:** replace the A1–B1 CSVs with ones derived from the
+  **Goethe-Institut Wortlisten** (free official PDFs) and set `level_source` to
+  `goethe` in the `LEVELS` manifest. The Goethe lists are **Goethe-Institut
+  copyright** — fine for personal use; revisit before any public/commercial release.
 
 ## Scope notes
 - **Plurale tantum** (plural-only nouns such as *Eltern*, *Leute*) are

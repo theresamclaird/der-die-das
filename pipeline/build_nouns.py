@@ -18,6 +18,14 @@ Usage:
 
 Swap the input CSV for one derived from the official Goethe A1 Wortliste to
 produce the real dataset; set --level-source goethe in that case.
+
+To build the full A1-C2 dataset in one pass (the normal mode), run:
+
+    python build_nouns.py --all
+
+which iterates the LEVELS manifest below, dedupes lemmas across levels
+(keeping the lowest CEFR level a noun appears in), and emits one merged
+nouns.json.
 """
 
 from __future__ import annotations
@@ -34,6 +42,19 @@ from german_nouns.lookup import Nouns
 
 GENDER_TO_ARTICLE = {"m": "der", "f": "die", "n": "das"}
 ARTICLE_TO_GENDER = {v: k for k, v in GENDER_TO_ARTICLE.items()}
+
+# Full-dataset manifest (used by --all). Order matters: it is the CEFR
+# progression A1 -> C2, and dedup keeps the FIRST (lowest) level a lemma
+# appears in. A1-B1 are curated CEFR lists; B2-C2 are a frequency-band
+# proxy (DESIGN §3.1) and are labelled as such in `level_source`.
+LEVELS = [
+    ("A1", "data/a1_nouns.csv", "curated_a1_starter"),
+    ("A2", "data/a2_nouns.csv", "curated"),
+    ("B1", "data/b1_nouns.csv", "curated"),
+    ("B2", "data/b2_nouns.csv", "frequency"),
+    ("C1", "data/c1_nouns.csv", "frequency"),
+    ("C2", "data/c2_nouns.csv", "frequency"),
+]
 
 # Transliteration for building ASCII ids from German lemmas.
 UMLAUT_MAP = str.maketrans(
@@ -209,8 +230,47 @@ def validate(cards: list[Card]) -> list[str]:
     return errors
 
 
+def cards_from_file(in_path: Path, nouns: Nouns, level: str, level_source: str,
+                    review: list[ReviewItem]) -> list[Card]:
+    cards: list[Card] = []
+    with in_path.open(encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            card = resolve(row, nouns, level, level_source, review)
+            if card:
+                cards.append(card)
+    return cards
+
+
+def build_all(nouns: Nouns, review: list[ReviewItem]) -> list[Card]:
+    """Build every level in LEVELS, deduping lemmas across levels.
+
+    A lemma that appears in more than one input is kept at the LOWEST level
+    (LEVELS is ordered A1->C2); later, higher-level occurrences are dropped
+    and logged so the duplication is auditable.
+    """
+    cards: list[Card] = []
+    seen: dict[str, str] = {}  # lemma -> level it was first kept at
+    for level, infile, level_source in LEVELS:
+        in_path = Path(infile)
+        if not in_path.exists():
+            print(f"  WARN: {level} input not found: {in_path} (skipped)", file=sys.stderr)
+            continue
+        before = len(cards)
+        for card in cards_from_file(in_path, nouns, level, level_source, review):
+            if card.lemma in seen:
+                review.append(ReviewItem(card.lemma, "duplicate_across_levels",
+                                         f"already at {seen[card.lemma]}; dropped from {level}"))
+                continue
+            seen[card.lemma] = level
+            cards.append(card)
+        print(f"  {level}: +{len(cards) - before} cards", file=sys.stderr)
+    return cards
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--all", action="store_true",
+                    help="build every level in the LEVELS manifest, merged + deduped")
     ap.add_argument("--in", dest="infile", default="data/a1_nouns.csv")
     ap.add_argument("--out", dest="outfile", default="out/nouns.json")
     ap.add_argument("--review", dest="reviewfile", default="out/to_review.csv")
@@ -218,21 +278,19 @@ def main() -> int:
     ap.add_argument("--level-source", default="curated_a1_starter")
     args = ap.parse_args()
 
-    in_path = Path(args.infile)
-    if not in_path.exists():
-        print(f"ERROR: input not found: {in_path}", file=sys.stderr)
-        return 2
-
     print(f"Loading german-nouns dataset...", file=sys.stderr)
     nouns = Nouns()
 
     review: list[ReviewItem] = []
-    cards: list[Card] = []
-    with in_path.open(encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            card = resolve(row, nouns, args.level, args.level_source, review)
-            if card:
-                cards.append(card)
+    if args.all:
+        print("Building all levels (A1-C2)...", file=sys.stderr)
+        cards = build_all(nouns, review)
+    else:
+        in_path = Path(args.infile)
+        if not in_path.exists():
+            print(f"ERROR: input not found: {in_path}", file=sys.stderr)
+            return 2
+        cards = cards_from_file(in_path, nouns, args.level, args.level_source, review)
 
     errors = validate(cards)
     if errors:
@@ -259,8 +317,13 @@ def main() -> int:
     for r in review:
         by_reason[r.reason] = by_reason.get(r.reason, 0) + 1
     no_plural = sum(1 for c in cards if c.plural is None)
+    by_level: dict[str, int] = {}
+    for c in cards:
+        by_level[c.level] = by_level.get(c.level, 0) + 1
 
     print(f"\nWrote {len(cards)} cards -> {out_path}")
+    print("  by level              : " + ", ".join(
+        f"{lvl}={by_level[lvl]}" for lvl in sorted(by_level)))
     print(f"  with example sentence : {sum(1 for c in cards if c.example)}")
     print(f"  without plural        : {no_plural}")
     print(f"\nReview items: {len(review)} -> {review_path}")
