@@ -59,6 +59,45 @@ function fmtInterval(days) {
   return `${(days / 365).toFixed(1)} y`;
 }
 
+// A friendly absolute clock label for a future due time, anchored to "now":
+// "today at 3:40 PM", "tomorrow at 8:00 AM", "Thursday at 9:00 AM", "Jul 4 at 9:00 AM".
+function fmtWhen(target, now = new Date()) {
+  const time = target.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const startOfDay = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; };
+  const dayDiff = Math.round((startOfDay(target) - startOfDay(now)) / 86400000);
+  if (dayDiff <= 0) return `today at ${time}`;
+  if (dayDiff === 1) return `tomorrow at ${time}`;
+  if (dayDiff < 7) return `${target.toLocaleDateString([], { weekday: "long" })} at ${time}`;
+  return `${target.toLocaleDateString([], { month: "short", day: "numeric" })} at ${time}`;
+}
+
+// Soonest upcoming due moment across the active pool, with how many cards land
+// by then. Returns null when nothing is scheduled ahead (e.g. no cards seen yet).
+function nextDueInfo(activeNouns, statesById, now = new Date()) {
+  let soonest = Infinity;
+  for (const c of activeNouns) {
+    const st = statesById.get(c.id);
+    if (!st) continue;
+    const t = new Date(st.due).getTime();
+    if (t > now.getTime() && t < soonest) soonest = t;
+  }
+  if (!isFinite(soonest)) return null;
+  // Cards due within a short grace window of the soonest one count as "the next batch".
+  const batchWindow = 5 * 60 * 1000;
+  let count = 0;
+  for (const c of activeNouns) {
+    const st = statesById.get(c.id);
+    if (!st) continue;
+    const t = new Date(st.due).getTime();
+    if (t > now.getTime() && t <= soonest + batchWindow) count++;
+  }
+  return {
+    rel: fmtInterval((soonest - now.getTime()) / 86400000),
+    when: fmtWhen(new Date(soonest), now),
+    count,
+  };
+}
+
 export default function App() {
   const [ready, setReady] = useState(false);
   const [queue, setQueue] = useState([]);
@@ -253,6 +292,7 @@ export default function App() {
   }
   const acc = stats.answered ? Math.round((stats.correct / stats.answered) * 100) : null;
   const progress = stats.intro ? stats.graduated / stats.intro : 0;
+  const nextDue = nextDueInfo(activeNouns, statesRef.current, now);
 
   if (!ready) return <div className="dq-root"><div className="dq-loading">Loading…</div></div>;
 
@@ -347,12 +387,26 @@ export default function App() {
 
         {phase !== "done" && !card && (
           <main className="dq-card dq-done">
-            <div className="dq-done-h">{levels.length ? "Nothing due right now" : "Pick a level to start"}</div>
-            <p className="dq-done-note">
-              {levels.length
-                ? "Every card in the selected levels is scheduled for later. Add another level, or come back when cards are due."
-                : "Choose one or more CEFR levels above to start a session."}
-            </p>
+            <div className="dq-done-h">{levels.length ? "You're all caught up" : "Pick a level to start"}</div>
+            {levels.length ? (
+              <>
+                {nextDue && (
+                  <div className="dq-next">
+                    <span className="dq-next-rel">Next review in ~{nextDue.rel}</span>
+                    <span className="dq-next-when">
+                      {nextDue.count} card{nextDue.count === 1 ? "" : "s"} due {nextDue.when}
+                    </span>
+                  </div>
+                )}
+                <p className="dq-done-note">
+                  Every card in {levelSummary(levels)} is scheduled for later — that's the spaced-repetition
+                  scheduler spacing them out. {nextDue ? "Come back then," : "Come back when cards are due,"} or
+                  add another level to keep studying now.
+                </p>
+              </>
+            ) : (
+              <p className="dq-done-note">Choose one or more CEFR levels above to start a session.</p>
+            )}
             <button className="dq-primary" onClick={() => setShowLevels(true)}>Choose levels</button>
           </main>
         )}
@@ -365,9 +419,17 @@ export default function App() {
               <div><b>{stats.answered}</b><span>taps</span></div>
               <div><b>{acc == null ? "—" : acc + "%"}</b><span>correct</span></div>
             </div>
+            {nextDue && (
+              <div className="dq-next">
+                <span className="dq-next-rel">Next review in ~{nextDue.rel}</span>
+                <span className="dq-next-when">
+                  {nextDue.count} card{nextDue.count === 1 ? "" : "s"} due {nextDue.when}
+                </span>
+              </div>
+            )}
             <p className="dq-done-note">
-              Each word now has its own FSRS due date saved on this device. Come back later and the
-              ones you found hard will be due first — no manual rating needed.
+              Each word now has its own due date saved on this device. The ones you found hard come back
+              first — no manual rating needed.
             </p>
             <button className="dq-primary" onClick={newSession}>Continue studying</button>
           </main>
