@@ -1,0 +1,7 @@
+# macOS
+.DS_Store
+
+# Amplify (Gen 2) generated/secrets — never commit (also covered in web/.gitignore)
+amplify_outputs.json
+amplify_outputs.*
+.amplify

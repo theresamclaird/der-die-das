@@ -2,6 +2,16 @@ version: 1
 # Monorepo build spec. The PWA lives in web/ (pipeline/ and docs/ are not built).
 applications:
   - appRoot: web
+    # Phase 1: provision the Gen 2 backend (Cognito + DynamoDB) and emit
+    # amplify_outputs.json, which the frontend build below bundles. $AWS_BRANCH
+    # and $AWS_APP_ID are injected by Amplify Hosting at build time.
+    backend:
+      phases:
+        build:
+          commands:
+            - nvm use 20 || nvm install 20
+            - npm install
+            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
     frontend:
       phases:
         preBuild:

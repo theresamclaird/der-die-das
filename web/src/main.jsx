@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "./lib/amplifyConfig.js"; // configures Amplify if amplify_outputs.json exists (else no-op)
 import App from "./App.jsx";
 import "./styles.css";
 

@@ -11,6 +11,9 @@ import {
 } from "./lib/scheduler.js";
 import { inferRating, Baseline } from "./lib/inference.js";
 import { buildQueue, buildCramQueue, placement, ensureState } from "./lib/session.js";
+import { amplifyConfigured } from "./lib/amplifyConfig.js";
+import { SyncEngine, LocalOnlyAdapter } from "./lib/sync.js";
+import Auth, { currentUser, logOut } from "./Auth.jsx";
 
 const ARTICLES = ["der", "die", "das"];
 // Light mode: saturated hue on a pale tint. Border defaults to the main hue.
@@ -134,6 +137,10 @@ export default function App() {
   const [levels, setLevels] = useState(DEFAULT_LEVELS);
   const [stats, setStats] = useState({ answered: 0, correct: 0, graduated: 0, intro: 0 });
   const [cram, setCram] = useState(false); // off-schedule practice mode
+  const [authUser, setAuthUser] = useState(null); // {email} when signed in
+  const [showAuth, setShowAuth] = useState(false);
+  const [sync, setSync] = useState({ state: "idle", at: null, error: null }); // sync status
+  const [stateTick, setStateTick] = useState(0); // bump to re-render after sync pulls
 
   // Gender palette + neutral fallback, chosen from the OS theme.
   const dark = usePrefersDark();
@@ -153,11 +160,33 @@ export default function App() {
   const dbRef = useRef(null);
   const statesRef = useRef(new Map()); // id -> fsrs card
   const baselineRef = useRef(new Baseline());
+  const syncRef = useRef(null); // SyncEngine (created after db opens)
   const shownAt = useRef(0);
   const hiddenDuringQ = useRef(false);
 
   const currentId = queue[0];
   const card = currentId ? cardById.get(currentId) : null;
+
+  // Reconcile with the backend (if signed in), then refresh in-memory state from
+  // whatever the pull may have changed. Safe to call anytime; no-ops when local.
+  const runSync = useCallback(async () => {
+    const engine = syncRef.current, db = dbRef.current;
+    if (!engine || !db) return;
+    setSync((s) => ({ ...s, state: "syncing", error: null }));
+    const res = await engine.sync();
+    if (res && res.ok) {
+      const rows = await db.getAllCards();
+      const m = new Map();
+      rows.forEach((r) => m.set(r.id, r.fsrs));
+      statesRef.current = m;
+      setStateTick((t) => t + 1);
+      setSync({ state: "ok", at: res.at, error: null });
+    } else if (res && res.skipped) {
+      setSync((s) => ({ ...s, state: "idle" }));
+    } else {
+      setSync({ state: "error", at: null, error: (res && res.error) || "sync failed" });
+    }
+  }, []);
 
   // ---- init: open db, hydrate state + baseline, build first queue ----
   useEffect(() => {
@@ -185,9 +214,20 @@ export default function App() {
       setQueue(q);
       setStats((s) => ({ ...s, intro: q.length }));
       setReady(true);
+
+      // Sync engine: local-only until a deployed backend AND a sign-in exist.
+      syncRef.current = new SyncEngine(db, new LocalOnlyAdapter());
+      if (amplifyConfigured) {
+        try {
+          const { AmplifyAdapter } = await import("./lib/amplifyAdapter.js");
+          syncRef.current.setAdapter(new AmplifyAdapter());
+          const u = await currentUser();
+          if (alive && u) { setAuthUser(u); runSync(); }
+        } catch { /* stay local-only */ }
+      }
     })();
     return () => { alive = false; };
-  }, []);
+  }, [runSync]);
 
   // ---- timing + distraction tracking ----
   useEffect(() => {
@@ -296,6 +336,12 @@ export default function App() {
   // ---- keyboard ----
   useEffect(() => {
     const onKey = (e) => {
+      // Don't let card shortcuts fire while a dialog is open or the user is
+      // typing into a field (email/password/code), or modifier combos.
+      if (showAuth) return;
+      const t = e.target;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (phase === "question") {
         const i = ["1", "2", "3"].indexOf(e.key);
         if (i >= 0) { e.preventDefault(); answer(ARTICLES[i]); }
@@ -305,7 +351,7 @@ export default function App() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [phase, answer, commit]);
+  }, [phase, answer, commit, showAuth]);
 
   const newSession = () => {
     const q = buildQueue(activeNouns, statesRef.current, NEW_PER_SESSION);
@@ -334,6 +380,21 @@ export default function App() {
     setPending(null);
     newSession();
   };
+
+  // ---- auth / sync controls ----
+  const onAuthed = (u) => { setAuthUser(u); setShowAuth(false); runSync(); };
+  const doSignOut = async () => {
+    await logOut();
+    setAuthUser(null);
+    setSync({ state: "idle", at: null, error: null });
+  };
+  // Opportunistic sync when connectivity returns (signed-in only).
+  useEffect(() => {
+    if (!authUser) return;
+    const on = () => runSync();
+    window.addEventListener("online", on);
+    return () => window.removeEventListener("online", on);
+  }, [authUser, runSync]);
 
   // Change the active levels: persist, rebuild the queue from the new pool,
   // and start a fresh session over it. Clearing the inferred-pending state
@@ -554,6 +615,26 @@ export default function App() {
           </main>
         )}
 
+        {amplifyConfigured && (
+          <div className="dq-account">
+            {authUser ? (
+              <>
+                <span className="dq-acct-email" title={authUser.email}>{authUser.email}</span>
+                <span className={"dq-sync dq-sync-" + sync.state}>
+                  {sync.state === "syncing" ? "syncing…"
+                    : sync.state === "error" ? "sync failed"
+                    : sync.at ? `synced ${new Date(sync.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`
+                    : "not synced yet"}
+                </span>
+                <button className="dq-link" onClick={runSync} disabled={sync.state === "syncing"}>sync now</button>
+                <button className="dq-link" onClick={doSignOut}>sign out</button>
+              </>
+            ) : (
+              <button className="dq-link dq-signin" onClick={() => setShowAuth(true)}>Sign in to sync across devices</button>
+            )}
+          </div>
+        )}
+
         <footer className="dq-foot">
           <label className="dq-toggle">
             <input type="checkbox" checked={colorCoding} onChange={(e) => setColorCoding(e.target.checked)} />
@@ -562,6 +643,8 @@ export default function App() {
           <button className="dq-link" onClick={resetAll}>reset progress</button>
         </footer>
       </div>
+
+      {showAuth && <Auth onAuthed={onAuthed} onClose={() => setShowAuth(false)} />}
     </div>
   );
 }

@@ -8,7 +8,9 @@
 // Dates round-trip natively (no JSON serialization needed).
 
 const DB_NAME = "der-die-das";
-const DB_VERSION = 1;
+// v2 adds the `dirty` store: card ids changed locally and awaiting push (Phase 1
+// sync). The store is intentionally just keys — the card body lives in `cards`.
+const DB_VERSION = 2;
 
 function openDB() {
   return new Promise((resolve, reject) => {
@@ -18,6 +20,7 @@ function openDB() {
       if (!db.objectStoreNames.contains("cards")) db.createObjectStore("cards", { keyPath: "id" });
       if (!db.objectStoreNames.contains("log")) db.createObjectStore("log", { keyPath: "seq", autoIncrement: true });
       if (!db.objectStoreNames.contains("meta")) db.createObjectStore("meta", { keyPath: "key" });
+      if (!db.objectStoreNames.contains("dirty")) db.createObjectStore("dirty", { keyPath: "id" });
     };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);
@@ -54,8 +57,23 @@ export class Store {
   getAllCards() {
     return tx(this.db, "cards", "readonly", (s) => reqValue(s.getAll()));
   }
-  putCard(id, fsrs) {
+  // Local write (a review) — marks the card dirty so sync will push it.
+  async putCard(id, fsrs) {
+    await tx(this.db, "cards", "readwrite", (s) => s.put({ id, fsrs, updated: new Date() }));
+    await tx(this.db, "dirty", "readwrite", (s) => s.put({ id }));
+  }
+  // Remote write (sync pull) — does NOT mark dirty, so a pulled state is not
+  // immediately bounced back to the server.
+  putCardRemote(id, fsrs) {
     return tx(this.db, "cards", "readwrite", (s) => s.put({ id, fsrs, updated: new Date() }));
+  }
+
+  // --- dirty set (cards changed locally, awaiting push) ---
+  getDirtyCardIds() {
+    return tx(this.db, "dirty", "readonly", (s) => reqValue(s.getAllKeys()));
+  }
+  clearDirty(ids) {
+    return tx(this.db, "dirty", "readwrite", (s) => { ids.forEach((id) => s.delete(id)); });
   }
 
   // --- append-only review log ---
@@ -65,6 +83,12 @@ export class Store {
   getRecentLog(limit = 200) {
     return tx(this.db, "log", "readonly", (s) => reqValue(s.getAll())).then((all) =>
       all.slice(-limit),
+    );
+  }
+  // Log rows with autoincrement seq strictly greater than `since` (push cursor).
+  getLogSince(since = 0) {
+    return tx(this.db, "log", "readonly", (s) => reqValue(s.getAll())).then((all) =>
+      all.filter((e) => e.seq > since),
     );
   }
 
@@ -82,6 +106,7 @@ export class Store {
       tx(this.db, "cards", "readwrite", (s) => s.clear()),
       tx(this.db, "log", "readwrite", (s) => s.clear()),
       tx(this.db, "meta", "readwrite", (s) => s.clear()),
+      tx(this.db, "dirty", "readwrite", (s) => s.clear()),
     ]);
   }
 }

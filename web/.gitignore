@@ -1,2 +1,8 @@
 node_modules
 dist
+
+# Amplify (Gen 2) — generated + secrets, never commit
+amplify_outputs.json
+amplify_outputs.*
+.amplify
+amplifyconfiguration.json

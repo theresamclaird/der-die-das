@@ -97,7 +97,7 @@ Phase 0 is also the honest test of *DESIGN.md §12* — if the bespoke UX doesn'
 ### Opportunities
 
 1. **Make the scheduler legible (highest value).** First-run reaction to the app was "I didn't realize there's a schedule" — when a noun feels shaky but FSRS has marked it done, the only recourse today is the override row, which isn't discoverable. Two parts:
-   - **Cram / "drill anyway" mode.** A practice path decoupled from due dates, so the user can drill a chosen level or a shaky-words set without waiting for the schedule. Must *not* corrupt FSRS state — either log these as off-schedule practice or apply ratings through the normal path explicitly opted into. Directly answers the "I still need to work on these" instinct.
+   - ✅ **Cram / "drill anyway" mode — done.** Off-schedule practice over the seen pool, hardest-first (FSRS difficulty, then lapses). Read-only re: FSRS — never writes card state, moves a due date, or feeds the recall baseline; missed cards re-show within the round; reps are logged with `cram: true` so they're preserved but excludable from calibration. Entry points on the all-caught-up and session-complete screens; an amber "Practice mode" banner with an exit affordance. (`session.js buildCramQueue`, cram branch in `App.jsx commit`.)
    - **Surface "why nothing's due."** The "all caught up / next review in ~X" empty state (done) is the first half; consider a small always-visible due-countdown so the schedule never feels like a black box.
 
 2. **Finish the manual-override affordance.** `DESIGN.md §4.6` specifies a **long-press gesture** to correct a wrong inference; only the button row is implemented. This is an unmet Phase 0 acceptance criterion, not new scope — wire the gesture and keep `overridden: true` logging.
@@ -123,18 +123,19 @@ Phase 0 is also the honest test of *DESIGN.md §12* — if the bespoke UX doesn'
 **Goal:** progress and review history persist server-side and follow you across devices/reinstalls.
 
 ### Decision to make first
-**Amplify Gen 2** (recommended fast path) vs. **Cognito + API Gateway + Lambda + DynamoDB** (more control). See `DESIGN.md §5.1`. Both land on the same DynamoDB model, so this is reversible.
+✅ **Decided — Amplify Gen 2** (recommended fast path), over hand-rolled Cognito + API Gateway + Lambda + DynamoDB. See `DESIGN.md §5.1`. Both land on the same DynamoDB model, so reversible. (Divergence note: Amplify Data maps each model to its own owner-scoped table rather than the single-table sketch in `DESIGN.md §6` — same per-user scoping + last-write-wins intent.)
 
-### Tasks
-1. Stand up **Cognito** auth; add sign-in to the PWA. Gate sync (not study) behind auth so offline practice still works logged-out.
-2. Provision **DynamoDB** single table per `DESIGN.md §6` (card state, review log, settings).
-3. Implement sync:
-   - **push:** queued local state deltas + log entries → server;
-   - **pull:** newer card states from other devices (last-write-wins on `last_review`);
-   - run on app open and on regaining connectivity (background sync where supported).
-4. Write the **append-only review log** server-side (distinct sort keys, never conflicts).
-5. Conflict + offline-queue handling: local writes never block on network; the queue drains when online.
-6. Basic observability: CloudWatch logs on the Lambda/data layer; a simple "last synced" indicator in the UI.
+### Status — code scaffolded, deploy pending
+The full client + backend code is in the repo; what remains is provisioning against your AWS account. See `web/PHASE1_SETUP.md` for the deploy runbook.
+
+- ✅ `amplify/` backend defined: `auth/resource.ts` (Cognito email login), `data/resource.ts` (owner-scoped `CardState`, `ReviewLog`, `UserSettings`), `backend.ts`.
+- ✅ Sign-in gates **sync, not study** — `src/Auth.jsx` modal; logged-out stays fully local (`amplifyConfig.js` no-ops when undeployed).
+- ✅ Sync engine (`src/lib/sync.js`, backend-agnostic) + Amplify adapter (`src/lib/amplifyAdapter.js`): push (first-run full, then dirty-only) + pull (last-write-wins on `last_review`); runs on sign-in, app open, and the `online` event. `db.js` gained a `dirty` store + log cursor.
+- ✅ Append-only review log pushed by cursor (immutable rows, never conflict); cram reps flagged.
+- ✅ "Last synced" indicator + manual "sync now" in the footer account row.
+- ✅ Local sandbox verified: `npx ampx sandbox` provisions + emits `amplify_outputs.json`; sign-up/confirm/sign-in works (after hardening: idempotent confirm, double-submit guard, keyboard shortcuts ignore form inputs/modal).
+- ✅ **Production CI/CD wired:** `amplify.yml` has a backend `pipeline-deploy` phase for Amplify Hosting (Git-based, monorepo appRoot `web/`). Deploy runbook in `web/DEPLOY.md`.
+- ⏳ **Remaining (yours):** commit + push, then create the Amplify Hosting app from the GitHub repo and run the first fullstack build (`web/DEPLOY.md`). Note: prod backend is a separate pool from the sandbox. Optional later: CloudWatch observability, wiring `UserSettings` sync.
 
 ### Acceptance criteria
 - Practice on device A, open device B → progress matches after sync.
