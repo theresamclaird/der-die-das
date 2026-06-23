@@ -15,6 +15,7 @@ This plan is organized into phases that each end in something usable. The guidin
 | Phase | Outcome | Rough effort | AWS? |
 |---|---|---|---|
 | 0 | Usable offline PWA, A1 nouns, FSRS loop | ~1–3 days | No |
+| 0.5 | Polish & calibration backlog (cram mode, override gesture, grading calibration, theme setting, a11y) | ~1–3 days | No |
 | 1 | Auth + cross-device progress sync + review log | ~3–5 days | Yes |
 | 2 | A2/B1 + frequency-banded upper levels; settings | ~2–4 days | Yes |
 | 3 | New card types (verbs, etc.) on the shared engine | ongoing | Yes |
@@ -86,6 +87,34 @@ This produces the static `nouns.json` the app ships with. Do it once; keep it re
 
 ### Decision gate
 Phase 0 is also the honest test of *DESIGN.md §12* — if the bespoke UX doesn't feel meaningfully better than an Anki deck, reconsider scope before building AWS.
+
+---
+
+## Phase 0.5 — Polish & calibration backlog (no backend)
+
+**Goal:** close the gaps surfaced while finishing Phase 0 (dark-mode theming, empty-state messaging, real first-session use). None of these need AWS; they make the existing loop feel right and are good "while deciding on the gate" work. Roughly ordered by value.
+
+### Opportunities
+
+1. **Make the scheduler legible (highest value).** First-run reaction to the app was "I didn't realize there's a schedule" — when a noun feels shaky but FSRS has marked it done, the only recourse today is the override row, which isn't discoverable. Two parts:
+   - **Cram / "drill anyway" mode.** A practice path decoupled from due dates, so the user can drill a chosen level or a shaky-words set without waiting for the schedule. Must *not* corrupt FSRS state — either log these as off-schedule practice or apply ratings through the normal path explicitly opted into. Directly answers the "I still need to work on these" instinct.
+   - **Surface "why nothing's due."** The "all caught up / next review in ~X" empty state (done) is the first half; consider a small always-visible due-countdown so the schedule never feels like a black box.
+
+2. **Finish the manual-override affordance.** `DESIGN.md §4.6` specifies a **long-press gesture** to correct a wrong inference; only the button row is implemented. This is an unmet Phase 0 acceptance criterion, not new scope — wire the gesture and keep `overridden: true` logging.
+
+3. **Calibrate implicit-grading thresholds from real logs.** The `TUNING` constants in `inference.js` are still the guessed defaults, but `DESIGN.md §4.5–4.6` always intended them to be retuned from logged data — and real A1 sessions now exist. Analyze the local review log (latency distribution, hesitation, override rate) and recalibrate `EASY_RATIO` / `HARD_RATIO` / baseline window so Hard/Good/Easy reflect actual recall, not priors. Keep the logic swappable (it already is).
+
+4. **Promote theme to a setting + set a browser baseline.** Dark mode is currently auto-only (`prefers-color-scheme`). Add a light / dark / auto toggle — it belongs in the Phase 2 settings screen, so either fold it in there or ship a minimal version now. Separately, the dark-mode bug (the app shipped `color-mix()`, unsupported on the target phone browser, causing a light-on-light contrast failure) is a lesson: **pick and document a baseline browser target** and avoid modern-only CSS without a fallback.
+
+5. **Contrast / accessibility pass on both themes.** Sweep light and dark for legibility (the `color-mix` issue proves it's worth doing). Note that der = blue / die = red / das = green is a red-green pairing — acceptable behind the color-coding toggle, but a non-color cue (icon, position) is an option if it ever matters.
+
+6. **Reminders follow-on.** The in-app "next due in ~X" text is the textual half of review reminders; the natural extension is **web push** so the user doesn't have to remember to reopen. This is already listed as *optional* in Phase 2 (task 6) — noted here because Phase 0.5 built the groundwork.
+
+### Acceptance criteria
+- A user who feels shaky on a "done" noun has an obvious, non-destructive way to drill it.
+- The long-press override changes the applied grade and is logged (`overridden: true`).
+- Grading thresholds are derived from the logged review history, with the before/after rationale recorded.
+- Dark mode renders with sufficient contrast on the actual target phone browser, with no reliance on unsupported CSS.
 
 ---
 

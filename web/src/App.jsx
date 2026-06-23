@@ -10,15 +10,40 @@ import {
   isDue,
 } from "./lib/scheduler.js";
 import { inferRating, Baseline } from "./lib/inference.js";
-import { buildQueue, placement, ensureState } from "./lib/session.js";
+import { buildQueue, buildCramQueue, placement, ensureState } from "./lib/session.js";
 
 const ARTICLES = ["der", "die", "das"];
+// Light mode: saturated hue on a pale tint. Border defaults to the main hue.
 const COLOR = {
-  der: { main: "#2D68A8", soft: "#E7EEF6" },
-  die: { main: "#B23A48", soft: "#F7E9EB" },
-  das: { main: "#2F7D58", soft: "#E6F1EC" },
+  der: { main: "#2D68A8", soft: "#E7EEF6", border: "#2D68A8" },
+  die: { main: "#B23A48", soft: "#F7E9EB", border: "#B23A48" },
+  das: { main: "#2F7D58", soft: "#E6F1EC", border: "#2F7D58" },
 };
+// Dark mode: light hue text on a dark tinted surface + a mid-tone border, so
+// the noun (rendered in --ink) keeps strong contrast on the answer card.
+const COLOR_DARK = {
+  der: { main: "#8FB4EE", soft: "#1C2C44", border: "#35507C" },
+  die: { main: "#E78C97", soft: "#3A2127", border: "#7C3B43" },
+  das: { main: "#74BD95", soft: "#1B3429", border: "#356C4F" },
+};
+// Neutral (gender-colors off), per theme.
+const NEUTRAL_LIGHT = { main: "#3a3f45", soft: "#eef0f2", border: "#3a3f45" };
+const NEUTRAL_DARK = { main: "#C7CDD4", soft: "#23272E", border: "#39404A" };
 const NEW_PER_SESSION = 12;
+
+// Track the OS dark-mode preference reactively so the gender palette can swap.
+function usePrefersDark() {
+  const mq = () => window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+  const [dark, setDark] = useState(() => !!(mq() && mq().matches));
+  useEffect(() => {
+    const m = mq();
+    if (!m) return;
+    const on = (e) => setDark(e.matches);
+    m.addEventListener ? m.addEventListener("change", on) : m.addListener(on);
+    return () => (m.removeEventListener ? m.removeEventListener("change", on) : m.removeListener(on));
+  }, []);
+  return dark;
+}
 const cardById = new Map(NOUNS.map((c) => [c.id, c]));
 
 // CEFR levels present in the content, in order. (B2–C2 are a frequency proxy.)
@@ -108,6 +133,16 @@ export default function App() {
   const [showLevels, setShowLevels] = useState(false);
   const [levels, setLevels] = useState(DEFAULT_LEVELS);
   const [stats, setStats] = useState({ answered: 0, correct: 0, graduated: 0, intro: 0 });
+  const [cram, setCram] = useState(false); // off-schedule practice mode
+
+  // Gender palette + neutral fallback, chosen from the OS theme.
+  const dark = usePrefersDark();
+  const GENDER = dark ? COLOR_DARK : COLOR;
+  const NEUTRAL = dark ? NEUTRAL_DARK : NEUTRAL_LIGHT;
+  const swatch = (art) => {
+    const p = colorCoding ? GENDER[art] : NEUTRAL;
+    return { "--c": p.main, "--cs": p.soft, "--cb": p.border };
+  };
 
   // Content restricted to the active CEFR levels — drives the queue and counts.
   const activeNouns = useMemo(
@@ -201,6 +236,34 @@ export default function App() {
     if (!pending) return;
     const p = pending;
     const c = cardById.get(p.id);
+
+    // Cram is off-schedule practice: it must NOT touch FSRS state, due dates, or
+    // the spaced-review baseline (massed-practice timing would skew it). We still
+    // log the rep, flagged cram:true, so the raw signals are preserved but can be
+    // excluded from scheduler calibration.
+    if (cram) {
+      if (dbRef.current) {
+        await dbRef.current.appendLog({
+          cardId: p.id, lemma: c.lemma, rating: p.rating, correct: p.correct,
+          latency_ms: Math.round(p.latencyMs),
+          recall_ms: p.recallMs != null ? Math.round(p.recallMs) : null,
+          discarded: p.discarded, overridden: p.overridden, cram: true,
+        });
+      }
+      const rest = queue.slice(1);
+      if (!p.correct) rest.push(p.id); // missed → drill again later this round
+      setStats((st) => ({
+        ...st,
+        answered: st.answered + 1,
+        correct: st.correct + (p.correct ? 1 : 0),
+        cleared: (st.cleared || 0) + (p.correct ? 1 : 0), // unique cards drilled clean
+      }));
+      setQueue(rest);
+      setPending(null);
+      setPhase(rest.length ? "question" : "done");
+      return;
+    }
+
     statesRef.current.set(p.id, p.nextFsrs);
 
     const db = dbRef.current;
@@ -228,7 +291,7 @@ export default function App() {
     setQueue(rest);
     setPending(null);
     setPhase(rest.length ? "question" : "done");
-  }, [pending, queue]);
+  }, [pending, queue, cram]);
 
   // ---- keyboard ----
   useEffect(() => {
@@ -251,6 +314,27 @@ export default function App() {
     setPhase(q.length ? "question" : "done");
   };
 
+  // Count of seen cards eligible for cram (drives button enable/label).
+  const seenCount = activeNouns.reduce((n, c) => n + (statesRef.current.has(c.id) ? 1 : 0), 0);
+
+  // Off-schedule practice over the seen pool, hardest-first. Read-only re: FSRS.
+  const startCram = () => {
+    const q = buildCramQueue(activeNouns, statesRef.current);
+    if (!q.length) return;
+    setCram(true);
+    setPending(null);
+    setQueue(q);
+    setStats({ answered: 0, correct: 0, graduated: 0, cleared: 0, intro: q.length });
+    setPhase("question");
+  };
+
+  // Leave cram and return to the normal scheduled session.
+  const exitCram = () => {
+    setCram(false);
+    setPending(null);
+    newSession();
+  };
+
   // Change the active levels: persist, rebuild the queue from the new pool,
   // and start a fresh session over it. Clearing the inferred-pending state
   // keeps the reveal panel consistent if the user was mid-card.
@@ -261,6 +345,7 @@ export default function App() {
     dbRef.current?.setMeta(LEVELS_META_KEY, lv);
     const pool = NOUNS.filter((c) => lv.includes(c.level));
     const q = buildQueue(pool, statesRef.current, NEW_PER_SESSION);
+    setCram(false); // changing levels leaves cram
     setPending(null);
     setQueue(q);
     setStats((s) => ({ ...s, intro: q.length }));
@@ -276,6 +361,7 @@ export default function App() {
     statesRef.current = new Map();
     baselineRef.current = new Baseline();
     dbRef.current?.setMeta(LEVELS_META_KEY, levels);
+    setCram(false);
     setStats({ answered: 0, correct: 0, graduated: 0, intro: 0 });
     const q = buildQueue(activeNouns, statesRef.current, NEW_PER_SESSION);
     setQueue(q);
@@ -291,7 +377,9 @@ export default function App() {
     if (st) { learned++; if (isDue(st, now)) dueCount++; }
   }
   const acc = stats.answered ? Math.round((stats.correct / stats.answered) * 100) : null;
-  const progress = stats.intro ? stats.graduated / stats.intro : 0;
+  const progress = stats.intro
+    ? Math.min(1, (cram ? (stats.cleared || 0) : stats.graduated) / stats.intro)
+    : 0;
   const nextDue = nextDueInfo(activeNouns, statesRef.current, now);
 
   if (!ready) return <div className="dq-root"><div className="dq-loading">Loading…</div></div>;
@@ -301,7 +389,7 @@ export default function App() {
       <div className="dq-shell">
         <header className="dq-head">
           <div className="dq-brand">
-            <span className="dq-logo">der<span style={{ color: COLOR.die.main }}>·</span>die<span style={{ color: COLOR.das.main }}>·</span>das</span>
+            <span className="dq-logo">der<span style={{ color: GENDER.die.main }}>·</span>die<span style={{ color: GENDER.das.main }}>·</span>das</span>
             <span className="dq-sub">{levelSummary(levels)} · article trainer</span>
           </div>
           <div className="dq-head-actions">
@@ -350,10 +438,17 @@ export default function App() {
           </div>
         )}
 
-        <div className="dq-bar"><div className="dq-bar-fill" style={{ width: `${progress * 100}%` }} /></div>
+        {cram && (
+          <div className="dq-cram-banner">
+            <span><b>Practice mode</b> · off-schedule, won't change your due dates</span>
+            <button className="dq-cram-exit" onClick={exitCram}>exit</button>
+          </div>
+        )}
+
+        <div className="dq-bar"><div className={"dq-bar-fill" + (cram ? " cram" : "")} style={{ width: `${progress * 100}%` }} /></div>
         <div className="dq-meta">
           <span>{learned}/{activeNouns.length} seen</span>
-          <span>{dueCount} due</span>
+          <span>{cram ? `${queue.length} left` : `${dueCount} due`}</span>
           <span>{acc == null ? "—" : `${acc}%`}</span>
         </div>
 
@@ -369,7 +464,7 @@ export default function App() {
                     <button
                       key={art}
                       className="dq-choice"
-                      style={colorCoding ? { "--c": COLOR[art].main, "--cs": COLOR[art].soft } : { "--c": "#3a3f45", "--cs": "#eef0f2" }}
+                      style={swatch(art)}
                       onClick={() => answer(art)}
                     >
                       <span className="dq-choice-key">{i + 1}</span>
@@ -379,7 +474,8 @@ export default function App() {
                 </div>
               </>
             ) : (
-              <Reveal card={card} pending={pending} colorCoding={colorCoding}
+              <Reveal card={card} pending={pending} colorCoding={colorCoding} cram={cram}
+                      palette={GENDER} neutral={NEUTRAL}
                       onOverride={override} onContinue={commit} />
             )}
           </main>
@@ -401,17 +497,37 @@ export default function App() {
                 <p className="dq-done-note">
                   Every card in {levelSummary(levels)} is scheduled for later — that's the spaced-repetition
                   scheduler spacing them out. {nextDue ? "Come back then," : "Come back when cards are due,"} or
-                  add another level to keep studying now.
+                  practice off-schedule below.
                 </p>
               </>
             ) : (
               <p className="dq-done-note">Choose one or more CEFR levels above to start a session.</p>
             )}
-            <button className="dq-primary" onClick={() => setShowLevels(true)}>Choose levels</button>
+            {levels.length > 0 && seenCount > 0 && (
+              <button className="dq-primary" onClick={startCram}>Practice anyway ({seenCount})</button>
+            )}
+            <button className="dq-secondary" onClick={() => setShowLevels(true)}>Choose levels</button>
           </main>
         )}
 
-        {phase === "done" && (
+        {phase === "done" && cram && (
+          <main className="dq-card dq-done">
+            <div className="dq-done-h">Practice round done</div>
+            <div className="dq-done-stats">
+              <div><b>{stats.intro}</b><span>words</span></div>
+              <div><b>{stats.answered}</b><span>taps</span></div>
+              <div><b>{acc == null ? "—" : acc + "%"}</b><span>correct</span></div>
+            </div>
+            <p className="dq-done-note">
+              Off-schedule practice — your due dates are untouched, so your real review schedule is exactly
+              where you left it.
+            </p>
+            <button className="dq-primary" onClick={startCram}>Go again</button>
+            <button className="dq-secondary" onClick={exitCram}>Back to review</button>
+          </main>
+        )}
+
+        {phase === "done" && !cram && (
           <main className="dq-card dq-done">
             <div className="dq-done-h">Session complete</div>
             <div className="dq-done-stats">
@@ -432,6 +548,9 @@ export default function App() {
               first — no manual rating needed.
             </p>
             <button className="dq-primary" onClick={newSession}>Continue studying</button>
+            {seenCount > 0 && (
+              <button className="dq-secondary" onClick={startCram}>Practice anyway</button>
+            )}
           </main>
         )}
 
@@ -447,8 +566,8 @@ export default function App() {
   );
 }
 
-function Reveal({ card, pending, colorCoding, onOverride, onContinue }) {
-  const c = colorCoding ? COLOR[card.article] : { main: "#26408A", soft: "#eef0f2" };
+function Reveal({ card, pending, colorCoding, cram, palette, neutral, onOverride, onContinue }) {
+  const c = colorCoding ? palette[card.article] : neutral;
   const ratingColor = { [RATING.Again]: "#B23A48", [RATING.Hard]: "#C9772F", [RATING.Good]: "#2F7D58", [RATING.Easy]: "#2D68A8" }[pending.rating];
   const days = (new Date(pending.nextFsrs.due).getTime() - Date.now()) / 86400000;
   return (
@@ -464,23 +583,37 @@ function Reveal({ card, pending, colorCoding, onOverride, onContinue }) {
       <div className="dq-plural">{card.plural ? `plural: die ${card.plural}` : "no plural (mass noun)"}</div>
       {card.example && <div className="dq-example">{card.example}</div>}
 
-      <div className="dq-chip">
-        <span className="dq-chip-rating" style={{ background: ratingColor }}>{RATING_NAME[pending.rating]}</span>
-        <span className="dq-chip-data">
-          {Math.round(pending.latencyMs)}ms
-          {pending.recallMs != null && !pending.discarded ? ` · recall ${Math.round(pending.recallMs)}ms` : ""}
-          {` · next in ${fmtInterval(days)}`}
-        </span>
-      </div>
-      <div className="dq-why">{pending.why}</div>
+      {cram ? (
+        /* Off-schedule: no rating is applied and no due date changes, so we show
+           only the raw timing — not an FSRS interval or the override controls. */
+        <div className="dq-chip">
+          <span className="dq-chip-data">
+            {Math.round(pending.latencyMs)}ms
+            {pending.recallMs != null && !pending.discarded ? ` · recall ${Math.round(pending.recallMs)}ms` : ""}
+            {pending.correct ? "" : " · missed — will re-show this round"}
+          </span>
+        </div>
+      ) : (
+        <>
+          <div className="dq-chip">
+            <span className="dq-chip-rating" style={{ background: ratingColor }}>{RATING_NAME[pending.rating]}</span>
+            <span className="dq-chip-data">
+              {Math.round(pending.latencyMs)}ms
+              {pending.recallMs != null && !pending.discarded ? ` · recall ${Math.round(pending.recallMs)}ms` : ""}
+              {` · next in ${fmtInterval(days)}`}
+            </span>
+          </div>
+          <div className="dq-why">{pending.why}</div>
 
-      <div className="dq-override" onClick={(e) => e.stopPropagation()}>
-        <span>override:</span>
-        {[RATING.Again, RATING.Hard, RATING.Good, RATING.Easy].map((r) => (
-          <button key={r} className={"dq-ov" + (pending.rating === r ? " on" : "")}
-                  onClick={() => onOverride(r)}>{RATING_NAME[r]}</button>
-        ))}
-      </div>
+          <div className="dq-override" onClick={(e) => e.stopPropagation()}>
+            <span>override:</span>
+            {[RATING.Again, RATING.Hard, RATING.Good, RATING.Easy].map((r) => (
+              <button key={r} className={"dq-ov" + (pending.rating === r ? " on" : "")}
+                      onClick={() => onOverride(r)}>{RATING_NAME[r]}</button>
+            ))}
+          </div>
+        </>
+      )}
 
       <button className="dq-primary" onClick={(e) => { e.stopPropagation(); onContinue(); }}>
         Continue <span className="dq-kbd">space</span>

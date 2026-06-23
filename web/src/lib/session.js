@@ -35,6 +35,20 @@ export function placement(fsrsCard, queueLen, now = new Date()) {
   return { graduates: true, reinsertAt: -1 };
 }
 
+// Cram queue: every introduced (seen) card in the pool, hardest-first, ignoring
+// due dates. Powers the off-schedule practice mode — read-only, never mutates
+// FSRS state. "Hardest" = highest FSRS difficulty, then most lapses, so the
+// shaky words the learner wants to drill surface first.
+export function buildCramQueue(allCards, stateById) {
+  const seen = [];
+  for (const c of allCards) {
+    const st = stateById.get(c.id);
+    if (st) seen.push({ id: c.id, d: st.difficulty ?? 0, l: st.lapses ?? 0 });
+  }
+  seen.sort((a, b) => b.d - a.d || b.l - a.l);
+  return seen.map((x) => x.id);
+}
+
 export function ensureState(stateById, id) {
   let st = stateById.get(id);
   if (!st) {
