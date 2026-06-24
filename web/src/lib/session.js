@@ -35,18 +35,32 @@ export function placement(fsrsCard, queueLen, now = new Date()) {
   return { graduates: true, reinsertAt: -1 };
 }
 
-// Cram queue: every introduced (seen) card in the pool, hardest-first, ignoring
-// due dates. Powers the off-schedule practice mode — read-only, never mutates
-// FSRS state. "Hardest" = highest FSRS difficulty, then most lapses, so the
-// shaky words the learner wants to drill surface first.
+// Weight a seen card for cram ordering: harder (higher FSRS difficulty) and
+// more-lapsed cards get a heavier weight, so they tend to come up earlier.
+// Tunable; difficulty defaults to a neutral mid-value if somehow unset.
+export const CRAM_WEIGHT = { lapseBoost: 2 };
+function cramWeight(st) {
+  const difficulty = st.difficulty ?? 5; // FSRS difficulty ~1..10
+  const lapses = st.lapses ?? 0;
+  return 1 + difficulty + CRAM_WEIGHT.lapseBoost * lapses;
+}
+
+// Cram queue: every introduced (seen) card in the pool, ignoring due dates.
+// Ordered by a *weighted* shuffle (Efraimidis–Spirakis): each card draws a key
+// random^(1/weight) and we sort by key descending. That yields a fresh random
+// order every round, biased so the shaky words surface earlier on average —
+// variety + targeting, instead of either a fixed list or a flat shuffle.
+// Read-only re: FSRS — never mutates state.
 export function buildCramQueue(allCards, stateById) {
-  const seen = [];
+  const scored = [];
   for (const c of allCards) {
     const st = stateById.get(c.id);
-    if (st) seen.push({ id: c.id, d: st.difficulty ?? 0, l: st.lapses ?? 0 });
+    if (!st) continue;
+    const key = Math.random() ** (1 / cramWeight(st));
+    scored.push({ id: c.id, key });
   }
-  seen.sort((a, b) => b.d - a.d || b.l - a.l);
-  return seen.map((x) => x.id);
+  scored.sort((a, b) => b.key - a.key);
+  return scored.map((x) => x.id);
 }
 
 export function ensureState(stateById, id) {
