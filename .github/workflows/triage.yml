@@ -11,6 +11,7 @@ on:
 permissions:
   contents: read
   issues: write
+  id-token: write
 
 # Avoid stacking runs if an issue is edited several times in quick succession.
 concurrency:
