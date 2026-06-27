@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="der die das logo">
+  <title>der die das</title>
+  <defs>
+    <clipPath id="squircle">
+      <rect x="0" y="0" width="512" height="512" rx="114" ry="114"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#squircle)">
+    <rect x="0" y="0"      width="512" height="170.667" fill="#2563eb"/>
+    <rect x="0" y="170.667" width="512" height="170.667" fill="#dc2626"/>
+    <rect x="0" y="341.333" width="512" height="170.667" fill="#16a34a"/>
+  </g>
+</svg>
