@@ -75,3 +75,4 @@ jobs:
           # (Repo permissions already make pushes impossible; this narrows the surface further.)
           claude_args: |
             --max-turns 10
+            --allowedTools "Bash(gh issue view:*),Bash(gh issue edit:*),Bash(gh issue comment:*)"
