@@ -27,37 +27,54 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          # Full history so the review can diff against the base branch.
-          fetch-depth: 0
 
       - name: Review with Claude
         uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          show_full_output: false
           prompt: |
             You are reviewing PR #${{ github.event.pull_request.number }} for the
-            "der · die · das" repository. Read AGENTS.md FIRST and review strictly against
-            its "PR-review checklist (tuned for HIGH RECALL)" and "Deny-list".
+            "der · die · das" repo. Work only on this PR. Do exactly the steps below
+            and nothing else. Do NOT read or inspect any files other than AGENTS.md and
+            the PR diff. Do NOT look at ~/.claude, settings files, or the environment.
+            Do NOT edit code, commit, push, merge, or open/modify PRs — you review and
+            comment only.
 
-            Tuning: bias toward flagging. If something is even slightly concerning, raise
-            it — especially anything touching the data layer (db.js / review log), FSRS
-            scheduling, IndexedDB schema/migrations, or the DynamoDB/Amplify sync boundary.
-            A false alarm is cheap; a missed regression is not. Mark each finding with
-            severity (🔴 blocker / 🟡 concern / 🟢 nit) and say plainly when you are unsure.
+            Use the `gh` CLI to act — actually run the commands, do not just describe them.
 
-            If the diff touches a deny-list area, say so PROMINENTLY at the top and state
-            that maintainer review is required — regardless of how clean the change looks.
+            Step 1 — Read the PR metadata once:
+              gh pr view ${{ github.event.pull_request.number }} --json title,body,labels,author,files
 
-            Post your findings as a PR review (inline comments where useful, plus a summary).
-            End with an explicit recommendation: "request changes", "comment", or
-            "looks good — maintainer decision". Never imply approval of a deny-list change.
+            Step 2 — Read the diff once:
+              gh pr diff ${{ github.event.pull_request.number }}
 
-            You must ONLY comment/review. Do NOT commit, push, merge, edit files, or modify
-            the PR branch — you have no permission to do so.
-          # CLI-style flags. Cost cap + defense-in-depth: block code-mutation/exec tools so
-          # the agent can only read + review. Reads the diff via the GitHub PR context and
-          # the checked-out files; no Bash needed.
+            Step 3 — Read AGENTS.md for the "PR-review checklist (tuned for HIGH RECALL)"
+            and the deny-list.
+
+            Step 4 — Review strictly against that checklist. Bias toward flagging: if
+            something is even slightly concerning, raise it — especially anything touching
+            the data layer (db.js / review log), FSRS scheduling, IndexedDB schema/migrations,
+            or the DynamoDB/Amplify sync boundary. A false alarm is cheap; a missed regression
+            is not. Tag each finding with severity (🔴 blocker / 🟡 concern / 🟢 nit) and say
+            plainly when you are unsure. If the diff touches a deny-list area, say so
+            PROMINENTLY at the top and state that maintainer review is REQUIRED regardless of
+            how clean the change looks.
+
+            Step 5 — Post exactly ONE review comment with your full writeup, ending with an
+            explicit recommendation ("request changes", "comment", or
+            "looks good — maintainer decision"). Never imply approval of a deny-list change.
+            Post it with:
+              gh pr comment ${{ github.event.pull_request.number }} --body "..."
+
+            Step 6 — Stop. Take no further actions.
+          # CLI-style flags. Cost cap + defense-in-depth: whitelist ONLY the gh read +
+          # comment commands this job needs. Not-disallowing is not the same as allowing —
+          # with this allowlist the agent cannot edit, commit, merge, or run other commands.
+          # (`gh pr comment` is used rather than `gh pr review` because the latter rejects
+          # reviewing your own PR, which the author gate would commonly produce.)
           claude_args: |
-            --max-turns 20
-            --disallowedTools "Bash,Edit,Write,MultiEdit,NotebookEdit"
+            --max-turns 15
+            --allowedTools "Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*)"
