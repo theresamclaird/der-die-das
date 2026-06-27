@@ -35,39 +35,41 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           show_full_output: true # <- temporary, for debugging
           prompt: |
-            You are triaging a GitHub issue for the "der · die · das" repository.
-            Read AGENTS.md (especially the Definition of Ready, the deny-list, and the
-            area taxonomy) before acting.
+            You are triaging GitHub issue #${{ github.event.issue.number }} for the
+            "der · die · das" repo. Work only on this issue. Do exactly the steps below
+            and nothing else. Do NOT read or inspect any files other than AGENTS.md.
+            Do NOT look at ~/.claude, settings files, or the environment. Do NOT edit
+            code, the issue title, or the issue body; do NOT open PRs.
 
-            Issue #${{ github.event.issue.number }} by @${{ github.event.issue.user.login }}.
+            Use the `gh` CLI to act — actually run the commands, do not just describe them.
 
-            Do ONLY the following — you have no permission to change code, and you must not:
+            Step 1 — Read the issue once:
+              gh issue view ${{ github.event.issue.number }} --json title,body,labels,author
 
-            Use the `gh` CLI to perform these actions — do not just describe them.
-            - Apply labels and remove needs-triage in one call:
-              gh issue edit ${{ github.event.issue.number }} --add-label "<comma,separated,labels>" --remove-label "needs-triage"
-            - Post the comment:
-              gh issue comment ${{ github.event.issue.number }} --body "<your concise comment>"
+            Step 2 — Read AGENTS.md for the Definition of Ready, the deny-list, and the
+            area taxonomy.
 
-            1. Apply labels (use existing labels where possible; otherwise apply from the
-               taxonomy in AGENTS.md):
-               - type: `bug` or `enhancement` (usually already set by the issue template)
-               - `area:*` for each affected surface (scheduler, inference, db, session,
-                 sync, ui, pipeline, content, docs, tooling)
-               - `risk:low` / `risk:med` / `risk:high`
-               - `agent-eligible` ONLY if the reporter checked it AND it does not touch a
-                 deny-list area (IndexedDB schema/migrations, FSRS grading, DynamoDB sync,
-                 secrets). If it touches the deny-list, apply `needs-maintainer` instead and
-                 do NOT apply `agent-eligible`.
-               - `ready` if every Definition-of-Ready field is filled; otherwise `needs-info`.
-               - Remove `needs-triage` once you have triaged.
-            2. Post exactly ONE comment that:
-               - summarizes which Definition-of-Ready fields are present vs. missing,
-               - explicitly lists any missing/required info and asks the reporter for it,
-               - notes prominently if the issue touches a deny-list area (maintainer-only).
+            Step 3 — Decide the labels:
+              - type: `bug` or `enhancement` (usually already applied by the template)
+              - `area:*` for each affected surface: scheduler, inference, db, session,
+                sync, ui, pipeline, content, docs, tooling
+              - exactly one of `risk:low` / `risk:med` / `risk:high`
+              - if the issue touches a deny-list area (IndexedDB schema/migrations, FSRS
+                grading, DynamoDB sync, secrets): apply `needs-maintainer`, and do NOT
+                apply `agent-eligible` even if the reporter checked that box
+              - otherwise, apply `agent-eligible` only if the reporter checked it
+              - `ready` if every Definition-of-Ready field is filled; else `needs-info`
 
-            Do NOT edit the issue title or body. Do NOT open PRs. Do NOT modify any files.
-            Keep the comment concise.
+            Step 4 — Apply all chosen labels and remove needs-triage in ONE command:
+              gh issue edit ${{ github.event.issue.number }} --add-label "label1,label2,..." --remove-label "needs-triage"
+
+            Step 5 — Post exactly ONE concise comment:
+              gh issue comment ${{ github.event.issue.number }} --body "..."
+              The comment summarizes which Definition-of-Ready fields are present vs.
+              missing, lists any missing info and asks the reporter for it, and prominently
+              notes if the issue touches a deny-list area (maintainer-only).
+
+            Step 6 — Stop. Take no further actions.
           # CLI-style flags. Cost cap + defense-in-depth: block all code-mutation/exec tools.
           # (Repo permissions already make pushes impossible; this narrows the surface further.)
           claude_args: |
