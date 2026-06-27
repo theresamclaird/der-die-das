@@ -33,7 +33,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          show_full_output: true # <- temporary, for debugging
+          show_full_output: false
           prompt: |
             You are triaging GitHub issue #${{ github.event.issue.number }} for the
             "der · die · das" repo. Work only on this issue. Do exactly the steps below
