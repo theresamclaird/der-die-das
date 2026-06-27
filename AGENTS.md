@@ -100,8 +100,8 @@ Agents must **not** implement, and must **flag for maintainer review**, anything
 
 - **IndexedDB schema or migrations** (`web/src/lib/db.js` shape, stores, indexes, versioning).
 - **FSRS grading logic** (`web/src/lib/scheduler.js` and how grades/due dates are derived).
-- **DynamoDB / Amplify sync** (`web/src/lib/sync.js`, `amplifyAdapter.js`, `amplifyConfig.js`,
+- **DynamoDB / Amplify sync** (`web/src/lib/sync.js`, `web/src/lib/amplifyAdapter.js`, `web/src/lib/amplifyConfig.js`,
   `web/amplify/**`) — anything crossing the local ↔ cloud boundary.
-- **Secrets / auth** (`Auth.jsx`, Cognito config, `amplify_outputs.*`, any credential).
+- **Secrets / auth** (`web/src/Auth.jsx`, Cognito config, `amplify_outputs.*`, any credential).
 
 When in doubt about whether something is deny-listed, treat it as deny-listed.
