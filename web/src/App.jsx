@@ -10,7 +10,7 @@ import {
   isDue,
 } from "./lib/scheduler.js";
 import { inferRating, Baseline } from "./lib/inference.js";
-import { buildQueue, buildCramQueue, placement, ensureState } from "./lib/session.js";
+import { buildSession, buildCramQueue, placement, topUp, ensureState } from "./lib/session.js";
 import { amplifyConfigured } from "./lib/amplifyConfig.js";
 import { SyncEngine, LocalOnlyAdapter } from "./lib/sync.js";
 import Auth, { currentUser, logOut } from "./Auth.jsx";
@@ -159,6 +159,7 @@ export default function App() {
 
   const dbRef = useRef(null);
   const statesRef = useRef(new Map()); // id -> fsrs card
+  const reserveRef = useRef([]); // unintroduced new cards, fed in as the queue drains (#2)
   const baselineRef = useRef(new Baseline());
   const syncRef = useRef(null); // SyncEngine (created after db opens)
   const shownAt = useRef(0);
@@ -208,8 +209,9 @@ export default function App() {
       const lv = Array.isArray(saved) && saved.length ? saved.filter((l) => ALL_LEVELS.includes(l)) : DEFAULT_LEVELS;
       const pool = NOUNS.filter((c) => lv.includes(c.level));
 
-      const q = buildQueue(pool, m, NEW_PER_SESSION);
+      const { queue: q, reserve } = buildSession(pool, m, NEW_PER_SESSION);
       if (!alive) return;
+      reserveRef.current = reserve;
       setLevels(lv.length ? lv : DEFAULT_LEVELS);
       setQueue(q);
       setStats((s) => ({ ...s, intro: q.length }));
@@ -322,15 +324,21 @@ export default function App() {
     const pl = placement(p.nextFsrs, rest.length);
     if (!pl.graduates) rest.splice(pl.reinsertAt, 0, p.id);
 
+    // Keep variety so re-shows interleave instead of bunching at the tail (#2):
+    // when the live queue runs low, introduce more cards from the reserve.
+    const { queue: next, reserve, added } = topUp(rest, reserveRef.current);
+    reserveRef.current = reserve;
+
     setStats((st) => ({
       ...st,
       answered: st.answered + 1,
       correct: st.correct + (p.correct ? 1 : 0),
       graduated: st.graduated + (pl.graduates ? 1 : 0),
+      intro: st.intro + added.length,
     }));
-    setQueue(rest);
+    setQueue(next);
     setPending(null);
-    setPhase(rest.length ? "question" : "done");
+    setPhase(next.length ? "question" : "done");
   }, [pending, queue, cram]);
 
   // ---- keyboard ----
@@ -354,7 +362,8 @@ export default function App() {
   }, [phase, answer, commit, showAuth]);
 
   const newSession = () => {
-    const q = buildQueue(activeNouns, statesRef.current, NEW_PER_SESSION);
+    const { queue: q, reserve } = buildSession(activeNouns, statesRef.current, NEW_PER_SESSION);
+    reserveRef.current = reserve;
     setQueue(q);
     setStats((s) => ({ ...s, intro: q.length }));
     setPhase(q.length ? "question" : "done");
@@ -405,7 +414,8 @@ export default function App() {
     setLevels(lv);
     dbRef.current?.setMeta(LEVELS_META_KEY, lv);
     const pool = NOUNS.filter((c) => lv.includes(c.level));
-    const q = buildQueue(pool, statesRef.current, NEW_PER_SESSION);
+    const { queue: q, reserve } = buildSession(pool, statesRef.current, NEW_PER_SESSION);
+    reserveRef.current = reserve;
     setCram(false); // changing levels leaves cram
     setPending(null);
     setQueue(q);
@@ -424,7 +434,8 @@ export default function App() {
     dbRef.current?.setMeta(LEVELS_META_KEY, levels);
     setCram(false);
     setStats({ answered: 0, correct: 0, graduated: 0, intro: 0 });
-    const q = buildQueue(activeNouns, statesRef.current, NEW_PER_SESSION);
+    const { queue: q, reserve } = buildSession(activeNouns, statesRef.current, NEW_PER_SESSION);
+    reserveRef.current = reserve;
     setQueue(q);
     setStats((s) => ({ ...s, intro: q.length }));
     setPhase("question");
