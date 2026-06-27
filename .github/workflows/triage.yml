@@ -40,6 +40,13 @@ jobs:
             Issue #${{ github.event.issue.number }} by @${{ github.event.issue.user.login }}.
 
             Do ONLY the following — you have no permission to change code, and you must not:
+
+            Use the `gh` CLI to perform these actions — do not just describe them.
+            - Apply labels and remove needs-triage in one call:
+              gh issue edit ${{ github.event.issue.number }} --add-label "<comma,separated,labels>" --remove-label "needs-triage"
+            - Post the comment:
+              gh issue comment ${{ github.event.issue.number }} --body "<your concise comment>"
+
             1. Apply labels (use existing labels where possible; otherwise apply from the
                taxonomy in AGENTS.md):
                - type: `bug` or `enhancement` (usually already set by the issue template)
