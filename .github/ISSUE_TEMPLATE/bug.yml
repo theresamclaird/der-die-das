@@ -1,0 +1,103 @@
+name: "🐞 Bug report"
+description: "Something is broken or behaves incorrectly. Fill every required field — this is the definition of ready."
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug. Required fields below encode the **definition of ready** —
+        an issue is only actionable once they're all filled. See `AGENTS.md` for the full checklist
+        and the list of areas that always require the maintainer.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What's wrong? What did you observe?
+      placeholder: "When I rate a card quickly, the next due date is computed as if I'd failed it."
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal, ordered steps. Include data/card examples where relevant.
+      placeholder: |
+        1. Start a review session
+        2. Answer the first card correctly in < 800ms
+        3. Observe the scheduled interval
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: Expected vs. actual
+      description: What should have happened, and what actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How will we know this is fixed? Be concrete and testable.
+      placeholder: |
+        - [ ] A fast correct answer schedules using a "Good"/"Easy" grade, not "Again"
+        - [ ] inference.test.js covers the latency boundary
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area / surface
+      description: Which part of the system? Pick all that apply.
+      multiple: true
+      options:
+        - "scheduler (FSRS — ts-fsrs)"
+        - "inference (implicit/latency grading)"
+        - "db (IndexedDB: schema / state / review log)"
+        - "session (in-session re-show vs. graduate)"
+        - "sync (Amplify / DynamoDB / Cognito)"
+        - "UI (React components / styles)"
+        - "pipeline (Python content generation)"
+        - "content (nouns.json data)"
+        - "docs"
+        - "build / tooling / CI"
+        - "other / unsure"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk level
+      description: |
+        How much could a fix break? high = data layer, scheduling correctness, migrations, or sync.
+      options:
+        - "low — isolated, easily reverted (UI tweak, copy, docs)"
+        - "med — touches shared logic but not persisted data or scheduling"
+        - "high — data layer, FSRS grading, IndexedDB schema/migration, or DynamoDB sync"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser / device / install mode (PWA installed vs. browser tab), if relevant.
+      placeholder: "iOS Safari 17, installed PWA"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: agent-eligible
+    attributes:
+      label: Agent eligibility
+      description: See the deny-list in `AGENTS.md`. Leave unchecked if it touches a maintainer-only area.
+      options:
+        - label: "Agent-eligible — an AI agent may propose an implementation for this (does NOT touch IndexedDB schema/migrations, FSRS grading logic, or DynamoDB sync/secrets)."
+          required: false

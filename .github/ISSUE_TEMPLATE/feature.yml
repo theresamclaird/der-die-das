@@ -1,0 +1,90 @@
+name: "✨ Feature / change"
+description: "A new capability or change in behavior. Fill every required field — this is the definition of ready."
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Required fields below encode the **definition of ready** — an issue is only actionable
+        once they're all filled. See `AGENTS.md` for the full checklist and the maintainer-only deny-list.
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal / problem
+      description: What outcome do you want, and why? Describe the need, not just the solution.
+      placeholder: "Let me cram a specific level (A1/A2) without affecting FSRS scheduling state."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution (optional)
+      description: A sketch of how this might work. Leave blank if you only know the problem.
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Concrete, testable conditions for "done".
+      placeholder: |
+        - [ ] A "Cram A1" entry point exists
+        - [ ] Cram answers are NOT written to the FSRS review log / due dates
+        - [ ] Cram order is randomized
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area / surface
+      description: Which part of the system? Pick all that apply.
+      multiple: true
+      options:
+        - "scheduler (FSRS — ts-fsrs)"
+        - "inference (implicit/latency grading)"
+        - "db (IndexedDB: schema / state / review log)"
+        - "session (in-session re-show vs. graduate)"
+        - "sync (Amplify / DynamoDB / Cognito)"
+        - "UI (React components / styles)"
+        - "pipeline (Python content generation)"
+        - "content (nouns.json data)"
+        - "docs"
+        - "build / tooling / CI"
+        - "other / unsure"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk level
+      description: |
+        How much could this break? high = data layer, scheduling correctness, migrations, or sync.
+      options:
+        - "low — additive, isolated (new UI, copy, docs)"
+        - "med — touches shared logic but not persisted data or scheduling"
+        - "high — data layer, FSRS grading, IndexedDB schema/migration, or DynamoDB sync"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links to DESIGN.md / IMPLEMENTATION_PLAN.md sections, screenshots, prior art.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: agent-eligible
+    attributes:
+      label: Agent eligibility
+      description: See the deny-list in `AGENTS.md`. Leave unchecked if it touches a maintainer-only area.
+      options:
+        - label: "Agent-eligible — an AI agent may propose an implementation for this (does NOT touch IndexedDB schema/migrations, FSRS grading logic, or DynamoDB sync/secrets)."
+          required: false
