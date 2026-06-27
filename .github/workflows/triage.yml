@@ -49,19 +49,20 @@ jobs:
             Step 2 — Read AGENTS.md for the Definition of Ready, the deny-list, and the
             area taxonomy.
 
-            Step 3 — Decide the labels:
-              - type: `bug` or `enhancement` (usually already applied by the template)
-              - `area:*` for each affected surface: scheduler, inference, db, session,
-                sync, ui, pipeline, content, docs, tooling
-              - exactly one of `risk:low` / `risk:med` / `risk:high`
-              - if the issue touches a deny-list area (IndexedDB schema/migrations, FSRS
-                grading, DynamoDB sync, secrets): apply `needs-maintainer`, and do NOT
-                apply `agent-eligible` even if the reporter checked that box
-              - otherwise, apply `agent-eligible` only if the reporter checked it
-              - `ready` if every Definition-of-Ready field is filled; else `needs-info`
+            Step 3 — Choose labels. Use ONLY these exact slugs, verbatim:
+              bug · enhancement · ready · needs-info · needs-maintainer · agent-eligible
+              risk:low · risk:med · risk:high
+              area:scheduler · area:inference · area:db · area:session · area:sync
+              area:ui · area:pipeline · area:content · area:docs · area:tooling
+
+            The issue's "Affected area / surface" field uses descriptive text
+            (e.g. "UI (React components / styles)" → area:ui;
+            "session (in-session re-show vs. graduate)" → area:session). Map each
+            to its slug from the list above. Never pass descriptive text as a label.
 
             Step 4 — Apply all chosen labels and remove needs-triage in ONE command:
-              gh issue edit ${{ github.event.issue.number }} --add-label "label1,label2,..." --remove-label "needs-triage"
+              gh issue edit ${{ github.event.issue.number }} --add-label "area:ui,area:session,risk:low,agent-eligible,ready" --remove-label "needs-triage"
+            If gh reports an unknown label, correct it to match the list and retry once.
 
             Step 5 — Post exactly ONE concise comment:
               gh issue comment ${{ github.event.issue.number }} --body "..."
