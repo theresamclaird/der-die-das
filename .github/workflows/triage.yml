@@ -29,6 +29,8 @@ jobs:
 
       - name: Triage with Claude
         uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           show_full_output: true # <- temporary, for debugging
@@ -69,4 +71,4 @@ jobs:
           # CLI-style flags. Cost cap + defense-in-depth: block all code-mutation/exec tools.
           # (Repo permissions already make pushes impossible; this narrows the surface further.)
           claude_args: |
-            --max-turns 20
+            --max-turns 10
