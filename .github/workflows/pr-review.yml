@@ -1,0 +1,62 @@
+name: PR review (Claude)
+
+# Review only: post a review/comments against the AGENTS.md checklist.
+# NO commits, NO merges — see permissions below.
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+# Hard safety boundary: read-only on repo contents means the action physically
+# cannot commit or merge. `pull-requests: write` is for review comments only.
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # Only run for PRs from write-access authors. This repo is PUBLIC; note that
+    # `pull_request` from a fork does NOT expose secrets, so external fork PRs will
+    # simply not run (no OAuth token) — safe by default. This gate documents intent
+    # and also skips bot/stranger PRs that happen to come from the base repo.
+    if: contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.pull_request.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so the review can diff against the base branch.
+          fetch-depth: 0
+
+      - name: Review with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            You are reviewing PR #${{ github.event.pull_request.number }} for the
+            "der · die · das" repository. Read AGENTS.md FIRST and review strictly against
+            its "PR-review checklist (tuned for HIGH RECALL)" and "Deny-list".
+
+            Tuning: bias toward flagging. If something is even slightly concerning, raise
+            it — especially anything touching the data layer (db.js / review log), FSRS
+            scheduling, IndexedDB schema/migrations, or the DynamoDB/Amplify sync boundary.
+            A false alarm is cheap; a missed regression is not. Mark each finding with
+            severity (🔴 blocker / 🟡 concern / 🟢 nit) and say plainly when you are unsure.
+
+            If the diff touches a deny-list area, say so PROMINENTLY at the top and state
+            that maintainer review is required — regardless of how clean the change looks.
+
+            Post your findings as a PR review (inline comments where useful, plus a summary).
+            End with an explicit recommendation: "request changes", "comment", or
+            "looks good — maintainer decision". Never imply approval of a deny-list change.
+
+            You must ONLY comment/review. Do NOT commit, push, merge, edit files, or modify
+            the PR branch — you have no permission to do so.
+          # CLI-style flags. Cost cap + defense-in-depth: block code-mutation/exec tools so
+          # the agent can only read + review. Reads the diff via the GitHub PR context and
+          # the checked-out files; no Bash needed.
+          claude_args: |
+            --max-turns 20
+            --disallowedTools "Bash,Edit,Write,MultiEdit,NotebookEdit"

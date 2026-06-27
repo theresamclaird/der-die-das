@@ -1,0 +1,64 @@
+name: Issue triage (Claude)
+
+# Triage only: apply labels, post a status comment, and ask for any missing
+# definition-of-ready info. NO code changes — see permissions below.
+on:
+  issues:
+    types: [opened, edited]
+
+# Hard safety boundary: read-only on repo contents means the action physically
+# cannot push commits or modify code. `issues: write` is for labels + comments only.
+permissions:
+  contents: read
+  issues: write
+
+# Avoid stacking runs if an issue is edited several times in quick succession.
+concurrency:
+  group: triage-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  triage:
+    # Only run for issues authored by the maintainer or other write-access users.
+    # This repo is PUBLIC, so this gate stops strangers' issues from triggering paid runs.
+    if: contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Triage with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            You are triaging a GitHub issue for the "der · die · das" repository.
+            Read AGENTS.md (especially the Definition of Ready, the deny-list, and the
+            area taxonomy) before acting.
+
+            Issue #${{ github.event.issue.number }} by @${{ github.event.issue.user.login }}.
+
+            Do ONLY the following — you have no permission to change code, and you must not:
+            1. Apply labels (use existing labels where possible; otherwise apply from the
+               taxonomy in AGENTS.md):
+               - type: `bug` or `enhancement` (usually already set by the issue template)
+               - `area:*` for each affected surface (scheduler, inference, db, session,
+                 sync, ui, pipeline, content, docs, tooling)
+               - `risk:low` / `risk:med` / `risk:high`
+               - `agent-eligible` ONLY if the reporter checked it AND it does not touch a
+                 deny-list area (IndexedDB schema/migrations, FSRS grading, DynamoDB sync,
+                 secrets). If it touches the deny-list, apply `needs-maintainer` instead and
+                 do NOT apply `agent-eligible`.
+               - `ready` if every Definition-of-Ready field is filled; otherwise `needs-info`.
+               - Remove `needs-triage` once you have triaged.
+            2. Post exactly ONE comment that:
+               - summarizes which Definition-of-Ready fields are present vs. missing,
+               - explicitly lists any missing/required info and asks the reporter for it,
+               - notes prominently if the issue touches a deny-list area (maintainer-only).
+
+            Do NOT edit the issue title or body. Do NOT open PRs. Do NOT modify any files.
+            Keep the comment concise.
+          # CLI-style flags. Cost cap + defense-in-depth: block all code-mutation/exec tools.
+          # (Repo permissions already make pushes impossible; this narrows the surface further.)
+          claude_args: |
+            --max-turns 6
+            --disallowedTools "Bash,Edit,Write,MultiEdit,NotebookEdit,WebSearch,WebFetch"

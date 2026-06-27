@@ -1,0 +1,2 @@
+# Require one of the structured forms; no blank issues.
+blank_issues_enabled: false
