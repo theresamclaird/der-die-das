@@ -7,6 +7,7 @@ import {
   topUp,
   pickRecycled,
   placement,
+  willGraduate,
   advanceQueue,
   RESHOW,
   SESSION_MIN_QUEUE,
@@ -142,10 +143,64 @@ describe("buildSession", () => {
     const placed = [...queue.filter((id) => fresh.includes(id)), ...reserve];
     expect(placed.sort()).toEqual(fresh);
   });
+
+  it("with newPerSession=0 queues only due cards and reserves all new ones", () => {
+    const allCards = [{ id: "d1" }, { id: "f1" }, { id: "f2" }];
+    const stateById = new Map([["d1", dueIn(-10)]]);
+    const { queue, reserve } = buildSession(allCards, stateById, 0, now);
+    expect(queue).toEqual(["d1"]);
+    expect(reserve.sort()).toEqual(["f1", "f2"]);
+  });
+
+  it("handles an all-due pool (no new cards): empty reserve", () => {
+    const allCards = [{ id: "d1" }, { id: "d2" }];
+    const stateById = new Map([["d1", dueIn(-10)], ["d2", dueIn(-1)]]);
+    const { queue, reserve } = buildSession(allCards, stateById, 5, now);
+    expect(queue.sort()).toEqual(["d1", "d2"]);
+    expect(reserve).toEqual([]);
+  });
+
+  it("handles an empty pool", () => {
+    const { queue, reserve } = buildSession([], new Map(), 5, now);
+    expect(queue).toEqual([]);
+    expect(reserve).toEqual([]);
+  });
+
+  it("excludes not-yet-due seen cards from both queue and reserve", () => {
+    const allCards = [{ id: "future" }, { id: "f1" }];
+    const stateById = new Map([["future", dueIn(120)]]); // seen but not due
+    const { queue, reserve } = buildSession(allCards, stateById, 5, now);
+    expect(queue).toEqual(["f1"]); // only the new card is introduced
+    expect(reserve).toEqual([]);
+    expect(queue).not.toContain("future");
+  });
+});
+
+describe("willGraduate", () => {
+  it("is true past the horizon and false within it (matches placement)", () => {
+    expect(willGraduate(dueIn(SESSION_HORIZON_MIN + 1), now)).toBe(true);
+    expect(willGraduate(dueIn(SESSION_HORIZON_MIN - 1), now)).toBe(false);
+    expect(willGraduate(dueIn(0.5), now)).toBe(false);
+    // agrees with placement's graduates flag
+    expect(placement(dueIn(SESSION_HORIZON_MIN + 1), 5, now, noJitter).graduates).toBe(true);
+  });
 });
 
 describe("advanceQueue", () => {
   const seenPool = (ids) => new Map(ids.map((id) => [id, { due: now }]));
+
+  it("does NOT end the session when new cards still wait in the reserve (concern 2, defensive guard)", () => {
+    // The leaving card empties the real cards from `rest`, but the reserve has a
+    // fresh card — the session must continue, not silently end.
+    const allCards = ["S", "n1"].map((id) => ({ id }));
+    const r = advanceQueue({
+      rest: [], answered: { id: "S", stays: false }, fsrsCard: dueIn(60),
+      reserve: ["n1"], filler: new Set(), allCards, stateById: seenPool(["S"]),
+      now, rng: noJitter,
+    });
+    expect(r.queue).toContain("n1");
+    expect(r.addedNew).toBe(1);
+  });
 
   it("places a lone re-shown card BEHIND recycled filler — no back-to-back at the reserve→filler transition (concern 2)", () => {
     const allCards = [{ id: "S" }, { id: "a" }, { id: "b" }, { id: "c" }];

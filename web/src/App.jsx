@@ -10,7 +10,7 @@ import {
   isDue,
 } from "./lib/scheduler.js";
 import { inferRating, Baseline } from "./lib/inference.js";
-import { buildSession, buildCramQueue, placement, advanceQueue, ensureState } from "./lib/session.js";
+import { buildSession, buildCramQueue, willGraduate, advanceQueue, ensureState } from "./lib/session.js";
 import { amplifyConfigured } from "./lib/amplifyConfig.js";
 import { SyncEngine, LocalOnlyAdapter } from "./lib/sync.js";
 import Auth, { currentUser, logOut } from "./Auth.jsx";
@@ -368,8 +368,7 @@ export default function App() {
     }
     if (p.correct && !p.discarded && p.recallMs != null) baselineRef.current.push(p.recallMs);
 
-    // graduates? is independent of queue length — advanceQueue handles spacing.
-    const graduates = placement(p.nextFsrs, 0).graduates;
+    const graduates = willGraduate(p.nextFsrs);
     const { queue: next, addedNew } = applyAdvance(
       queue.slice(1), { id: p.id, stays: !graduates }, p.nextFsrs,
     );

@@ -74,12 +74,19 @@ export function pickRecycled(allCards, stateById, liveIds, n, rng = Math.random)
   return pool.slice(0, n);
 }
 
+// Whether a card has moved past the in-session horizon and should leave the
+// session (vs. re-show as a learning step). Pulled out so callers that only need
+// the yes/no don't have to invoke placement() — which would consume an rng draw.
+export function willGraduate(fsrsCard, now = new Date()) {
+  return minutesUntilDue(fsrsCard, now) > SESSION_HORIZON_MIN;
+}
+
 // Decide what to do with a card after it's been answered.
 // Returns { graduates: boolean, reinsertAt: number }.
 // `rng` is injectable for deterministic tests; defaults to Math.random.
 export function placement(fsrsCard, queueLen, now = new Date(), rng = Math.random) {
+  if (willGraduate(fsrsCard, now)) return { graduates: true, reinsertAt: -1 };
   const mins = minutesUntilDue(fsrsCard, now);
-  if (mins > SESSION_HORIZON_MIN) return { graduates: true, reinsertAt: -1 };
 
   // Soonest-due cards come back after the smallest gap; the gap grows toward the
   // horizon. Always behind >= minGap other cards (+ jitter), then clamped to the
@@ -155,10 +162,15 @@ export function advanceQueue({
   baseFiller.delete(answered.id); // whatever it was, it's no longer live in `rest`
 
   if (!answered.stays) {
-    // The card leaves. If only filler would remain, end the session rather than
-    // loop on off-schedule cards — drop the filler and let the queue drain.
+    // The card leaves. End the session only when nothing real is left to show:
+    // no real cards in the queue AND no new cards in the reserve. (Filler implies
+    // an empty reserve today, since variety() drains the reserve via topUp before
+    // recycling — but guarding on reserve too keeps a future call-order change
+    // from silently ending a session while fresh cards still wait in the reserve.)
     const realLeft = rest.filter((id) => !baseFiller.has(id)).length;
-    if (realLeft === 0) return { queue: [], reserve, filler: new Set(), addedNew: 0 };
+    if (realLeft === 0 && reserve.length === 0) {
+      return { queue: [], reserve, filler: new Set(), addedNew: 0 };
+    }
     return variety(rest, reserve, baseFiller, allCards, stateById, minQueue, rng, [answered.id]);
   }
 
