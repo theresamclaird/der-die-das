@@ -7,6 +7,7 @@ import {
   topUp,
   pickRecycled,
   placement,
+  advanceQueue,
   RESHOW,
   SESSION_MIN_QUEUE,
   SESSION_HORIZON_MIN,
@@ -140,6 +141,73 @@ describe("buildSession", () => {
     const fresh = ["f1", "f2", "f3"];
     const placed = [...queue.filter((id) => fresh.includes(id)), ...reserve];
     expect(placed.sort()).toEqual(fresh);
+  });
+});
+
+describe("advanceQueue", () => {
+  const seenPool = (ids) => new Map(ids.map((id) => [id, { due: now }]));
+
+  it("places a lone re-shown card BEHIND recycled filler — no back-to-back at the reserve→filler transition (concern 2)", () => {
+    const allCards = [{ id: "S" }, { id: "a" }, { id: "b" }, { id: "c" }];
+    const r = advanceQueue({
+      rest: [], answered: { id: "S", stays: true }, fsrsCard: dueIn(0.5),
+      reserve: [], filler: new Set(), allCards, stateById: seenPool(["S", "a", "b", "c"]),
+      now, rng: noJitter,
+    });
+    expect(r.queue.length).toBeGreaterThan(1);
+    expect(r.queue[0]).not.toBe("S"); // a filler card leads, not the just-shown card
+    expect(r.queue.filter((id) => id === "S").length).toBe(1); // not duplicated as its own filler
+    expect(r.filler.size).toBeGreaterThan(0);
+    expect(r.filler.has("S")).toBe(false);
+  });
+
+  it("re-shows behind a gap WITHOUT recycling when enough real cards remain", () => {
+    const allCards = ["S", "a", "b", "c", "d"].map((id) => ({ id }));
+    const r = advanceQueue({
+      rest: ["a", "b", "c", "d"], answered: { id: "S", stays: true }, fsrsCard: dueIn(0.5),
+      reserve: [], filler: new Set(), allCards, stateById: seenPool(["S", "a", "b", "c", "d"]),
+      now, rng: noJitter,
+    });
+    expect(r.filler.size).toBe(0); // no recycling needed
+    expect(r.addedNew).toBe(0);
+    expect(r.queue[0]).not.toBe("S");
+    expect(r.queue.indexOf("S")).toBeGreaterThanOrEqual(RESHOW.minGap);
+  });
+
+  it("ends the session when only filler would remain (no infinite filler loop)", () => {
+    const r = advanceQueue({
+      rest: ["a"], answered: { id: "S", stays: false }, fsrsCard: dueIn(60),
+      reserve: [], filler: new Set(["a"]), allCards: [{ id: "S" }, { id: "a" }],
+      stateById: seenPool(["S", "a"]), now, rng: noJitter,
+    });
+    expect(r.queue).toEqual([]);
+    expect(r.filler.size).toBe(0);
+    expect(r.addedNew).toBe(0);
+  });
+
+  it("prefers NEW cards from the reserve before recycling, and reports addedNew", () => {
+    const allCards = ["S", "a", "n1", "n2"].map((id) => ({ id }));
+    const r = advanceQueue({
+      rest: ["a"], answered: { id: "S", stays: false }, fsrsCard: dueIn(60),
+      reserve: ["n1", "n2"], filler: new Set(), allCards, stateById: seenPool(["S", "a"]),
+      now, rng: noJitter,
+    });
+    expect(r.queue).toContain("n1");
+    expect(r.addedNew).toBeGreaterThan(0);
+    expect(r.filler.size).toBe(0); // new cards used, no recycling
+    expect(r.reserve.length).toBeLessThan(2);
+  });
+
+  it("recycles seen cards as filler when the reserve is empty and a real card remains", () => {
+    const allCards = ["S", "a", "x", "y"].map((id) => ({ id }));
+    const r = advanceQueue({
+      rest: ["a"], answered: { id: "S", stays: true }, fsrsCard: dueIn(0.5),
+      reserve: [], filler: new Set(), allCards, stateById: seenPool(["S", "a", "x", "y"]),
+      now, rng: noJitter,
+    });
+    expect(r.filler.size).toBeGreaterThan(0);
+    expect(r.queue[0]).not.toBe("S");
+    expect(r.queue.filter((id) => id === "S").length).toBe(1);
   });
 });
 

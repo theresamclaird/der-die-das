@@ -10,7 +10,7 @@ import {
   isDue,
 } from "./lib/scheduler.js";
 import { inferRating, Baseline } from "./lib/inference.js";
-import { buildSession, buildCramQueue, placement, topUp, pickRecycled, SESSION_MIN_QUEUE, ensureState } from "./lib/session.js";
+import { buildSession, buildCramQueue, placement, advanceQueue, ensureState } from "./lib/session.js";
 import { amplifyConfigured } from "./lib/amplifyConfig.js";
 import { SyncEngine, LocalOnlyAdapter } from "./lib/sync.js";
 import Auth, { currentUser, logOut } from "./Auth.jsx";
@@ -278,25 +278,19 @@ export default function App() {
     });
   }, []);
 
-  // Keep the queue varied so re-shows interleave instead of bunching at the
-  // tail (#2): pull new cards from the reserve first; when none remain, recycle
-  // already-seen cards as off-schedule filler. Stop once no real (graded) card
-  // is left, so the session ends instead of looping on filler. Returns the next
-  // queue plus the count of genuinely NEW cards introduced (for the session total).
-  const refill = useCallback((rest) => {
-    const t = topUp(rest, reserveRef.current);
-    reserveRef.current = t.reserve;
-    let q = t.queue;
-    const realLeft = q.filter((id) => !fillerRef.current.has(id)).length;
-    if (realLeft === 0) {
-      q = q.filter((id) => !fillerRef.current.has(id)); // only filler left → drop it, finish
-      fillerRef.current = new Set();
-    } else if (q.length < SESSION_MIN_QUEUE) {
-      const recycled = pickRecycled(activeNouns, statesRef.current, q, SESSION_MIN_QUEUE - q.length);
-      recycled.forEach((id) => fillerRef.current.add(id));
-      q = [...q, ...recycled];
-    }
-    return { queue: q, addedNew: t.added.length };
+  // Advance the live queue after a card is answered. Off-schedule paths (cram,
+  // recycled filler) and the graded path all funnel the answered card + current
+  // session state through the pure advanceQueue() helper in session.js (#2), then
+  // sync the reserve/filler refs from its result.
+  const applyAdvance = useCallback((rest, answered, fsrsCard) => {
+    const r = advanceQueue({
+      rest, answered, fsrsCard,
+      reserve: reserveRef.current, filler: fillerRef.current,
+      allCards: activeNouns, stateById: statesRef.current,
+    });
+    reserveRef.current = r.reserve;
+    fillerRef.current = r.filler;
+    return r;
   }, [activeNouns]);
 
   // ---- commit: persist state + log, update baseline, requeue/advance ----
@@ -333,19 +327,21 @@ export default function App() {
     }
 
     // Off-schedule recycled filler (#2): shown only to break up a struggled card.
-    // Like cram, log the rep (flagged) but never grade, reschedule, or move the
-    // baseline. The card just leaves; refill keeps the queue varied.
+    // Like cram, log the rep but never grade, reschedule, or move the baseline.
+    // It's flagged `cram: true` so the existing sync path still excludes it from
+    // scheduler calibration, plus `filler: true` to distinguish it from a true
+    // cram-mode rep. (Forwarding `filler` to the backend is left to the sync
+    // layer — see sync.js — and is intentionally not wired here.)
     if (p.review) {
       if (dbRef.current) {
         await dbRef.current.appendLog({
           cardId: p.id, lemma: c.lemma, rating: p.rating, correct: p.correct,
           latency_ms: Math.round(p.latencyMs),
           recall_ms: p.recallMs != null ? Math.round(p.recallMs) : null,
-          discarded: p.discarded, overridden: p.overridden, cram: true,
+          discarded: p.discarded, overridden: p.overridden, cram: true, filler: true,
         });
       }
-      fillerRef.current.delete(p.id);
-      const { queue: next, addedNew } = refill(queue.slice(1));
+      const { queue: next, addedNew } = applyAdvance(queue.slice(1), { id: p.id, stays: false });
       setStats((st) => ({
         ...st,
         answered: st.answered + 1,
@@ -372,23 +368,23 @@ export default function App() {
     }
     if (p.correct && !p.discarded && p.recallMs != null) baselineRef.current.push(p.recallMs);
 
-    const rest = queue.slice(1);
-    const pl = placement(p.nextFsrs, rest.length);
-    if (!pl.graduates) rest.splice(pl.reinsertAt, 0, p.id);
-
-    const { queue: next, addedNew } = refill(rest);
+    // graduates? is independent of queue length — advanceQueue handles spacing.
+    const graduates = placement(p.nextFsrs, 0).graduates;
+    const { queue: next, addedNew } = applyAdvance(
+      queue.slice(1), { id: p.id, stays: !graduates }, p.nextFsrs,
+    );
 
     setStats((st) => ({
       ...st,
       answered: st.answered + 1,
       correct: st.correct + (p.correct ? 1 : 0),
-      graduated: st.graduated + (pl.graduates ? 1 : 0),
+      graduated: st.graduated + (graduates ? 1 : 0),
       intro: st.intro + addedNew,
     }));
     setQueue(next);
     setPending(null);
     setPhase(next.length ? "question" : "done");
-  }, [pending, queue, cram, refill]);
+  }, [pending, queue, cram, applyAdvance]);
 
   // ---- keyboard ----
   useEffect(() => {

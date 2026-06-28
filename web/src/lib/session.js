@@ -119,6 +119,59 @@ export function buildCramQueue(allCards, stateById) {
   return scored.map((x) => x.id);
 }
 
+// Maintain variety in the live queue: pull new cards from the reserve first,
+// then recycle already-seen cards as off-schedule filler, up to `minQueue`.
+// `exclude` lists ids that must NOT be recycled (e.g. the card we're about to
+// re-insert, or the one that just left — so it can't reappear as its own filler).
+// Pure: returns new arrays + an updated filler Set + count of NEW cards added.
+function variety(queue, reserve, filler, allCards, stateById, minQueue, rng, exclude) {
+  const t = topUp(queue, reserve, minQueue);
+  let q = t.queue;
+  const nextFiller = new Set(filler);
+  if (q.length < minQueue) {
+    const live = new Set([...q, ...(exclude || [])]);
+    const recycled = pickRecycled(allCards, stateById, live, minQueue - q.length, rng);
+    recycled.forEach((id) => nextFiller.add(id));
+    q = [...q, ...recycled];
+  }
+  return { queue: q, reserve: t.reserve, filler: nextFiller, addedNew: t.added.length };
+}
+
+// Compute the next session queue after a card is answered (issue #2). Pure — all
+// state is passed in and new values returned, so it's unit-testable without React.
+//   rest:      the queue with the answered card already removed (it was index 0)
+//   answered:  { id, stays } — stays=false means it graduated or was off-schedule
+//              filler (it leaves); stays=true means it's a learning step to re-show
+//   fsrsCard:  the answered card's FSRS state, used for re-show spacing when it stays
+//   reserve:   unintroduced new-card ids
+//   filler:    Set of ids currently in the queue as off-schedule recycled filler
+//   allCards / stateById: the active pool + FSRS states (for recycling)
+// Returns { queue, reserve, filler, addedNew }.
+export function advanceQueue({
+  rest, answered, fsrsCard, reserve, filler,
+  allCards, stateById, now = new Date(), rng = Math.random, minQueue = SESSION_MIN_QUEUE,
+}) {
+  const baseFiller = new Set(filler);
+  baseFiller.delete(answered.id); // whatever it was, it's no longer live in `rest`
+
+  if (!answered.stays) {
+    // The card leaves. If only filler would remain, end the session rather than
+    // loop on off-schedule cards — drop the filler and let the queue drain.
+    const realLeft = rest.filter((id) => !baseFiller.has(id)).length;
+    if (realLeft === 0) return { queue: [], reserve, filler: new Set(), addedNew: 0 };
+    return variety(rest, reserve, baseFiller, allCards, stateById, minQueue, rng, [answered.id]);
+  }
+
+  // The card stays (learning step). Bring in variety FIRST so new/filler cards
+  // can sit *before* a lone re-shown card, then place it behind a gap computed
+  // against the topped-up queue — never at the front while others exist (#2).
+  const v = variety(rest, reserve, baseFiller, allCards, stateById, minQueue, rng, [answered.id]);
+  const { reinsertAt } = placement(fsrsCard, v.queue.length, now, rng);
+  const queue = [...v.queue];
+  queue.splice(reinsertAt, 0, answered.id);
+  return { queue, reserve: v.reserve, filler: v.filler, addedNew: v.addedNew };
+}
+
 export function ensureState(stateById, id) {
   let st = stateById.get(id);
   if (!st) {
