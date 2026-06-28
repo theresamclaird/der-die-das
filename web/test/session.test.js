@@ -5,6 +5,7 @@ import { describe, it, expect } from "vitest";
 import {
   buildSession,
   topUp,
+  pickRecycled,
   placement,
   RESHOW,
   SESSION_MIN_QUEUE,
@@ -82,6 +83,39 @@ describe("topUp", () => {
     expect(added).toEqual(["a"]);
     expect(queue).toEqual(["s", "t", "a"]);
     expect(reserve).toEqual([]);
+  });
+});
+
+describe("pickRecycled", () => {
+  const allCards = [{ id: "a" }, { id: "b" }, { id: "c" }, { id: "d" }];
+  // a, b, c have been seen (have FSRS state); d is new.
+  const seen = new Map([["a", { due: now }], ["b", { due: now }], ["c", { due: now }]]);
+
+  it("returns only already-seen cards that aren't currently live", () => {
+    const out = pickRecycled(allCards, seen, ["a"], 5);
+    expect(out.sort()).toEqual(["b", "c"]); // a is live, d is unseen
+  });
+
+  it("never returns an unseen (new) card", () => {
+    const out = pickRecycled(allCards, seen, [], 10);
+    expect(out).not.toContain("d");
+    expect(out.sort()).toEqual(["a", "b", "c"]);
+  });
+
+  it("caps the result at n", () => {
+    const out = pickRecycled(allCards, seen, [], 2);
+    expect(out.length).toBe(2);
+    out.forEach((id) => expect(["a", "b", "c"]).toContain(id));
+  });
+
+  it("accepts a Set for liveIds", () => {
+    expect(pickRecycled(allCards, seen, new Set(["b", "c"]), 5)).toEqual(["a"]);
+  });
+
+  it("returns [] when nothing is eligible or n <= 0", () => {
+    expect(pickRecycled(allCards, seen, [], 0)).toEqual([]);
+    expect(pickRecycled(allCards, seen, ["a", "b", "c"], 3)).toEqual([]); // all live
+    expect(pickRecycled(allCards, new Map(), [], 3)).toEqual([]); // none seen
   });
 });
 

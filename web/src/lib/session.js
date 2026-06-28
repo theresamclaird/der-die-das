@@ -47,7 +47,7 @@ export function buildSession(allCards, stateById, newPerSession, now = new Date(
 // Top the live queue back up from the reserve when it runs low, so re-shown
 // cards keep interleaving with fresh ones instead of bunching at the tail.
 // Pure: returns new arrays + the ids `added` (so callers can update counts).
-// No-op once the reserve is empty — then the queue drains naturally to "done".
+// No-op once the reserve is empty — then the caller falls back to pickRecycled.
 export function topUp(queue, reserve, minQueue = SESSION_MIN_QUEUE) {
   if (queue.length >= minQueue || reserve.length === 0) {
     return { queue, reserve, added: [] };
@@ -55,6 +55,23 @@ export function topUp(queue, reserve, minQueue = SESSION_MIN_QUEUE) {
   const need = minQueue - queue.length;
   const added = reserve.slice(0, need);
   return { queue: [...queue, ...added], reserve: reserve.slice(need), added };
+}
+
+// Pick up to `n` already-seen cards (those with FSRS state) that aren't already
+// live in the queue, to interleave as OFF-SCHEDULE filler when no new cards are
+// left — e.g. a review session of a level you've finished learning, where the
+// reserve is empty but a struggled card still needs other cards between re-shows
+// (issue #2). The caller shows these without grading them. `rng` is injectable
+// for deterministic tests.
+export function pickRecycled(allCards, stateById, liveIds, n, rng = Math.random) {
+  if (n <= 0) return [];
+  const live = liveIds instanceof Set ? liveIds : new Set(liveIds);
+  const pool = [];
+  for (const c of allCards) {
+    if (!live.has(c.id) && stateById.get(c.id)) pool.push(c.id);
+  }
+  shuffle(pool, rng);
+  return pool.slice(0, n);
 }
 
 // Decide what to do with a card after it's been answered.
@@ -111,9 +128,9 @@ export function ensureState(stateById, id) {
   return st;
 }
 
-function shuffle(a) {
+function shuffle(a, rng = Math.random) {
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(rng() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
