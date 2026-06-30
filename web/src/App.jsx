@@ -519,7 +519,6 @@ export default function App() {
               <>
                 <div className="dq-prompt-tag">which article?</div>
                 <div className="dq-lemma">{card.lemma}</div>
-                <div className="dq-gloss">{card.translation}</div>
                 <div className="dq-choices">
                   {ARTICLES.map((art, i) => (
                     <button
@@ -663,6 +662,7 @@ function Reveal({ card, pending, colorCoding, cram, palette, neutral, onOverride
         <span className="dq-art">{card.article}</span>
         <span className="dq-noun">{card.lemma}</span>
       </div>
+      {card.translation && <div className="dq-gloss">{card.translation}</div>}
       <div className="dq-plural">{card.plural ? `plural: die ${card.plural}` : "no plural (mass noun)"}</div>
       {card.example && <div className="dq-example">{card.example}</div>}
 
