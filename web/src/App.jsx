@@ -171,6 +171,11 @@ export default function App() {
   // The current card is off-schedule recycled filler (interleaving only, never
   // graded) when it's in the filler set and we're not in cram (#2).
   const reviewOnly = !cram && currentId != null && fillerRef.current.has(currentId);
+  // The shared answer pill tints to the article's gender color only once revealed
+  // (and only when color-coding is on); until then it stays neutral.
+  const answerColor = card
+    ? (phase === "revealed" && colorCoding ? GENDER[card.article] : NEUTRAL)
+    : NEUTRAL;
 
   // Reconcile with the backend (if signed in), then refresh in-memory state from
   // whatever the pull may have changed. Safe to call anytime; no-ops when local.
@@ -574,27 +579,48 @@ export default function App() {
         </div>
 
         {phase !== "done" && card && (
-          <main className="dq-card" key={currentId + "-" + phase}>
-            {phase === "question" ? (
-              <>
-                <div className="dq-lemma">{card.lemma}</div>
-                <div className="dq-choices">
-                  {ARTICLES.map((art, i) => (
-                    <button
-                      key={art}
-                      className="dq-choice"
-                      style={swatch(art)}
-                      onClick={() => answer(art)}
-                    >
-                      <span className="dq-choice-key">{i + 1}</span>
-                      {art}
-                    </button>
-                  ))}
+          // Keyed on the card id only (not the phase) so the question→reveal
+          // transition mutates in place instead of remounting — that's what keeps
+          // the noun fixed while the article and the lower panel cross-fade.
+          <main className={"dq-card dq-trainer dq-" + phase} key={currentId}>
+            {/* Reserved slot: empty on the question, the verdict on reveal. Holding
+                the height here means revealing the verdict never shifts the noun. */}
+            <div className="dq-verdict-slot">
+              {phase === "revealed" && pending && (
+                <div className="dq-verdict" style={{ color: pending.correct ? "#2F7D58" : "#B23A48" }}>
+                  {pending.correct ? "correct" : `not quite — you tapped ${pending.tapped}`}
                 </div>
-              </>
+              )}
+            </div>
+
+            {/* Shared answer pill, identical in both phases: the underscores fade
+                out as the real article fades in, and the noun never moves. */}
+            <div className="dq-answer" style={{ "--c": answerColor.main, "--cs": answerColor.soft }}>
+              <span className="dq-art">
+                <span className="dq-art-ph">___</span>
+                <span className="dq-art-real">{card.article}</span>
+              </span>
+              <span className="dq-noun">{card.lemma}</span>
+            </div>
+
+            {/* Lower panel: the article buttons on the question, the reveal detail
+                on the answer — cross-faded so only this region changes. */}
+            {phase === "question" ? (
+              <div className="dq-choices">
+                {ARTICLES.map((art, i) => (
+                  <button
+                    key={art}
+                    className="dq-choice"
+                    style={swatch(art)}
+                    onClick={() => answer(art)}
+                  >
+                    <span className="dq-choice-key">{i + 1}</span>
+                    {art}
+                  </button>
+                ))}
+              </div>
             ) : (
-              <Reveal card={card} pending={pending} colorCoding={colorCoding} cram={cram}
-                      review={reviewOnly} palette={GENDER} neutral={NEUTRAL}
+              <Reveal card={card} pending={pending} cram={cram} review={reviewOnly}
                       onOverride={override} onContinue={commit} />
             )}
           </main>
@@ -707,23 +733,17 @@ export default function App() {
   );
 }
 
-function Reveal({ card, pending, colorCoding, cram, review, palette, neutral, onOverride, onContinue }) {
-  const c = colorCoding ? palette[card.article] : neutral;
+function Reveal({ card, pending, cram, review, onOverride, onContinue }) {
   const ratingColor = { [RATING.Again]: "#B23A48", [RATING.Hard]: "#C9772F", [RATING.Good]: "#2F7D58", [RATING.Easy]: "#2D68A8" }[pending.rating];
   const days = (new Date(pending.nextFsrs.due).getTime() - Date.now()) / 86400000;
   // Cram and recycled filler are both off-schedule: no rating applied, no due
   // date change — show raw timing only, never an FSRS interval or override.
   const offSchedule = cram || review;
+  // The verdict and the article+noun pill are rendered by the shared card so they
+  // stay put across the question→reveal transition; this panel is everything that
+  // fades in beneath them.
   return (
     <div className="dq-reveal" onClick={onContinue}>
-      <div className="dq-verdict" style={{ color: pending.correct ? "#2F7D58" : "#B23A48" }}>
-        {pending.correct ? "correct" : `not quite — you tapped ${pending.tapped}`}
-      </div>
-
-      <div className="dq-answer" style={{ "--c": c.main, "--cs": c.soft }}>
-        <span className="dq-art">{card.article}</span>
-        <span className="dq-noun">{card.lemma}</span>
-      </div>
       {card.translation && <div className="dq-gloss">{card.translation}</div>}
       <div className="dq-plural">{card.plural ? `plural: die ${card.plural}` : "no plural (mass noun)"}</div>
       {card.example && <div className="dq-example">{card.example}</div>}

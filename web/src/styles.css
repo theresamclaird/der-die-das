@@ -77,8 +77,15 @@ html,body,#root{height:100%;margin:0;}
   box-shadow:0 12px 30px -18px var(--shadow);display:flex;flex-direction:column;align-items:center;
   min-height:330px;animation:dq-in .28s cubic-bezier(.2,.7,.3,1);}
 @keyframes dq-in{from{opacity:0;transform:translateY(6px) scale(.995);}to{opacity:1;transform:none;}}
-.dq-lemma{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(40px,12vw,56px);line-height:1.05;
-  text-align:center;letter-spacing:-.02em;}
+/* Shared question/reveal card: the verdict slot and answer pill stay at the top
+   in both phases, so the noun never moves — only the article and lower panel change. */
+.dq-verdict-slot{min-height:20px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;}
+.dq-art-ph,.dq-art-real{grid-area:1/1;transition:opacity .25s ease;}
+.dq-trainer.dq-question .dq-art-real{opacity:0;}
+.dq-trainer.dq-question .dq-art-ph{opacity:1;}
+.dq-trainer.dq-revealed .dq-art-ph{opacity:0;}
+.dq-trainer.dq-revealed .dq-art-real{opacity:1;}
+@keyframes dq-fade{from{opacity:0;}to{opacity:1;}}
 .dq-gloss{color:var(--muted);font-size:15px;text-align:center;}
 .dq-choices{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto;padding-top:26px;}
 .dq-choice{position:relative;width:100%;min-height:60px;border-radius:13px;border:1.5px solid var(--cb,var(--c));
@@ -88,10 +95,13 @@ html,body,#root{height:100%;margin:0;}
 .dq-choice:focus-visible{outline:3px solid var(--brand);outline-offset:2px;}
 .dq-choice-key{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Space Mono',monospace;
   font-size:12px;font-weight:700;opacity:.55;}
-.dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;}
-.dq-verdict{font-size:13px;font-weight:600;letter-spacing:.02em;}
-.dq-answer{display:flex;align-items:baseline;gap:12px;background:var(--cs);border-radius:14px;padding:14px 22px;margin-top:2px;}
-.dq-art{font-family:'Fraunces',serif;font-weight:600;font-size:30px;color:var(--c);}
+.dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;
+  margin-top:10px;animation:dq-fade .26s ease;}
+.dq-verdict{font-size:13px;font-weight:600;letter-spacing:.02em;animation:dq-fade .26s ease;}
+.dq-answer{display:flex;align-items:baseline;gap:12px;background:var(--cs);border-radius:14px;padding:14px 22px;
+  transition:background-color .3s ease;}
+.dq-art{display:inline-grid;justify-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:30px;
+  color:var(--c);transition:color .3s ease;}
 .dq-noun{font-family:'Fraunces',serif;font-weight:600;font-size:34px;color:var(--ink);letter-spacing:-.02em;}
 .dq-plural{font-size:13px;color:var(--muted);font-family:'Space Mono',monospace;}
 .dq-example{font-size:14px;color:var(--text2);font-style:italic;text-align:center;margin-top:2px;}
@@ -163,4 +173,7 @@ html,body,#root{height:100%;margin:0;}
 .dq-auth-switch{display:flex;justify-content:space-between;gap:10px;margin-top:2px;}
 .dq-auth-switch button{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;}
 .dq-auth-switch button:hover{color:var(--ink);}
-@media (prefers-reduced-motion:reduce){.dq-card{animation:none;}.dq-bar-fill{transition:none;}}
+@media (prefers-reduced-motion:reduce){
+  .dq-card,.dq-reveal,.dq-verdict{animation:none;}
+  .dq-bar-fill,.dq-art,.dq-art-ph,.dq-art-real,.dq-answer{transition:none;}
+}
