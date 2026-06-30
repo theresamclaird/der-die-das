@@ -771,7 +771,6 @@ function Reveal({ card, pending, cram, review, onOverride, onContinue }) {
               {` · next in ${fmtInterval(days)}`}
             </span>
           </div>
-          <div className="dq-why">{pending.why}</div>
 
           <div className="dq-override" onClick={(e) => e.stopPropagation()}>
             <span>override:</span>

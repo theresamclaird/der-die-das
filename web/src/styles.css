@@ -113,7 +113,6 @@ html,body,#root{height:100%;margin:0;}
 .dq-chip{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;justify-content:center;}
 .dq-chip-rating{color:#fff;font-weight:600;font-size:12px;padding:3px 10px;border-radius:7px;letter-spacing:.02em;}
 .dq-chip-data{font-family:'Space Mono',monospace;font-size:12px;color:var(--text2);}
-.dq-why{font-size:11.5px;color:var(--muted);}
 .dq-override{display:flex;align-items:center;gap:6px;margin-top:6px;cursor:default;flex-wrap:wrap;justify-content:center;}
 .dq-override>span{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;}
 .dq-ov{font-size:11.5px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);background:var(--surface);
