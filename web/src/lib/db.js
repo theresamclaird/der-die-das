@@ -38,9 +38,20 @@ function openDB(attempt = 0) {
       if (!db.objectStoreNames.contains("meta")) db.createObjectStore("meta", { keyPath: "key" });
       if (!db.objectStoreNames.contains("dirty")) db.createObjectStore("dirty", { keyPath: "id" });
     };
-    req.onsuccess = () => finish(resolve, req.result);
+    req.onsuccess = () => {
+      // If we already abandoned this request for a retry, the connection the
+      // browser hands back is orphaned — close it so it can't leak or block a
+      // future version upgrade (it would otherwise hold the upgrade lock).
+      if (settled) { try { req.result.close(); } catch { /* already closing */ } return; }
+      finish(resolve, req.result);
+    };
     req.onerror = () => finish(reject, req.error);
-    req.onblocked = () => {}; // an older connection is open; it will close and we'll proceed
+    // `onblocked` fires only when another open connection (e.g. another tab on an
+    // older DB_VERSION) holds the upgrade lock; success/error won't fire until it
+    // closes. If it closes within the timeout we proceed; otherwise the retry
+    // below kicks in, and an indefinitely-open tab falls through to the error
+    // card rather than hanging forever.
+    req.onblocked = () => {};
     timer = setTimeout(() => {
       if (settled) return;
       if (attempt < OPEN_RETRIES) {

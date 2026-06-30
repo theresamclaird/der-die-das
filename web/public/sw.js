@@ -31,7 +31,7 @@ self.addEventListener("fetch", (e) => {
           caches.open(CACHE).then((c) => c.put(request, copy));
           return res;
         })
-        .catch(() => caches.match(request).then((hit) => hit || caches.match("/"))),
+        .catch(() => caches.match(request).then((hit) => hit || caches.match("/")).then((res) => res || Response.error())),
     );
     return;
   }
