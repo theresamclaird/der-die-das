@@ -73,13 +73,19 @@ html,body,#root{height:100%;margin:0;}
 .dq-bar{height:5px;border-radius:99px;background:var(--bar-track);overflow:hidden;}
 .dq-bar-fill{height:100%;background:linear-gradient(90deg,#2D68A8,#2F7D58);border-radius:99px;transition:width .35s ease;}
 .dq-meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);font-family:'Space Mono',monospace;}
-.dq-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;
+.dq-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;
   box-shadow:0 12px 30px -18px var(--shadow);display:flex;flex-direction:column;align-items:center;
   min-height:330px;animation:dq-in .28s cubic-bezier(.2,.7,.3,1);}
 @keyframes dq-in{from{opacity:0;transform:translateY(6px) scale(.995);}to{opacity:1;transform:none;}}
-/* Shared question/reveal card: the verdict slot and answer pill stay at the top
-   in both phases, so the noun never moves — only the article and lower panel change. */
-.dq-verdict-slot{min-height:20px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;}
+/* Shared question/reveal card: the answer pill stays put in both phases, so the
+   noun never moves — only the article and lower panel change. The verdict mark
+   sits in the top-left corner, out of flow, so it can't shift the noun either. */
+.dq-mark{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;line-height:1;
+  animation:dq-pop .28s cubic-bezier(.2,.8,.3,1.5);}
+.dq-mark-ok{color:#2F7D58;background:rgba(47,125,88,.14);}
+.dq-mark-no{color:#B23A48;background:rgba(178,58,72,.14);}
+@keyframes dq-pop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:none;}}
 .dq-art-ph,.dq-art-real{grid-area:1/1;transition:opacity .25s ease;}
 .dq-trainer.dq-question .dq-art-real{opacity:0;}
 .dq-trainer.dq-question .dq-art-ph{opacity:1;}
@@ -97,7 +103,6 @@ html,body,#root{height:100%;margin:0;}
   font-size:12px;font-weight:700;opacity:.55;}
 .dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;
   margin-top:10px;animation:dq-fade .26s ease;}
-.dq-verdict{font-size:13px;font-weight:600;letter-spacing:.02em;animation:dq-fade .26s ease;}
 .dq-answer{display:flex;align-items:baseline;gap:12px;background:var(--cs);border-radius:14px;padding:14px 22px;
   transition:background-color .3s ease;}
 .dq-art{display:inline-grid;justify-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:30px;
@@ -174,6 +179,6 @@ html,body,#root{height:100%;margin:0;}
 .dq-auth-switch button{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;}
 .dq-auth-switch button:hover{color:var(--ink);}
 @media (prefers-reduced-motion:reduce){
-  .dq-card,.dq-reveal,.dq-verdict{animation:none;}
+  .dq-card,.dq-reveal,.dq-mark{animation:none;}
   .dq-bar-fill,.dq-art,.dq-art-ph,.dq-art-real,.dq-answer{transition:none;}
 }

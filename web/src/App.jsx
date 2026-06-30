@@ -583,15 +583,14 @@ export default function App() {
           // transition mutates in place instead of remounting — that's what keeps
           // the noun fixed while the article and the lower panel cross-fade.
           <main className={"dq-card dq-trainer dq-" + phase} key={currentId}>
-            {/* Reserved slot: empty on the question, the verdict on reveal. Holding
-                the height here means revealing the verdict never shifts the noun. */}
-            <div className="dq-verdict-slot">
-              {phase === "revealed" && pending && (
-                <div className="dq-verdict" style={{ color: pending.correct ? "#2F7D58" : "#B23A48" }}>
-                  {pending.correct ? "correct" : `not quite — you tapped ${pending.tapped}`}
-                </div>
-              )}
-            </div>
+            {/* Verdict mark in the top-right corner (absolutely positioned, so it
+                never shifts the noun): a green check when correct, a red ✕ when not. */}
+            {phase === "revealed" && pending && (
+              <div className={"dq-mark " + (pending.correct ? "dq-mark-ok" : "dq-mark-no")}
+                   aria-label={pending.correct ? "correct" : `incorrect — you tapped ${pending.tapped}`}>
+                {pending.correct ? "✓" : "✕"}
+              </div>
+            )}
 
             {/* Shared answer pill, identical in both phases: the underscores fade
                 out as the real article fades in, and the noun never moves. */}
@@ -744,7 +743,9 @@ function Reveal({ card, pending, cram, review, onOverride, onContinue }) {
   // fades in beneath them.
   return (
     <div className="dq-reveal" onClick={onContinue}>
-      {card.translation && <div className="dq-gloss">{card.translation}</div>}
+      {card.translation && (
+        <div className="dq-gloss">English: {card.gloss_def === false ? "" : "the "}{card.translation}</div>
+      )}
       <div className="dq-plural">{card.plural ? `plural: die ${card.plural}` : "no plural (mass noun)"}</div>
       {card.example && <div className="dq-example">{card.example}</div>}
 

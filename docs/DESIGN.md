@@ -100,6 +100,8 @@ Total A1–B1 volume is roughly 2,000–2,500 nouns — small enough to inspect 
   "level_source": "goethe",    // goethe | frequency
   "topic": "home",
   "translation": "house",
+  "gloss_def": true,           // does the English gloss take "the"? false for
+                               // mass/abstract/proper nouns (water, love, Monday)
   "example": "Das Haus ist groß."
 }
 ```
