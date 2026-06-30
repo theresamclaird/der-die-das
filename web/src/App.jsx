@@ -10,7 +10,7 @@ import {
   isDue,
 } from "./lib/scheduler.js";
 import { inferRating, Baseline } from "./lib/inference.js";
-import { buildQueue, buildCramQueue, placement, ensureState } from "./lib/session.js";
+import { buildSession, buildCramQueue, willGraduate, advanceQueue, ensureState } from "./lib/session.js";
 import { amplifyConfigured } from "./lib/amplifyConfig.js";
 import { SyncEngine, LocalOnlyAdapter } from "./lib/sync.js";
 import Auth, { currentUser, logOut } from "./Auth.jsx";
@@ -159,6 +159,8 @@ export default function App() {
 
   const dbRef = useRef(null);
   const statesRef = useRef(new Map()); // id -> fsrs card
+  const reserveRef = useRef([]); // unintroduced new cards, fed in as the queue drains (#2)
+  const fillerRef = useRef(new Set()); // ids currently in the queue as off-schedule recycled filler (#2)
   const baselineRef = useRef(new Baseline());
   const syncRef = useRef(null); // SyncEngine (created after db opens)
   const shownAt = useRef(0);
@@ -166,6 +168,9 @@ export default function App() {
 
   const currentId = queue[0];
   const card = currentId ? cardById.get(currentId) : null;
+  // The current card is off-schedule recycled filler (interleaving only, never
+  // graded) when it's in the filler set and we're not in cram (#2).
+  const reviewOnly = !cram && currentId != null && fillerRef.current.has(currentId);
 
   // Reconcile with the backend (if signed in), then refresh in-memory state from
   // whatever the pull may have changed. Safe to call anytime; no-ops when local.
@@ -208,8 +213,10 @@ export default function App() {
       const lv = Array.isArray(saved) && saved.length ? saved.filter((l) => ALL_LEVELS.includes(l)) : DEFAULT_LEVELS;
       const pool = NOUNS.filter((c) => lv.includes(c.level));
 
-      const q = buildQueue(pool, m, NEW_PER_SESSION);
+      const { queue: q, reserve } = buildSession(pool, m, NEW_PER_SESSION);
       if (!alive) return;
+      reserveRef.current = reserve;
+      fillerRef.current = new Set();
       setLevels(lv.length ? lv : DEFAULT_LEVELS);
       setQueue(q);
       setStats((s) => ({ ...s, intro: q.length }));
@@ -257,10 +264,10 @@ export default function App() {
     setPending({
       id: card.id, preState, nextFsrs, tapped, correct, latencyMs,
       rating: inf.rating, recallMs: inf.recallMs, discarded: inf.discarded,
-      why: inf.why, overridden: false,
+      why: inf.why, overridden: false, review: reviewOnly,
     });
     setPhase("revealed");
-  }, [phase, card]);
+  }, [phase, card, reviewOnly]);
 
   // ---- manual override (recompute from pre-answer state) ----
   const override = useCallback((rating) => {
@@ -270,6 +277,21 @@ export default function App() {
       return { ...p, rating, nextFsrs, overridden: true, why: `manual override → ${RATING_NAME[rating]}` };
     });
   }, []);
+
+  // Advance the live queue after a card is answered. Off-schedule paths (cram,
+  // recycled filler) and the graded path all funnel the answered card + current
+  // session state through the pure advanceQueue() helper in session.js (#2), then
+  // sync the reserve/filler refs from its result.
+  const applyAdvance = useCallback((rest, answered, fsrsCard) => {
+    const r = advanceQueue({
+      rest, answered, fsrsCard,
+      reserve: reserveRef.current, filler: fillerRef.current,
+      allCards: activeNouns, stateById: statesRef.current,
+    });
+    reserveRef.current = r.reserve;
+    fillerRef.current = r.filler;
+    return r;
+  }, [activeNouns]);
 
   // ---- commit: persist state + log, update baseline, requeue/advance ----
   const commit = useCallback(async () => {
@@ -304,6 +326,34 @@ export default function App() {
       return;
     }
 
+    // Off-schedule recycled filler (#2): shown only to break up a struggled card.
+    // Like cram, log the rep but never grade, reschedule, or move the baseline.
+    // It's flagged `cram: true` so the existing sync path still excludes it from
+    // scheduler calibration, plus `filler: true` to distinguish it from a true
+    // cram-mode rep. (Forwarding `filler` to the backend is left to the sync
+    // layer — see sync.js — and is intentionally not wired here.)
+    if (p.review) {
+      if (dbRef.current) {
+        await dbRef.current.appendLog({
+          cardId: p.id, lemma: c.lemma, rating: p.rating, correct: p.correct,
+          latency_ms: Math.round(p.latencyMs),
+          recall_ms: p.recallMs != null ? Math.round(p.recallMs) : null,
+          discarded: p.discarded, overridden: p.overridden, cram: true, filler: true,
+        });
+      }
+      const { queue: next, addedNew } = applyAdvance(queue.slice(1), { id: p.id, stays: false });
+      setStats((st) => ({
+        ...st,
+        answered: st.answered + 1,
+        correct: st.correct + (p.correct ? 1 : 0),
+        intro: st.intro + addedNew,
+      }));
+      setQueue(next);
+      setPending(null);
+      setPhase(next.length ? "question" : "done");
+      return;
+    }
+
     statesRef.current.set(p.id, p.nextFsrs);
 
     const db = dbRef.current;
@@ -318,20 +368,22 @@ export default function App() {
     }
     if (p.correct && !p.discarded && p.recallMs != null) baselineRef.current.push(p.recallMs);
 
-    const rest = queue.slice(1);
-    const pl = placement(p.nextFsrs, rest.length);
-    if (!pl.graduates) rest.splice(pl.reinsertAt, 0, p.id);
+    const graduates = willGraduate(p.nextFsrs);
+    const { queue: next, addedNew } = applyAdvance(
+      queue.slice(1), { id: p.id, stays: !graduates }, p.nextFsrs,
+    );
 
     setStats((st) => ({
       ...st,
       answered: st.answered + 1,
       correct: st.correct + (p.correct ? 1 : 0),
-      graduated: st.graduated + (pl.graduates ? 1 : 0),
+      graduated: st.graduated + (graduates ? 1 : 0),
+      intro: st.intro + addedNew,
     }));
-    setQueue(rest);
+    setQueue(next);
     setPending(null);
-    setPhase(rest.length ? "question" : "done");
-  }, [pending, queue, cram]);
+    setPhase(next.length ? "question" : "done");
+  }, [pending, queue, cram, applyAdvance]);
 
   // ---- keyboard ----
   useEffect(() => {
@@ -354,7 +406,9 @@ export default function App() {
   }, [phase, answer, commit, showAuth]);
 
   const newSession = () => {
-    const q = buildQueue(activeNouns, statesRef.current, NEW_PER_SESSION);
+    const { queue: q, reserve } = buildSession(activeNouns, statesRef.current, NEW_PER_SESSION);
+    reserveRef.current = reserve;
+    fillerRef.current = new Set();
     setQueue(q);
     setStats((s) => ({ ...s, intro: q.length }));
     setPhase(q.length ? "question" : "done");
@@ -367,6 +421,8 @@ export default function App() {
   const startCram = () => {
     const q = buildCramQueue(activeNouns, statesRef.current);
     if (!q.length) return;
+    reserveRef.current = [];
+    fillerRef.current = new Set();
     setCram(true);
     setPending(null);
     setQueue(q);
@@ -405,7 +461,9 @@ export default function App() {
     setLevels(lv);
     dbRef.current?.setMeta(LEVELS_META_KEY, lv);
     const pool = NOUNS.filter((c) => lv.includes(c.level));
-    const q = buildQueue(pool, statesRef.current, NEW_PER_SESSION);
+    const { queue: q, reserve } = buildSession(pool, statesRef.current, NEW_PER_SESSION);
+    reserveRef.current = reserve;
+    fillerRef.current = new Set();
     setCram(false); // changing levels leaves cram
     setPending(null);
     setQueue(q);
@@ -424,7 +482,9 @@ export default function App() {
     dbRef.current?.setMeta(LEVELS_META_KEY, levels);
     setCram(false);
     setStats({ answered: 0, correct: 0, graduated: 0, intro: 0 });
-    const q = buildQueue(activeNouns, statesRef.current, NEW_PER_SESSION);
+    const { queue: q, reserve } = buildSession(activeNouns, statesRef.current, NEW_PER_SESSION);
+    reserveRef.current = reserve;
+    fillerRef.current = new Set();
     setQueue(q);
     setStats((s) => ({ ...s, intro: q.length }));
     setPhase("question");
@@ -535,7 +595,7 @@ export default function App() {
               </>
             ) : (
               <Reveal card={card} pending={pending} colorCoding={colorCoding} cram={cram}
-                      palette={GENDER} neutral={NEUTRAL}
+                      review={reviewOnly} palette={GENDER} neutral={NEUTRAL}
                       onOverride={override} onContinue={commit} />
             )}
           </main>
@@ -648,10 +708,13 @@ export default function App() {
   );
 }
 
-function Reveal({ card, pending, colorCoding, cram, palette, neutral, onOverride, onContinue }) {
+function Reveal({ card, pending, colorCoding, cram, review, palette, neutral, onOverride, onContinue }) {
   const c = colorCoding ? palette[card.article] : neutral;
   const ratingColor = { [RATING.Again]: "#B23A48", [RATING.Hard]: "#C9772F", [RATING.Good]: "#2F7D58", [RATING.Easy]: "#2D68A8" }[pending.rating];
   const days = (new Date(pending.nextFsrs.due).getTime() - Date.now()) / 86400000;
+  // Cram and recycled filler are both off-schedule: no rating applied, no due
+  // date change — show raw timing only, never an FSRS interval or override.
+  const offSchedule = cram || review;
   return (
     <div className="dq-reveal" onClick={onContinue}>
       <div className="dq-verdict" style={{ color: pending.correct ? "#2F7D58" : "#B23A48" }}>
@@ -666,14 +729,16 @@ function Reveal({ card, pending, colorCoding, cram, palette, neutral, onOverride
       <div className="dq-plural">{card.plural ? `plural: die ${card.plural}` : "no plural (mass noun)"}</div>
       {card.example && <div className="dq-example">{card.example}</div>}
 
-      {cram ? (
+      {offSchedule ? (
         /* Off-schedule: no rating is applied and no due date changes, so we show
-           only the raw timing — not an FSRS interval or the override controls. */
+           only the raw timing — not an FSRS interval or the override controls.
+           A recycled-filler card (review) is shown once and does not re-drill. */
         <div className="dq-chip">
           <span className="dq-chip-data">
             {Math.round(pending.latencyMs)}ms
             {pending.recallMs != null && !pending.discarded ? ` · recall ${Math.round(pending.recallMs)}ms` : ""}
-            {pending.correct ? "" : " · missed — will re-show this round"}
+            {pending.correct ? "" : (cram ? " · missed — will re-show this round" : " · missed")}
+            {review ? " · review only" : ""}
           </span>
         </div>
       ) : (
