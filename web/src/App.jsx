@@ -577,7 +577,6 @@ export default function App() {
           <main className="dq-card" key={currentId + "-" + phase}>
             {phase === "question" ? (
               <>
-                <div className="dq-prompt-tag">which article?</div>
                 <div className="dq-lemma">{card.lemma}</div>
                 <div className="dq-choices">
                   {ARTICLES.map((art, i) => (
