@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from "react";
 import NOUNS from "./data/nouns.json";
 import { Store } from "./lib/db.js";
 import {
@@ -390,6 +390,31 @@ export default function App() {
     setPhase(next.length ? "question" : "done");
   }, [pending, queue, cram, applyAdvance]);
 
+  // The answer pill is a single element that persists across cards (the trainer
+  // card is intentionally not re-keyed per card). When the noun changes, animate
+  // its width from the old word's to the new word's so the box visibly resizes
+  // instead of popping. FLIP: measure natural width, jump back to the old width
+  // with transitions off, then release to the new width so CSS eases it.
+  const pillRef = useRef(null);
+  const prevPillW = useRef(null);
+  useLayoutEffect(() => {
+    const el = pillRef.current;
+    if (!el) { prevPillW.current = null; return; }
+    const from = prevPillW.current;
+    el.style.width = "auto";
+    const target = el.offsetWidth;
+    if (from != null && from !== target) {
+      el.style.transition = "none";
+      el.style.width = from + "px";
+      void el.offsetWidth; // force reflow so the next change animates
+      el.style.transition = "";
+      el.style.width = target + "px";
+    } else {
+      el.style.width = target + "px";
+    }
+    prevPillW.current = target;
+  }, [currentId]);
+
   // ---- keyboard ----
   useEffect(() => {
     const onKey = (e) => {
@@ -579,10 +604,11 @@ export default function App() {
         </div>
 
         {phase !== "done" && card && (
-          // Keyed on the card id only (not the phase) so the question→reveal
-          // transition mutates in place instead of remounting — that's what keeps
-          // the noun fixed while the article and the lower panel cross-fade.
-          <main className={"dq-card dq-trainer dq-" + phase} key={currentId}>
+          // Deliberately NOT keyed per card: the trainer card (and its answer
+          // pill) persists across cards so question→reveal AND card→card both
+          // mutate in place — the pill recolors to neutral and resizes to the
+          // next word instead of the whole card fading out and back in.
+          <main className={"dq-card dq-trainer dq-" + phase}>
             {/* Verdict mark in the top-right corner (absolutely positioned, so it
                 never shifts the noun): a green check when correct, a red ✕ when not. */}
             {phase === "revealed" && pending && (
@@ -594,7 +620,7 @@ export default function App() {
 
             {/* Shared answer pill, identical in both phases: the underscores fade
                 out as the real article fades in, and the noun never moves. */}
-            <div className="dq-answer" style={{ "--c": answerColor.main, "--cs": answerColor.soft }}>
+            <div className="dq-answer" ref={pillRef} style={{ "--c": answerColor.main, "--cs": answerColor.soft }}>
               <span className="dq-art">
                 <span className="dq-art-ph">___</span>
                 <span className="dq-art-real">{card.article}</span>

@@ -93,7 +93,8 @@ html,body,#root{height:100%;margin:0;}
 .dq-trainer.dq-revealed .dq-art-real{opacity:1;}
 @keyframes dq-fade{from{opacity:0;}to{opacity:1;}}
 .dq-gloss{color:var(--muted);font-size:15px;text-align:center;}
-.dq-choices{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto;padding-top:26px;}
+.dq-choices{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto;padding-top:26px;
+  animation:dq-fade .26s ease;}
 .dq-choice{position:relative;width:100%;min-height:60px;border-radius:13px;border:1.5px solid var(--cb,var(--c));
   background:var(--cs);color:var(--c);font-family:'Fraunces',serif;font-weight:600;font-size:24px;cursor:pointer;
   transition:transform .08s ease,filter .15s ease;}
@@ -102,9 +103,9 @@ html,body,#root{height:100%;margin:0;}
 .dq-choice-key{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Space Mono',monospace;
   font-size:12px;font-weight:700;opacity:.55;}
 .dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;
-  margin-top:10px;animation:dq-fade .26s ease;}
-.dq-answer{display:flex;align-items:baseline;gap:12px;background:var(--cs);border-radius:14px;padding:14px 22px;
-  transition:background-color .3s ease;}
+  margin-top:26px;animation:dq-fade .26s ease;}
+.dq-answer{display:flex;align-items:baseline;justify-content:center;gap:12px;background:var(--cs);border-radius:14px;
+  padding:14px 22px;white-space:nowrap;transition:background-color .3s ease,width .3s ease;}
 .dq-art{display:inline-grid;justify-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:30px;
   color:var(--c);transition:color .3s ease;}
 .dq-noun{font-family:'Fraunces',serif;font-weight:600;font-size:34px;color:var(--ink);letter-spacing:-.02em;}
@@ -178,6 +179,6 @@ html,body,#root{height:100%;margin:0;}
 .dq-auth-switch button{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;}
 .dq-auth-switch button:hover{color:var(--ink);}
 @media (prefers-reduced-motion:reduce){
-  .dq-card,.dq-reveal,.dq-mark{animation:none;}
+  .dq-card,.dq-reveal,.dq-mark,.dq-choices{animation:none;}
   .dq-bar-fill,.dq-art,.dq-art-ph,.dq-art-real,.dq-answer{transition:none;}
 }
