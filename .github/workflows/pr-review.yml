@@ -34,7 +34,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          show_full_output: true # temporary debug change
           prompt: |
             You are reviewing PR #${{ github.event.pull_request.number }} for the
             "der · die · das" repo. Work only on this PR. Do exactly the steps below
@@ -51,8 +50,8 @@ jobs:
             Step 2 — Read the diff once:
               gh pr diff ${{ github.event.pull_request.number }}
 
-            Step 3 — Read AGENTS.md for the "PR-review checklist (tuned for HIGH RECALL)"
-            and the deny-list.
+            Step 3 — Read AGENTS.md (it is in the checked-out repo root) with the Read
+            tool, for the "PR-review checklist (tuned for HIGH RECALL)" and the deny-list.
 
             Step 4 — Review strictly against that checklist. Bias toward flagging: if
             something is even slightly concerning, raise it — especially anything touching
@@ -66,15 +65,24 @@ jobs:
             Step 5 — Post exactly ONE review comment with your full writeup, ending with an
             explicit recommendation ("request changes", "comment", or
             "looks good — maintainer decision"). Never imply approval of a deny-list change.
-            Post it with:
-              gh pr comment ${{ github.event.pull_request.number }} --body "..."
+
+            Your writeup will contain Markdown backticks and other characters that the
+            shell mangles inside a quoted --body argument. To avoid that entirely, write
+            the body to a file with the Write tool, then post with --body-file:
+              (Write tool) -> /tmp/pr-review.md
+              gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/pr-review.md
+            Do NOT post placeholder, test, or "in progress" comments — post the final
+            review exactly once.
 
             Step 6 — Stop. Take no further actions.
-          # CLI-style flags. Cost cap + defense-in-depth: whitelist ONLY the gh read +
-          # comment commands this job needs. Not-disallowing is not the same as allowing —
-          # with this allowlist the agent cannot edit, commit, merge, or run other commands.
+          # CLI-style flags. Cost cap + defense-in-depth: whitelist ONLY what this job
+          # needs — the gh read+comment commands, reading AGENTS.md, and writing the
+          # review body to a temp file for --body-file (which sidesteps the shell-quoting
+          # trap that backtick-laden Markdown hits in a `gh pr comment --body "..."` arg).
+          # Not-disallowing is not the same as allowing — with this allowlist the agent
+          # still cannot edit tracked code, commit, merge, push, or run other commands.
           # (`gh pr comment` is used rather than `gh pr review` because the latter rejects
           # reviewing your own PR, which the author gate would commonly produce.)
           claude_args: |
-            --max-turns 15
-            --allowedTools "Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*)"
+            --max-turns 20
+            --allowedTools "Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),Bash(cat:*),Read,Write"
