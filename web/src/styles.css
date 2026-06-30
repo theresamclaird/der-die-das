@@ -73,14 +73,28 @@ html,body,#root{height:100%;margin:0;}
 .dq-bar{height:5px;border-radius:99px;background:var(--bar-track);overflow:hidden;}
 .dq-bar-fill{height:100%;background:linear-gradient(90deg,#2D68A8,#2F7D58);border-radius:99px;transition:width .35s ease;}
 .dq-meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);font-family:'Space Mono',monospace;}
-.dq-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;
+.dq-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;
   box-shadow:0 12px 30px -18px var(--shadow);display:flex;flex-direction:column;align-items:center;
   min-height:330px;animation:dq-in .28s cubic-bezier(.2,.7,.3,1);}
 @keyframes dq-in{from{opacity:0;transform:translateY(6px) scale(.995);}to{opacity:1;transform:none;}}
-.dq-lemma{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(40px,12vw,56px);line-height:1.05;
-  text-align:center;letter-spacing:-.02em;}
+/* Shared question/reveal card: the answer pill stays put in both phases, so the
+   noun never moves — only the article and lower panel change. The verdict mark
+   sits in the top-left corner, out of flow, so it can't shift the noun either. */
+.dq-mark{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;line-height:1;
+  animation:dq-pop .28s cubic-bezier(.2,.8,.3,1.5);}
+.dq-mark-ok{color:#2F7D58;background:rgba(47,125,88,.14);}
+.dq-mark-no{color:#B23A48;background:rgba(178,58,72,.14);}
+@keyframes dq-pop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:none;}}
+.dq-art-ph,.dq-art-real{grid-area:1/1;transition:opacity .25s ease;}
+.dq-trainer.dq-question .dq-art-real{opacity:0;}
+.dq-trainer.dq-question .dq-art-ph{opacity:1;}
+.dq-trainer.dq-revealed .dq-art-ph{opacity:0;}
+.dq-trainer.dq-revealed .dq-art-real{opacity:1;}
+@keyframes dq-fade{from{opacity:0;}to{opacity:1;}}
 .dq-gloss{color:var(--muted);font-size:15px;text-align:center;}
-.dq-choices{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto;padding-top:26px;}
+.dq-choices{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto;padding-top:26px;
+  animation:dq-fade .26s ease;}
 .dq-choice{position:relative;width:100%;min-height:60px;border-radius:13px;border:1.5px solid var(--cb,var(--c));
   background:var(--cs);color:var(--c);font-family:'Fraunces',serif;font-weight:600;font-size:24px;cursor:pointer;
   transition:transform .08s ease,filter .15s ease;}
@@ -88,17 +102,18 @@ html,body,#root{height:100%;margin:0;}
 .dq-choice:focus-visible{outline:3px solid var(--brand);outline-offset:2px;}
 .dq-choice-key{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Space Mono',monospace;
   font-size:12px;font-weight:700;opacity:.55;}
-.dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;}
-.dq-verdict{font-size:13px;font-weight:600;letter-spacing:.02em;}
-.dq-answer{display:flex;align-items:baseline;gap:12px;background:var(--cs);border-radius:14px;padding:14px 22px;margin-top:2px;}
-.dq-art{font-family:'Fraunces',serif;font-weight:600;font-size:30px;color:var(--c);}
+.dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;
+  margin-top:26px;animation:dq-fade .26s ease;}
+.dq-answer{display:flex;align-items:baseline;justify-content:center;gap:12px;background:var(--cs);border-radius:14px;
+  padding:14px 22px;white-space:nowrap;transition:background-color .3s ease,width .3s ease;}
+.dq-art{display:inline-grid;justify-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:30px;
+  color:var(--c);transition:color .3s ease;}
 .dq-noun{font-family:'Fraunces',serif;font-weight:600;font-size:34px;color:var(--ink);letter-spacing:-.02em;}
 .dq-plural{font-size:13px;color:var(--muted);font-family:'Space Mono',monospace;}
 .dq-example{font-size:14px;color:var(--text2);font-style:italic;text-align:center;margin-top:2px;}
 .dq-chip{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;justify-content:center;}
 .dq-chip-rating{color:#fff;font-weight:600;font-size:12px;padding:3px 10px;border-radius:7px;letter-spacing:.02em;}
 .dq-chip-data{font-family:'Space Mono',monospace;font-size:12px;color:var(--text2);}
-.dq-why{font-size:11.5px;color:var(--muted);}
 .dq-override{display:flex;align-items:center;gap:6px;margin-top:6px;cursor:default;flex-wrap:wrap;justify-content:center;}
 .dq-override>span{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;}
 .dq-ov{font-size:11.5px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);background:var(--surface);
@@ -163,4 +178,7 @@ html,body,#root{height:100%;margin:0;}
 .dq-auth-switch{display:flex;justify-content:space-between;gap:10px;margin-top:2px;}
 .dq-auth-switch button{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;}
 .dq-auth-switch button:hover{color:var(--ink);}
-@media (prefers-reduced-motion:reduce){.dq-card{animation:none;}.dq-bar-fill{transition:none;}}
+@media (prefers-reduced-motion:reduce){
+  .dq-card,.dq-reveal,.dq-mark,.dq-choices{animation:none;}
+  .dq-bar-fill,.dq-art,.dq-art-ph,.dq-art-real,.dq-answer{transition:none;}
+}

@@ -43,6 +43,39 @@ from german_nouns.lookup import Nouns
 GENDER_TO_ARTICLE = {"m": "der", "f": "die", "n": "das"}
 ARTICLE_TO_GENDER = {v: k for k, v in GENDER_TO_ARTICLE.items()}
 
+# --- English gloss: definite-article prefix ------------------------------------
+# The UI renders each gloss as "the <translation>" so it mirrors the German
+# article ("das Obst" -> "the fruit"). That reads naturally for ordinary count
+# nouns but wrong for mass/abstract nouns ("the water", "the love") and proper
+# nouns ("the Monday", "the German"). Whether a noun takes "the" is a property of
+# the WORD, so it's curated here and emitted as the per-card `gloss_def` flag
+# (default True; the lemmas below opt out). Keyed on the German lemma because it's
+# unambiguous — English glosses collide (e.g. "knowledge" <- both Wissen and
+# Kenntnis), so keying on the gloss would mislabel. Extend as content grows.
+NO_DEFINITE_ARTICLE = frozenset({
+    # Uncountable substances / foods (note: Obst -> "the fruit" stays definite by
+    # request; countable-ish glosses like Eis -> "ice cream" also keep "the").
+    "Wasser", "Brot", "Kaffee", "Tee", "Milch", "Fleisch", "Zucker", "Salz",
+    "Butter", "Reis", "Mehl", "Gemüse",
+    # Weather / elements
+    "Regen", "Schnee", "Wetter", "Nebel", "Hitze", "Kälte",
+    # Abstract states, emotions, qualities (non-count)
+    "Geld", "Arbeit", "Musik", "Luft", "Zeit", "Hilfe", "Gesundheit", "Frieden",
+    "Liebe", "Angst", "Wut", "Freude", "Hoffnung", "Stress", "Schlaf", "Geduld",
+    "Mut", "Wissen", "Freiheit", "Gewalt", "Stolz", "Neid", "Natur",
+    "Hunger", "Durst", "Glück", "Pech", "Ruhe", "Information", "Hass", "Spaß",
+    "Glaube",
+    # Mass collectives
+    "Verkehr", "Gepäck", "Müll", "Bargeld", "Schmutz", "Staub", "Lärm",
+    # Proper nouns: English drops the article where German keeps it. Mostly not in
+    # the dataset yet — listed so they're handled when such content is added.
+    "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag",
+    "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
+    "September", "Oktober", "November", "Dezember",
+    "Deutsch", "Englisch", "Französisch", "Spanisch", "Italienisch", "Russisch",
+    "Deutschland", "Österreich", "Europa", "Frankreich", "England", "Italien",
+})
+
 # Full-dataset manifest (used by --all). Order matters: it is the CEFR
 # progression A1 -> C2, and dedup keeps the FIRST (lowest) level a lemma
 # appears in. A1-B1 are curated CEFR lists; B2-C2 are a frequency-band
@@ -131,6 +164,7 @@ class Card:
     level_source: str
     topic: str
     translation: str
+    gloss_def: bool  # does the English gloss take "the"? (mass/abstract/proper nouns don't)
     example: str | None
 
 
@@ -210,6 +244,7 @@ def resolve(row: dict, nouns: Nouns, level: str, level_source: str,
         level_source=level_source,
         topic=(row.get("topic") or "").strip(),
         translation=(row.get("translation") or "").strip(),
+        gloss_def=lemma not in NO_DEFINITE_ARTICLE,
         example=(row.get("example") or "").strip() or None,
     )
 

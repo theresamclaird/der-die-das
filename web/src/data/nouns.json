@@ -10,6 +10,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "man",
+    "gloss_def": true,
     "example": "Der Mann liest eine Zeitung."
   },
   {
@@ -23,6 +24,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "woman",
+    "gloss_def": true,
     "example": "Die Frau trinkt Kaffee."
   },
   {
@@ -36,6 +38,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "child",
+    "gloss_def": true,
     "example": "Das Kind spielt im Garten."
   },
   {
@@ -49,6 +52,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "boy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -62,6 +66,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "girl",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -75,6 +80,7 @@
     "level_source": "curated_a1_starter",
     "topic": "family",
     "translation": "father",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -88,6 +94,7 @@
     "level_source": "curated_a1_starter",
     "topic": "family",
     "translation": "mother",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -101,6 +108,7 @@
     "level_source": "curated_a1_starter",
     "topic": "family",
     "translation": "son",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -114,6 +122,7 @@
     "level_source": "curated_a1_starter",
     "topic": "family",
     "translation": "daughter",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -127,6 +136,7 @@
     "level_source": "curated_a1_starter",
     "topic": "family",
     "translation": "brother",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -140,6 +150,7 @@
     "level_source": "curated_a1_starter",
     "topic": "family",
     "translation": "sister",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -153,6 +164,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "friend (m)",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -166,6 +178,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "friend (f)",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -179,6 +192,7 @@
     "level_source": "curated_a1_starter",
     "topic": "people",
     "translation": "name",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -192,6 +206,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "house",
+    "gloss_def": true,
     "example": "Das Haus ist groß."
   },
   {
@@ -205,6 +220,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "apartment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -218,6 +234,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "room",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -231,6 +248,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "kitchen",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -244,6 +262,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "door",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -257,6 +276,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "window",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -270,6 +290,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "table",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -283,6 +304,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "chair",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -296,6 +318,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "bed",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -309,6 +332,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "cupboard",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -322,6 +346,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "lamp",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -335,6 +360,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "clock",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -348,6 +374,7 @@
     "level_source": "curated_a1_starter",
     "topic": "home",
     "translation": "garden",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -361,6 +388,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "bread",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -374,6 +402,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "water",
+    "gloss_def": false,
     "example": "Ich trinke gern Wasser."
   },
   {
@@ -387,6 +416,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "coffee",
+    "gloss_def": false,
     "example": "Der Kaffee ist heiß."
   },
   {
@@ -400,6 +430,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "tea",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -413,6 +444,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "milk",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -426,6 +458,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "beer",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -439,6 +472,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "wine",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -452,6 +486,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "apple",
+    "gloss_def": true,
     "example": "Der Apfel ist rot."
   },
   {
@@ -465,6 +500,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "banana",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -478,6 +514,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "egg",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -491,6 +528,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "cheese",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -504,6 +542,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "butter",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -517,6 +556,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "sugar",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -530,6 +570,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "salt",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -543,6 +584,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "soup",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -556,6 +598,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "meat",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -569,6 +612,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "fish",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -582,6 +626,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "vegetables",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -595,6 +640,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "fruit",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -608,6 +654,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "juice",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -621,6 +668,7 @@
     "level_source": "curated_a1_starter",
     "topic": "food",
     "translation": "cake",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -634,6 +682,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "city",
+    "gloss_def": true,
     "example": "Die Stadt ist schön."
   },
   {
@@ -647,6 +696,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "street",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -660,6 +710,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "train station",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -673,6 +724,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "airport",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -686,6 +738,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "school",
+    "gloss_def": true,
     "example": "Die Schule beginnt um acht."
   },
   {
@@ -699,6 +752,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "university",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -712,6 +766,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "restaurant",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -725,6 +780,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "hotel",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -738,6 +794,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "supermarket",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -751,6 +808,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "bank",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -764,6 +822,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "hospital",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -777,6 +836,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "church",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -790,6 +850,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "park",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -803,6 +864,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "cinema",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -816,6 +878,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "market",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -829,6 +892,7 @@
     "level_source": "curated_a1_starter",
     "topic": "places",
     "translation": "shop",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -842,6 +906,7 @@
     "level_source": "curated_a1_starter",
     "topic": "transport",
     "translation": "car",
+    "gloss_def": true,
     "example": "Das Auto ist neu."
   },
   {
@@ -855,6 +920,7 @@
     "level_source": "curated_a1_starter",
     "topic": "transport",
     "translation": "bus",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -868,6 +934,7 @@
     "level_source": "curated_a1_starter",
     "topic": "transport",
     "translation": "train",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -881,6 +948,7 @@
     "level_source": "curated_a1_starter",
     "topic": "transport",
     "translation": "bicycle",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -894,6 +962,7 @@
     "level_source": "curated_a1_starter",
     "topic": "transport",
     "translation": "airplane",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -907,6 +976,7 @@
     "level_source": "curated_a1_starter",
     "topic": "transport",
     "translation": "taxi",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -920,6 +990,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "day",
+    "gloss_def": true,
     "example": "Der Tag ist lang."
   },
   {
@@ -933,6 +1004,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "night",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -946,6 +1018,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "week",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -959,6 +1032,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "month",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -972,6 +1046,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "year",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -985,6 +1060,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "hour",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -998,6 +1074,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "minute",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1011,6 +1088,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "time",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -1024,6 +1102,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "morning",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1037,6 +1116,7 @@
     "level_source": "curated_a1_starter",
     "topic": "time",
     "translation": "evening",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1050,6 +1130,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "sun",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1063,6 +1144,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "rain",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -1076,6 +1158,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "snow",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -1089,6 +1172,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "wind",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1102,6 +1186,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "sky",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1115,6 +1200,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "tree",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1128,6 +1214,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "flower",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1141,6 +1228,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "weather",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -1154,6 +1242,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "sea",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1167,6 +1256,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "mountain",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1180,6 +1270,7 @@
     "level_source": "curated_a1_starter",
     "topic": "nature",
     "translation": "lake",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1193,6 +1284,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "work",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -1206,6 +1298,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "profession",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1219,6 +1312,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "office",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1232,6 +1326,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "computer",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1245,6 +1340,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "telephone",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1258,6 +1354,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "mobile phone",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1271,6 +1368,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "book",
+    "gloss_def": true,
     "example": "Ich lese ein Buch."
   },
   {
@@ -1284,6 +1382,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "pen",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1297,6 +1396,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "question",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1310,6 +1410,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "answer",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1323,6 +1424,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "word",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1336,6 +1438,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "language",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1349,6 +1452,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "problem",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1362,6 +1466,7 @@
     "level_source": "curated_a1_starter",
     "topic": "work",
     "translation": "money",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -1375,6 +1480,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "head",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1388,6 +1494,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "hand",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1401,6 +1508,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "foot",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1414,6 +1522,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "eye",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1427,6 +1536,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "ear",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1440,6 +1550,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "mouth",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1453,6 +1564,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "nose",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1466,6 +1578,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "arm",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1479,6 +1592,7 @@
     "level_source": "curated_a1_starter",
     "topic": "body",
     "translation": "leg",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1492,6 +1606,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "card / ticket",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1505,6 +1620,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "letter",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1518,6 +1634,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "newspaper",
+    "gloss_def": true,
     "example": "Die Zeitung liegt auf dem Tisch."
   },
   {
@@ -1531,6 +1648,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "picture",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1544,6 +1662,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "music",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -1557,6 +1676,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "film",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1570,6 +1690,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "game",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1583,6 +1704,7 @@
     "level_source": "curated_a1_starter",
     "topic": "misc",
     "translation": "colour",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1596,6 +1718,7 @@
     "level_source": "curated_a1_starter",
     "topic": "animals",
     "translation": "dog",
+    "gloss_def": true,
     "example": "Der Hund schläft."
   },
   {
@@ -1609,6 +1732,7 @@
     "level_source": "curated_a1_starter",
     "topic": "animals",
     "translation": "cat",
+    "gloss_def": true,
     "example": "Die Katze ist klein."
   },
   {
@@ -1622,6 +1746,7 @@
     "level_source": "curated",
     "topic": "people",
     "translation": "human being",
+    "gloss_def": true,
     "example": "Der Mensch lernt sein Leben lang."
   },
   {
@@ -1635,6 +1760,7 @@
     "level_source": "curated",
     "topic": "people",
     "translation": "person",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1648,6 +1774,7 @@
     "level_source": "curated",
     "topic": "people",
     "translation": "neighbour",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1661,6 +1788,7 @@
     "level_source": "curated",
     "topic": "people",
     "translation": "guest",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1674,6 +1802,7 @@
     "level_source": "curated",
     "topic": "people",
     "translation": "partner",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1687,6 +1816,7 @@
     "level_source": "curated",
     "topic": "people",
     "translation": "couple",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1700,6 +1830,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "husband",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1713,6 +1844,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "wife",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1726,6 +1858,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "grandfather",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1739,6 +1872,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "grandmother",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1752,6 +1886,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "grandchild",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1765,6 +1900,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "uncle",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1778,6 +1914,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "aunt",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1791,6 +1928,7 @@
     "level_source": "curated",
     "topic": "family",
     "translation": "baby",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1804,6 +1942,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "colleague",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1817,6 +1956,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "boss",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1830,6 +1970,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "wall",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1843,6 +1984,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "floor",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1856,6 +1998,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "staircase",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1869,6 +2012,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "cellar",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1882,6 +2026,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "roof",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1895,6 +2040,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "balcony",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1908,6 +2054,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "sofa",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1921,6 +2068,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "carpet",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1934,6 +2082,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "mirror",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1947,6 +2096,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "shelf",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1960,6 +2110,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "pillow",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1973,6 +2124,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "washing machine",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1986,6 +2138,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "fridge",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -1999,6 +2152,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "heating",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2012,6 +2166,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "key",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2025,6 +2180,7 @@
     "level_source": "curated",
     "topic": "home",
     "translation": "garage",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2038,6 +2194,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "breakfast",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2051,6 +2208,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "lunch",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2064,6 +2222,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "dinner",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2077,6 +2236,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "meal",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2090,6 +2250,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "rice",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -2103,6 +2264,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "noodle",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2116,6 +2278,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "potato",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2129,6 +2292,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "tomato",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2142,6 +2306,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "onion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2155,6 +2320,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "salad",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2168,6 +2334,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "sausage",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2181,6 +2348,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "ham",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2194,6 +2362,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "jam",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2207,6 +2376,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "honey",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2220,6 +2390,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "flour",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -2233,6 +2404,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "pepper",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2246,6 +2418,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "chocolate",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2259,6 +2432,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "ice cream",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2272,6 +2446,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "bottle",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2285,6 +2460,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "glass",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2298,6 +2474,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "plate",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2311,6 +2488,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "cup",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2324,6 +2502,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "spoon",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2337,6 +2516,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "fork",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2350,6 +2530,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "knife",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2363,6 +2544,7 @@
     "level_source": "curated",
     "topic": "food",
     "translation": "beverage",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2376,6 +2558,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "village",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2389,6 +2572,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "country",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2402,6 +2586,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "square",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2415,6 +2600,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "bridge",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2428,6 +2614,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "corner",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2441,6 +2628,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "pharmacy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2454,6 +2642,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "bakery",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2467,6 +2656,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "library",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2480,6 +2670,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "museum",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2493,6 +2684,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "theatre",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2506,6 +2698,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "swimming pool",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2519,6 +2712,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "post office",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2532,6 +2726,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "town hall",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2545,6 +2740,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "petrol station",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2558,6 +2754,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "car park",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2571,6 +2768,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "building",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2584,6 +2782,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "forest",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2597,6 +2796,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "field",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2610,6 +2810,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "island",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2623,6 +2824,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "river",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2636,6 +2838,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "journey",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2649,6 +2852,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "ride",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2662,6 +2866,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "ticket",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2675,6 +2880,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "travel ticket",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2688,6 +2894,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "suitcase",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2701,6 +2908,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "bag",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2714,6 +2922,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "backpack",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2727,6 +2936,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "driving licence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2740,6 +2950,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "identity card",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2753,6 +2964,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "passport",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2766,6 +2978,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "accident",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2779,6 +2992,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "ship",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2792,6 +3006,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "appointment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2805,6 +3020,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "date",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2818,6 +3034,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "birthday",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2831,6 +3048,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "weekend",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2844,6 +3062,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "noon",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2857,6 +3076,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "second",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2870,6 +3090,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "future",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2883,6 +3104,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "moment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2896,6 +3118,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "spring",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2909,6 +3132,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "summer",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2922,6 +3146,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "autumn",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2935,6 +3160,7 @@
     "level_source": "curated",
     "topic": "time",
     "translation": "winter",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2948,6 +3174,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "earth",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2961,6 +3188,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "moon",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2974,6 +3202,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "star",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -2987,6 +3216,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "cloud",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3000,6 +3230,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "storm",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3013,6 +3244,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "air",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -3026,6 +3258,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "fire",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3039,6 +3272,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "stone",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3052,6 +3286,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "leaf",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3065,6 +3300,7 @@
     "level_source": "curated",
     "topic": "animals",
     "translation": "animal",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3078,6 +3314,7 @@
     "level_source": "curated",
     "topic": "animals",
     "translation": "bird",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3091,6 +3328,7 @@
     "level_source": "curated",
     "topic": "animals",
     "translation": "horse",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3104,6 +3342,7 @@
     "level_source": "curated",
     "topic": "animals",
     "translation": "cow",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3117,6 +3356,7 @@
     "level_source": "curated",
     "topic": "animals",
     "translation": "mouse",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3130,6 +3370,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "body",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3143,6 +3384,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "face",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3156,6 +3398,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "hair",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3169,6 +3412,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "tooth",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3182,6 +3426,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "neck",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3195,6 +3440,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "back",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3208,6 +3454,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "heart",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3221,6 +3468,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "finger",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3234,6 +3482,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "skin",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3247,6 +3496,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "blood",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3260,6 +3510,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "health",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -3273,6 +3524,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "illness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3286,6 +3538,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "pain",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3299,6 +3552,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "fever",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3312,6 +3566,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "doctor",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3325,6 +3580,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "medication",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3338,6 +3594,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "pill",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3351,6 +3608,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "pupil",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3364,6 +3622,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "teacher",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3377,6 +3636,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "student",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3390,6 +3650,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "exam",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3403,6 +3664,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "grade",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3416,6 +3678,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "class",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3429,6 +3692,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "task",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3442,6 +3706,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "exercise",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3455,6 +3720,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "notebook",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3468,6 +3734,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "paper",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3481,6 +3748,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "course",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3494,6 +3762,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "topic",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3507,6 +3776,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "text",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3520,6 +3790,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "sentence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3533,6 +3804,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "story",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3546,6 +3818,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "number",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3559,6 +3832,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "address",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3572,6 +3846,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "message",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3585,6 +3860,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "thing",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3598,6 +3874,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "object",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3611,6 +3888,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "idea",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3624,6 +3902,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "plan",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3637,6 +3916,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "reason",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3650,6 +3930,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "example",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3663,6 +3944,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "help",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -3676,6 +3958,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "group",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3689,6 +3972,7 @@
     "level_source": "curated",
     "topic": "shopping",
     "translation": "price",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3702,6 +3986,7 @@
     "level_source": "curated",
     "topic": "shopping",
     "translation": "bill",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3715,6 +4000,7 @@
     "level_source": "curated",
     "topic": "shopping",
     "translation": "checkout",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3728,6 +4014,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "dress",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3741,6 +4028,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "trousers",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3754,6 +4042,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "shirt",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3767,6 +4056,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "jacket",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3780,6 +4070,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "coat",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3793,6 +4084,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "shoe",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3806,6 +4098,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "sweater",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3819,6 +4112,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "skirt",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3832,6 +4126,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "hat",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3845,6 +4140,7 @@
     "level_source": "curated",
     "topic": "clothes",
     "translation": "glasses",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3858,6 +4154,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "population",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3871,6 +4168,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "citizen",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3884,6 +4182,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "society",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3897,6 +4196,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "community",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3910,6 +4210,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "refugee",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3923,6 +4224,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "foreigner",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3936,6 +4238,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "politician",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3949,6 +4252,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "member",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3962,6 +4266,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "audience",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3975,6 +4280,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "generation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -3988,6 +4294,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "youth",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4001,6 +4308,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "company",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4014,6 +4322,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "firm",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4027,6 +4336,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "industry",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4040,6 +4350,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "economy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4053,6 +4364,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "trade",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4066,6 +4378,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "salary",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4079,6 +4392,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "wage",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4092,6 +4406,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "tax",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4105,6 +4420,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "contract",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4118,6 +4434,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "application",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4131,6 +4448,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "position",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4144,6 +4462,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "career",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4157,6 +4476,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "success",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4170,6 +4490,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "experience",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4183,6 +4504,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "training",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4196,6 +4518,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "degree",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4209,6 +4532,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "knowledge",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -4222,6 +4546,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "ability",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4235,6 +4560,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "responsibility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4248,6 +4574,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "performance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4261,6 +4588,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "session",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4274,6 +4602,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "meeting",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4287,6 +4616,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "project",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4300,6 +4630,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "goal",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4313,6 +4644,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "result",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4326,6 +4658,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "solution",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4339,6 +4672,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "decision",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4352,6 +4686,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "possibility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4365,6 +4700,7 @@
     "level_source": "curated",
     "topic": "work",
     "translation": "condition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4378,6 +4714,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "right",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4391,6 +4728,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "law",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4404,6 +4742,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "government",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4417,6 +4756,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "state",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4430,6 +4770,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "politics",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4443,6 +4784,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "election",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4456,6 +4798,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "freedom",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -4469,6 +4812,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "peace",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -4482,6 +4826,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "war",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4495,6 +4840,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "violence",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -4508,6 +4854,7 @@
     "level_source": "curated",
     "topic": "society",
     "translation": "power",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4521,6 +4868,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "opinion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4534,6 +4882,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "discussion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4547,6 +4896,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "argument",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4560,6 +4910,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "conflict",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4573,6 +4924,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "relationship",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4586,6 +4938,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "feeling",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4599,6 +4952,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "love",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -4612,6 +4966,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "fear",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -4625,6 +4980,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "hope",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -4638,6 +4994,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "wish",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4651,6 +5008,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "dream",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4664,6 +5022,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "memory",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4677,6 +5036,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "truth",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4690,6 +5050,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "lie",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4703,6 +5064,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "secret",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4716,6 +5078,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "trust",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4729,6 +5092,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "respect",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4742,6 +5106,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "character",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4755,6 +5120,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "trait",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4768,6 +5134,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "behaviour",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4781,6 +5148,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "habit",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4794,6 +5162,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "difference",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4807,6 +5176,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "advantage",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4820,6 +5190,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "disadvantage",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4833,6 +5204,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "suggestion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4846,6 +5218,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "meaning",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4859,6 +5232,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "connection",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4872,6 +5246,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "effect",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4885,6 +5260,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "consequence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4898,6 +5274,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "cause",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4911,6 +5288,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "purpose",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4924,6 +5302,7 @@
     "level_source": "curated",
     "topic": "abstract",
     "translation": "intention",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4937,6 +5316,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "television",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4950,6 +5330,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "broadcast",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4963,6 +5344,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "advertising",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4976,6 +5358,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "report",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -4989,6 +5372,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "article",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5002,6 +5386,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "magazine",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5015,6 +5400,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "advert",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5028,6 +5414,7 @@
     "level_source": "curated",
     "topic": "media",
     "translation": "internet",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5041,6 +5428,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "screen",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5054,6 +5442,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "keyboard",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5067,6 +5456,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "file",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5080,6 +5470,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "programme",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5093,6 +5484,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "technology",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5106,6 +5498,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "machine",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5119,6 +5512,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "device",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5132,6 +5526,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "electricity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5145,6 +5540,7 @@
     "level_source": "curated",
     "topic": "tech",
     "translation": "energy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5158,6 +5554,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "environment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5171,6 +5568,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "nature",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -5184,6 +5582,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "climate",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5197,6 +5596,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "plant",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5210,6 +5610,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "root",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5223,6 +5624,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "rubbish",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -5236,6 +5638,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "waste",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5249,6 +5652,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "danger",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5262,6 +5666,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "protection",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5275,6 +5680,7 @@
     "level_source": "curated",
     "topic": "nature",
     "translation": "landscape",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5288,6 +5694,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "area",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5301,6 +5708,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "surroundings",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5314,6 +5722,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "direction",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5327,6 +5736,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "distance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5340,6 +5750,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "view",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5353,6 +5764,7 @@
     "level_source": "curated",
     "topic": "travel",
     "translation": "holiday",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5366,6 +5778,7 @@
     "level_source": "curated",
     "topic": "travel",
     "translation": "excursion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5379,6 +5792,7 @@
     "level_source": "curated",
     "topic": "travel",
     "translation": "accommodation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5392,6 +5806,7 @@
     "level_source": "curated",
     "topic": "places",
     "translation": "border",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5405,6 +5820,7 @@
     "level_source": "curated",
     "topic": "travel",
     "translation": "luggage",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -5418,6 +5834,7 @@
     "level_source": "curated",
     "topic": "travel",
     "translation": "delay",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5431,6 +5848,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "traffic",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -5444,6 +5862,7 @@
     "level_source": "curated",
     "topic": "transport",
     "translation": "route",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5457,6 +5876,7 @@
     "level_source": "curated",
     "topic": "leisure",
     "translation": "event",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5470,6 +5890,7 @@
     "level_source": "curated",
     "topic": "leisure",
     "translation": "admission",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5483,6 +5904,7 @@
     "level_source": "curated",
     "topic": "leisure",
     "translation": "concert",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5496,6 +5918,7 @@
     "level_source": "curated",
     "topic": "leisure",
     "translation": "exhibition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5509,6 +5932,7 @@
     "level_source": "curated",
     "topic": "leisure",
     "translation": "hobby",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5522,6 +5946,7 @@
     "level_source": "curated",
     "topic": "sport",
     "translation": "sport",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5535,6 +5960,7 @@
     "level_source": "curated",
     "topic": "leisure",
     "translation": "club",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5548,6 +5974,7 @@
     "level_source": "curated",
     "topic": "sport",
     "translation": "competition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5561,6 +5988,7 @@
     "level_source": "curated",
     "topic": "sport",
     "translation": "team",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5574,6 +6002,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "treatment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5587,6 +6016,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "injury",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5600,6 +6030,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "operation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5613,6 +6044,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "examination",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5626,6 +6058,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "nutrition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5639,6 +6072,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "movement",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5652,6 +6086,7 @@
     "level_source": "curated",
     "topic": "misc",
     "translation": "break",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5665,6 +6100,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "sleep",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -5678,6 +6114,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "stress",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -5691,6 +6128,7 @@
     "level_source": "curated",
     "topic": "body",
     "translation": "strength",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5704,6 +6142,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "assumption",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5717,6 +6156,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "conception",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5730,6 +6170,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "claim",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5743,6 +6184,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "effort",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5756,6 +6198,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "expression",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5769,6 +6212,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "impact",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5782,6 +6226,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "concept",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5795,6 +6240,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "field",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5808,6 +6254,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "proof",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5821,6 +6268,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "contribution",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5834,6 +6282,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "observation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5847,6 +6296,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "endeavour",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5860,6 +6310,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "consciousness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5873,6 +6324,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "representation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5886,6 +6338,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "influence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5899,6 +6352,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "deployment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5912,6 +6366,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "attitude",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5925,6 +6380,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "development",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5938,6 +6394,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "insight",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5951,6 +6408,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "explanation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5964,6 +6422,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "phenomenon",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5977,6 +6436,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "expectation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -5990,6 +6450,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "demand",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6003,6 +6464,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "research",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6016,6 +6478,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "thought",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6029,6 +6492,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "contrast",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6042,6 +6506,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "basis",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6055,6 +6520,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "stance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6068,6 +6534,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "challenge",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6081,6 +6548,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "respect",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6094,6 +6562,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "indication",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6107,6 +6576,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "measure",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6120,6 +6590,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "characteristic",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6133,6 +6604,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "method",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6146,6 +6618,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "demand",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6159,6 +6632,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "inclination",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6172,6 +6646,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "perspective",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6185,6 +6660,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "phenomenon",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6198,6 +6674,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "principle",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6211,6 +6688,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "process",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6224,6 +6702,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "framework",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6237,6 +6716,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "difficulty",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6250,6 +6730,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "standpoint",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6263,6 +6744,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "fact",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6276,6 +6758,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "theory",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6289,6 +6772,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "thesis",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6302,6 +6786,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "conviction",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6315,6 +6800,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "circumstance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6328,6 +6814,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "origin",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6341,6 +6828,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "change",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6354,6 +6842,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "connection",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6367,6 +6856,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "procedure",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6380,6 +6870,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "comparison",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6393,6 +6884,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "ratio",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6406,6 +6898,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "supposition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6419,6 +6912,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "prerequisite",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6432,6 +6926,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "process",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6445,6 +6940,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "perception",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6458,6 +6954,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "contradiction",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6471,6 +6968,7 @@
     "level_source": "frequency",
     "topic": "work",
     "translation": "cooperation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6484,6 +6982,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "condition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6497,6 +6996,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "doubt",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6510,6 +7010,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "share",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6523,6 +7024,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "expenditure",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6536,6 +7038,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "revenue",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6549,6 +7052,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "profit",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6562,6 +7066,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "loss",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6575,6 +7080,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "guilt",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6588,6 +7094,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "household budget",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6601,6 +7108,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "capital",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6614,6 +7122,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "competition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6627,6 +7136,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "crisis",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6640,6 +7150,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "production",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6653,6 +7164,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "raw material",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6666,6 +7178,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "turnover",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6679,6 +7192,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "insurance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6692,6 +7206,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "assets",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6705,6 +7220,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "growth",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6718,6 +7234,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "investment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6731,6 +7248,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "authority",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6744,6 +7262,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "administration",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6757,6 +7276,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "constitution",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6770,6 +7290,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "verdict",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6783,6 +7304,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "court",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6796,6 +7318,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "crime",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6809,6 +7332,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "suspicion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6822,6 +7346,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "punishment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6835,6 +7360,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "witness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6848,6 +7374,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "agreement",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6861,6 +7388,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "democracy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6874,6 +7402,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "party",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6887,6 +7416,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "duty",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6900,6 +7430,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "negotiation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6913,6 +7444,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "alliance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6926,6 +7458,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "reform",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6939,6 +7472,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "science",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6952,6 +7486,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "education",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6965,6 +7500,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "knowledge",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6978,6 +7514,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "study",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -6991,6 +7528,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "source",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7004,6 +7542,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "justification",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7017,6 +7556,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "summary",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7030,6 +7570,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "overview",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7043,6 +7584,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "discipline",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7056,6 +7598,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "mood",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7069,6 +7612,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "patience",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -7082,6 +7626,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "courage",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -7095,6 +7640,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "pride",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -7108,6 +7654,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "envy",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -7121,6 +7668,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "anger",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -7134,6 +7682,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "grief",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7147,6 +7696,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "joy",
+    "gloss_def": false,
     "example": null
   },
   {
@@ -7160,6 +7710,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "worry",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7173,6 +7724,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "satisfaction",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7186,6 +7738,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "disappointment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7199,6 +7752,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "impression",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7212,6 +7766,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "longing",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7225,6 +7780,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "benchmark",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7238,6 +7794,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "conclusion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7251,6 +7808,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "point of view",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7264,6 +7822,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "viewpoint",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7277,6 +7836,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "upturn",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7290,6 +7850,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "aversion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7303,6 +7864,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "allusion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7316,6 +7878,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "concern",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7329,6 +7892,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "confrontation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7342,6 +7906,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "apprehension",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7355,6 +7920,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "assertion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7368,6 +7934,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "quality",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7381,6 +7948,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "prudence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7394,6 +7962,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "endeavour",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7407,6 +7976,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "probation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7420,6 +7990,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "discrepancy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7433,6 +8004,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "peculiarity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7446,6 +8018,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "bottleneck",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7459,6 +8032,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "unfolding",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7472,6 +8046,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "deliberation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7485,6 +8060,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "achievement",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7498,6 +8074,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "composure",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7511,6 +8088,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "custom",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7524,6 +8102,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "disdain",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7537,6 +8116,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "mindset",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7550,6 +8130,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "equilibrium",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7563,6 +8144,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "indifference",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7576,6 +8158,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "generosity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7589,6 +8172,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "persistence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7602,6 +8186,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "devotion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7615,6 +8200,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "epitome",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7628,6 +8214,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "complexity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7641,6 +8228,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "compromise",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7654,6 +8242,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "distrust",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7667,6 +8256,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "emphasis",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7680,6 +8270,7 @@
     "level_source": "frequency",
     "topic": "nature",
     "translation": "sustainability",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7693,6 +8284,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "nuance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7706,6 +8298,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "custody",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7719,6 +8312,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "openness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7732,6 +8326,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "consideration",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7745,6 +8340,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "acumen",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7758,6 +8354,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "matter of course",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7771,6 +8368,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "scepticism",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7784,6 +8382,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "scope",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7797,6 +8396,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "virtue",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7810,6 +8410,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "excessive demand",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7823,6 +8424,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "accord",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7836,6 +8438,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "circumspection",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7849,6 +8452,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "unease",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7862,6 +8466,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "displeasure",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7875,6 +8480,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "uncertainty",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7888,6 +8494,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "decree",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7901,6 +8508,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "transience",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7914,6 +8522,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "discretion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7927,6 +8536,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "bias",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7940,6 +8550,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "reservation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7953,6 +8564,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "melancholy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7966,6 +8578,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "arbitrariness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7979,6 +8592,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "restraint",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -7992,6 +8606,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "confidence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8005,6 +8620,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "compulsion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8018,6 +8634,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "inner conflict",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8031,6 +8648,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "term of office",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8044,6 +8662,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "supervision",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8057,6 +8676,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "authority",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8070,6 +8690,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "resolution",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8083,6 +8704,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "provision",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8096,6 +8718,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "objection",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8109,6 +8732,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "discretion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8122,6 +8746,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "legislation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8135,6 +8760,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "equal rights",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8148,6 +8774,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "inflation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8161,6 +8788,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "recession",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8174,6 +8802,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "economic cycle",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8187,6 +8816,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "liquidity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8200,6 +8830,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "yield",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8213,6 +8844,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "speculation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8226,6 +8858,7 @@
     "level_source": "frequency",
     "topic": "economy",
     "translation": "indebtedness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8239,6 +8872,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "jurisdiction",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8252,6 +8886,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "approval",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8265,6 +8900,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "reproach",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8278,6 +8914,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "leniency",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8291,6 +8928,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "diligence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8304,6 +8942,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "abstraction",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8317,6 +8956,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "hypothesis",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8330,6 +8970,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "correlation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8343,6 +8984,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "generalisation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8356,6 +8998,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "interaction",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8369,6 +9012,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "incident",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8382,6 +9026,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "viability",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8395,6 +9040,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "insight",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8408,6 +9054,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "tenacity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8421,6 +9068,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "sincerity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8434,6 +9082,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "modesty",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8447,6 +9096,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "determination",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8460,6 +9110,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "conscientiousness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8473,6 +9124,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "caution",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8486,6 +9138,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "ambition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8499,6 +9152,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "zeal",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8512,6 +9166,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "resentment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8525,6 +9180,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "suspicion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8538,6 +9194,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "drive",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8551,6 +9208,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "dignity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8564,6 +9222,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "humility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8577,6 +9236,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "anxiety",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8590,6 +9250,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "despair",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8603,6 +9264,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "disillusionment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8616,6 +9278,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "self-consciousness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8629,6 +9292,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "certainty",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8642,6 +9306,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "uncertainty",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8655,6 +9320,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "expediency",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8668,6 +9334,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "necessity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8681,6 +9348,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "arbitrariness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8694,6 +9362,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "diversity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8707,6 +9376,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "monotony",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8720,6 +9390,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "constancy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8733,6 +9404,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "retaliation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8746,6 +9418,7 @@
     "level_source": "frequency",
     "topic": "body",
     "translation": "aftercare",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8759,6 +9432,7 @@
     "level_source": "frequency",
     "topic": "body",
     "translation": "precaution",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8772,6 +9446,7 @@
     "level_source": "frequency",
     "topic": "body",
     "translation": "recovery",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8785,6 +9460,7 @@
     "level_source": "frequency",
     "topic": "body",
     "translation": "exhaustion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8798,6 +9474,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "strain",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8811,6 +9488,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "relief",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8824,6 +9502,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "coping",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8837,6 +9516,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "repression",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8850,6 +9530,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "indignation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8863,6 +9544,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "outrage",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8876,6 +9558,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "pang of conscience",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8889,6 +9572,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "affection",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8902,6 +9586,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "meticulousness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8915,6 +9600,7 @@
     "level_source": "frequency",
     "topic": "academic",
     "translation": "allegory",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8928,6 +9614,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "ambivalence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8941,6 +9628,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "presumption",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8954,6 +9642,7 @@
     "level_source": "frequency",
     "topic": "body",
     "translation": "countenance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8967,6 +9656,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "appeasement",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8980,6 +9670,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "motive",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -8993,6 +9684,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "explosiveness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9006,6 +9698,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "burden",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9019,6 +9712,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "dispute",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9032,6 +9726,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "concord",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9045,6 +9740,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "susceptibility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9058,6 +9754,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "deprivation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9071,6 +9768,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "sublimity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9084,6 +9782,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "sacrilege",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9097,6 +9796,7 @@
     "level_source": "frequency",
     "topic": "body",
     "translation": "infirmity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9110,6 +9810,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "affectation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9123,6 +9824,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "disposition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9136,6 +9838,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "triviality",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9149,6 +9852,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "suppleness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9162,6 +9866,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "equanimity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9175,6 +9880,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "quarrel",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9188,6 +9894,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "gloating",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9201,6 +9908,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "arrogance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9214,6 +9922,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "fervour",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9227,6 +9936,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "hot temper",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9240,6 +9950,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "barrenness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9253,6 +9964,7 @@
     "level_source": "frequency",
     "topic": "society",
     "translation": "servitude",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9266,6 +9978,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "conformity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9279,6 +9992,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "integrity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9292,6 +10006,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "lethargy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9305,6 +10020,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "blemish",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9318,6 +10034,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "resentment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9331,6 +10048,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "leisure",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9344,6 +10062,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "negligence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9357,6 +10076,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "triviality",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9370,6 +10090,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "baseness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9383,6 +10104,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "torment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9396,6 +10118,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "reverence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9409,6 +10132,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "conciseness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9422,6 +10146,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "talkativeness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9435,6 +10160,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "remorse",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9448,6 +10174,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "gentleness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9461,6 +10188,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "disgrace",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9474,6 +10202,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "melancholy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9487,6 +10216,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "complacency",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9500,6 +10230,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "morality",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9513,6 +10244,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "hairsplitting",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9526,6 +10258,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "steadfastness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9539,6 +10272,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "cogency",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9552,6 +10286,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "subtlety",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9565,6 +10300,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "reproach",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9578,6 +10314,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "tact",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9591,6 +10328,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "dreariness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9604,6 +10342,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "treachery",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9617,6 +10356,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "weariness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9630,6 +10370,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "haughtiness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9643,6 +10384,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "indispensability",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9656,6 +10398,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "inflexibility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9669,6 +10412,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "intolerance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9682,6 +10426,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "infallibility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9695,6 +10440,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "adversity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9708,6 +10454,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "immediacy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9721,6 +10468,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "intransigence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9734,6 +10482,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "incompatibility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9747,6 +10496,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "audacity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9760,6 +10510,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "doggedness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9773,6 +10524,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "sullenness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9786,6 +10538,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "transfiguration",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9799,6 +10552,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "hubris",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9812,6 +10566,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "cunning",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9825,6 +10580,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "reconciliation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9838,6 +10594,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "familiarity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9851,6 +10608,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "depravity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9864,6 +10622,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "premonition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9877,6 +10636,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "fickleness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9890,6 +10650,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "disposition",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9903,6 +10664,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "reluctance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9916,6 +10678,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "compliance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9929,6 +10692,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "benevolence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9942,6 +10706,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "timidity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9955,6 +10720,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "inner turmoil",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9968,6 +10734,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "diversion",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9981,6 +10748,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "adornment",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -9994,6 +10762,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "discord",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10007,6 +10776,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "contemplativeness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10020,6 +10790,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "deliberateness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10033,6 +10804,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "state of mind",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10046,6 +10818,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "solidity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10059,6 +10832,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "frugality",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10072,6 +10846,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "grace",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10085,6 +10860,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "bliss",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10098,6 +10874,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "jubilation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10111,6 +10888,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "momentum",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10124,6 +10902,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "verve",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10137,6 +10916,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "drive",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10150,6 +10930,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "docility",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10163,6 +10944,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "resistance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10176,6 +10958,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "resilience",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10189,6 +10972,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "vanity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10202,6 +10986,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "greed",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10215,6 +11000,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "malicious joy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10228,6 +11014,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "lamentation",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10241,6 +11028,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "gloom",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10254,6 +11042,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "cheerfulness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10267,6 +11056,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "restlessness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10280,6 +11070,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "oppression",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10293,6 +11084,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "bitterness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10306,6 +11098,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "uniformity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10319,6 +11112,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "assiduity",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10332,6 +11126,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "extravagance",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10345,6 +11140,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "edification",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10358,6 +11154,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "bombast",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10371,6 +11168,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "expansiveness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10384,6 +11182,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "eloquence",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10397,6 +11196,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "shrewdness",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10410,6 +11210,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "obduracy",
+    "gloss_def": true,
     "example": null
   },
   {
@@ -10423,6 +11224,7 @@
     "level_source": "frequency",
     "topic": "abstract",
     "translation": "integrity",
+    "gloss_def": true,
     "example": null
   }
 ]

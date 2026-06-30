@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from "react";
 import NOUNS from "./data/nouns.json";
 import { Store } from "./lib/db.js";
 import {
@@ -171,6 +171,11 @@ export default function App() {
   // The current card is off-schedule recycled filler (interleaving only, never
   // graded) when it's in the filler set and we're not in cram (#2).
   const reviewOnly = !cram && currentId != null && fillerRef.current.has(currentId);
+  // The shared answer pill tints to the article's gender color only once revealed
+  // (and only when color-coding is on); until then it stays neutral.
+  const answerColor = card
+    ? (phase === "revealed" && colorCoding ? GENDER[card.article] : NEUTRAL)
+    : NEUTRAL;
 
   // Reconcile with the backend (if signed in), then refresh in-memory state from
   // whatever the pull may have changed. Safe to call anytime; no-ops when local.
@@ -385,6 +390,31 @@ export default function App() {
     setPhase(next.length ? "question" : "done");
   }, [pending, queue, cram, applyAdvance]);
 
+  // The answer pill is a single element that persists across cards (the trainer
+  // card is intentionally not re-keyed per card). When the noun changes, animate
+  // its width from the old word's to the new word's so the box visibly resizes
+  // instead of popping. FLIP: measure natural width, jump back to the old width
+  // with transitions off, then release to the new width so CSS eases it.
+  const pillRef = useRef(null);
+  const prevPillW = useRef(null);
+  useLayoutEffect(() => {
+    const el = pillRef.current;
+    if (!el) { prevPillW.current = null; return; }
+    const from = prevPillW.current;
+    el.style.width = "auto";
+    const target = el.offsetWidth;
+    if (from != null && from !== target) {
+      el.style.transition = "none";
+      el.style.width = from + "px";
+      void el.offsetWidth; // force reflow so the next change animates
+      el.style.transition = "";
+      el.style.width = target + "px";
+    } else {
+      el.style.width = target + "px";
+    }
+    prevPillW.current = target;
+  }, [currentId]);
+
   // ---- keyboard ----
   useEffect(() => {
     const onKey = (e) => {
@@ -574,27 +604,48 @@ export default function App() {
         </div>
 
         {phase !== "done" && card && (
-          <main className="dq-card" key={currentId + "-" + phase}>
+          // Deliberately NOT keyed per card: the trainer card (and its answer
+          // pill) persists across cards so question→reveal AND card→card both
+          // mutate in place — the pill recolors to neutral and resizes to the
+          // next word instead of the whole card fading out and back in.
+          <main className={"dq-card dq-trainer dq-" + phase}>
+            {/* Verdict mark in the top-right corner (absolutely positioned, so it
+                never shifts the noun): a green check when correct, a red ✕ when not. */}
+            {phase === "revealed" && pending && (
+              <div className={"dq-mark " + (pending.correct ? "dq-mark-ok" : "dq-mark-no")}
+                   aria-label={pending.correct ? "correct" : `incorrect — you tapped ${pending.tapped}`}>
+                {pending.correct ? "✓" : "✕"}
+              </div>
+            )}
+
+            {/* Shared answer pill, identical in both phases: the underscores fade
+                out as the real article fades in, and the noun never moves. */}
+            <div className="dq-answer" ref={pillRef} style={{ "--c": answerColor.main, "--cs": answerColor.soft }}>
+              <span className="dq-art">
+                <span className="dq-art-ph">___</span>
+                <span className="dq-art-real">{card.article}</span>
+              </span>
+              <span className="dq-noun">{card.lemma}</span>
+            </div>
+
+            {/* Lower panel: the article buttons on the question, the reveal detail
+                on the answer — cross-faded so only this region changes. */}
             {phase === "question" ? (
-              <>
-                <div className="dq-lemma">{card.lemma}</div>
-                <div className="dq-choices">
-                  {ARTICLES.map((art, i) => (
-                    <button
-                      key={art}
-                      className="dq-choice"
-                      style={swatch(art)}
-                      onClick={() => answer(art)}
-                    >
-                      <span className="dq-choice-key">{i + 1}</span>
-                      {art}
-                    </button>
-                  ))}
-                </div>
-              </>
+              <div className="dq-choices">
+                {ARTICLES.map((art, i) => (
+                  <button
+                    key={art}
+                    className="dq-choice"
+                    style={swatch(art)}
+                    onClick={() => answer(art)}
+                  >
+                    <span className="dq-choice-key">{i + 1}</span>
+                    {art}
+                  </button>
+                ))}
+              </div>
             ) : (
-              <Reveal card={card} pending={pending} colorCoding={colorCoding} cram={cram}
-                      review={reviewOnly} palette={GENDER} neutral={NEUTRAL}
+              <Reveal card={card} pending={pending} cram={cram} review={reviewOnly}
                       onOverride={override} onContinue={commit} />
             )}
           </main>
@@ -707,24 +758,20 @@ export default function App() {
   );
 }
 
-function Reveal({ card, pending, colorCoding, cram, review, palette, neutral, onOverride, onContinue }) {
-  const c = colorCoding ? palette[card.article] : neutral;
+function Reveal({ card, pending, cram, review, onOverride, onContinue }) {
   const ratingColor = { [RATING.Again]: "#B23A48", [RATING.Hard]: "#C9772F", [RATING.Good]: "#2F7D58", [RATING.Easy]: "#2D68A8" }[pending.rating];
   const days = (new Date(pending.nextFsrs.due).getTime() - Date.now()) / 86400000;
   // Cram and recycled filler are both off-schedule: no rating applied, no due
   // date change — show raw timing only, never an FSRS interval or override.
   const offSchedule = cram || review;
+  // The verdict and the article+noun pill are rendered by the shared card so they
+  // stay put across the question→reveal transition; this panel is everything that
+  // fades in beneath them.
   return (
     <div className="dq-reveal" onClick={onContinue}>
-      <div className="dq-verdict" style={{ color: pending.correct ? "#2F7D58" : "#B23A48" }}>
-        {pending.correct ? "correct" : `not quite — you tapped ${pending.tapped}`}
-      </div>
-
-      <div className="dq-answer" style={{ "--c": c.main, "--cs": c.soft }}>
-        <span className="dq-art">{card.article}</span>
-        <span className="dq-noun">{card.lemma}</span>
-      </div>
-      {card.translation && <div className="dq-gloss">{card.translation}</div>}
+      {card.translation && (
+        <div className="dq-gloss">English: {card.gloss_def === false ? "" : "the "}{card.translation}</div>
+      )}
       <div className="dq-plural">{card.plural ? `plural: die ${card.plural}` : "no plural (mass noun)"}</div>
       {card.example && <div className="dq-example">{card.example}</div>}
 
@@ -750,7 +797,6 @@ function Reveal({ card, pending, colorCoding, cram, review, palette, neutral, on
               {` · next in ${fmtInterval(days)}`}
             </span>
           </div>
-          <div className="dq-why">{pending.why}</div>
 
           <div className="dq-override" onClick={(e) => e.stopPropagation()}>
             <span>override:</span>
