@@ -34,6 +34,8 @@ html,body,#root{height:100%;margin:0;}
   .dq-choice:hover{filter:brightness(1.1);}
 }
 .dq-loading{margin-top:30vh;color:var(--muted);font-family:'Space Mono',monospace;}
+.dq-error{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:320px;text-align:center;}
+.dq-error .dq-primary{width:auto;padding:0 28px;}
 .dq-shell{width:100%;max-width:440px;display:flex;flex-direction:column;gap:14px;}
 .dq-head{display:flex;align-items:center;justify-content:space-between;}
 .dq-brand{display:flex;flex-direction:column;gap:1px;}
@@ -105,7 +107,7 @@ html,body,#root{height:100%;margin:0;}
 .dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;
   margin-top:26px;animation:dq-fade .26s ease;}
 .dq-answer{display:flex;align-items:baseline;justify-content:center;gap:12px;background:var(--cs);border-radius:14px;
-  padding:14px 22px;white-space:nowrap;transition:background-color .3s ease,width .3s ease;}
+  padding:14px 22px;white-space:nowrap;transition:background-color .3s ease,width .3s ease;max-width:100%;}
 .dq-art{display:inline-grid;justify-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:30px;
   color:var(--c);transition:color .3s ease;}
 .dq-noun{font-family:'Fraunces',serif;font-weight:600;font-size:34px;color:var(--ink);letter-spacing:-.02em;}
