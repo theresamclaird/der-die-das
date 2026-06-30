@@ -12,8 +12,24 @@ const DB_NAME = "der-die-das";
 // sync). The store is intentionally just keys — the card body lives in `cards`.
 const DB_VERSION = 2;
 
-function openDB() {
+// iOS Safari occasionally fires neither `success` nor `error` on the first
+// indexedDB.open() after a page reload, leaving the app hung on "Loading…" with
+// no recovery short of clearing site data (issue #12). Guard every open with a
+// short timeout: re-issue a fresh open() a few times, then surface a real error
+// so the UI can show a retry instead of spinning forever.
+const OPEN_TIMEOUT_MS = 500;
+const OPEN_RETRIES = 4;
+
+function openDB(attempt = 0) {
   return new Promise((resolve, reject) => {
+    let settled = false;
+    let timer;
+    const finish = (fn, arg) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      fn(arg);
+    };
     const req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onupgradeneeded = () => {
       const db = req.result;
@@ -22,8 +38,19 @@ function openDB() {
       if (!db.objectStoreNames.contains("meta")) db.createObjectStore("meta", { keyPath: "key" });
       if (!db.objectStoreNames.contains("dirty")) db.createObjectStore("dirty", { keyPath: "id" });
     };
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
+    req.onsuccess = () => finish(resolve, req.result);
+    req.onerror = () => finish(reject, req.error);
+    req.onblocked = () => {}; // an older connection is open; it will close and we'll proceed
+    timer = setTimeout(() => {
+      if (settled) return;
+      if (attempt < OPEN_RETRIES) {
+        // Abandon the stuck request; a fresh open() almost always settles.
+        settled = true;
+        resolve(openDB(attempt + 1));
+      } else {
+        finish(reject, new Error("IndexedDB open timed out"));
+      }
+    }, OPEN_TIMEOUT_MS);
   });
 }
 
