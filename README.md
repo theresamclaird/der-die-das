@@ -3,6 +3,8 @@
 A German noun-article trainer: practice der/die/das with implicit, latency-based
 grading and FSRS spaced repetition. Personal project.
 
+**Live at [artikelfuchs.com](https://artikelfuchs.com/).**
+
 ## Repository
 
 - **`docs/`** — design (`DESIGN.md`) and implementation plan (`IMPLEMENTATION_PLAN.md`).
