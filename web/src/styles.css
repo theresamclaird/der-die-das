@@ -8,6 +8,8 @@ html,body,#root{height:100%;margin:0;}
   --text2:#3a4047;                 /* secondary body text */
   --brand:#26408A;--brand-soft:#EEF2FA;--brand-border:#9fb3d6;
   --accent-bg:#FBEFD8;--accent-fg:#8A5A12;--accent-border:#E7C77F;  /* practice mode */
+  --danger:#B23A48;--danger-soft:#F7E9EB;--danger-border:#D98A94;   /* self-reported miss */
+  --ok-border:#8FD0AC;                                              /* known / not missed */
   --bar-track:#D5D9DE;
   --btn-bg:#16191D;--btn-fg:#FFFFFF;--btn-bg-hover:#000000;
   --shadow:rgba(20,30,50,.35);
@@ -24,6 +26,8 @@ html,body,#root{height:100%;margin:0;}
     --text2:#BFC6CE;
     --brand:#7FA6E6;--brand-soft:#1D2A41;--brand-border:#36507C;
     --accent-bg:#2E2616;--accent-fg:#E0B25E;--accent-border:#5A4A22;  /* practice mode */
+    --danger:#E78C97;--danger-soft:#3A2127;--danger-border:#7C3B43;   /* self-reported miss */
+    --ok-border:#356C4F;                                              /* known / not missed */
     --bar-track:#2B313A;
     --btn-bg:#3268B0;--btn-fg:#FFFFFF;--btn-bg-hover:#3D78C8;
     --shadow:rgba(0,0,0,.55);
@@ -36,20 +40,21 @@ html,body,#root{height:100%;margin:0;}
 .dq-loading{margin-top:30vh;color:var(--muted);font-family:'Space Mono',monospace;}
 .dq-shell{width:100%;max-width:440px;display:flex;flex-direction:column;gap:14px;}
 .dq-head{display:flex;align-items:center;justify-content:space-between;}
-.dq-brand{display:flex;flex-direction:column;gap:1px;}
+.dq-brand{display:flex;align-items:center;gap:10px;}
+.dq-fox{display:block;flex:none;width:36px;height:36px;}
 .dq-logo{font-family:'Fraunces',serif;font-weight:600;font-size:22px;letter-spacing:-.01em;color:var(--brand);}
-.dq-sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
-.dq-icon{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--surface);
-  color:var(--muted);font-weight:600;cursor:pointer;line-height:1;}
+.dq-icon{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);
+  color:var(--muted);font-weight:600;font-size:16px;cursor:pointer;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center;}
 .dq-icon:hover{color:var(--ink);}
 .dq-info{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px;
   font-size:13px;line-height:1.5;color:var(--text2);}
 .dq-info b{color:var(--ink);} .dq-info em{font-style:italic;}
 .dq-head-actions{display:flex;align-items:center;gap:8px;}
 .dq-icon.on{border-color:var(--brand);color:var(--brand);}
-.dq-pill{height:30px;padding:0 13px;border-radius:99px;border:1px solid var(--line);background:var(--surface);
+.dq-pill{min-height:44px;padding:0 16px;border-radius:99px;border:1px solid var(--line);background:var(--surface);
   color:var(--muted);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.04em;
-  cursor:pointer;line-height:1;white-space:nowrap;}
+  cursor:pointer;line-height:1;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;}
 .dq-pill:hover{color:var(--ink);}
 .dq-pill.on{border-color:var(--brand);color:var(--brand);background:var(--brand-soft);}
 
@@ -57,7 +62,8 @@ html,body,#root{height:100%;margin:0;}
 .dq-levels{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px;
   display:flex;flex-direction:column;gap:11px;animation:dq-in .2s ease;}
 .dq-levels-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;}
-.dq-lvl{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:10px;
+.dq-lvl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:44px;
+  padding:8px 0;border-radius:10px;
   border:1.5px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;
   transition:transform .08s ease,border-color .12s ease,background .12s ease;}
 .dq-lvl:hover{border-color:var(--brand-border);} .dq-lvl:active{transform:scale(.96);}
@@ -65,36 +71,69 @@ html,body,#root{height:100%;margin:0;}
 .dq-lvl-name{font-family:'Fraunces',serif;font-weight:600;font-size:16px;line-height:1;}
 .dq-lvl-count{font-family:'Space Mono',monospace;font-size:10px;opacity:.7;}
 .dq-presets{display:flex;flex-wrap:wrap;gap:6px;}
-.dq-preset{font-size:12px;padding:5px 11px;border-radius:99px;border:1px solid var(--line);background:var(--surface);
-  color:var(--muted);cursor:pointer;font-weight:500;}
+.dq-preset{font-size:12px;min-height:44px;padding:5px 14px;border-radius:99px;border:1px solid var(--line);
+  background:var(--surface);color:var(--muted);cursor:pointer;font-weight:500;
+  display:inline-flex;align-items:center;justify-content:center;}
 .dq-preset:hover{color:var(--ink);border-color:var(--brand-border);}
 .dq-preset.on{border-color:var(--brand);color:var(--brand);background:var(--brand-soft);font-weight:600;}
 .dq-levels-note{font-size:11px;line-height:1.45;color:var(--muted);}
 .dq-bar{height:5px;border-radius:99px;background:var(--bar-track);overflow:hidden;}
 .dq-bar-fill{height:100%;background:linear-gradient(90deg,#2D68A8,#2F7D58);border-radius:99px;transition:width .35s ease;}
 .dq-meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);font-family:'Space Mono',monospace;}
+/* margin:auto centers the card in the space between the meta row and the footer,
+   filling the dead space and pulling the controls into thumb reach. The auto
+   bottom margin also pushes the account/footer group to the bottom of the shell. */
 .dq-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;
   box-shadow:0 12px 30px -18px var(--shadow);display:flex;flex-direction:column;align-items:center;
-  min-height:330px;animation:dq-in .28s cubic-bezier(.2,.7,.3,1);}
+  margin:auto 0;min-height:330px;animation:dq-in .28s cubic-bezier(.2,.7,.3,1);}
+/* Frameless trainer: no bordered card — the word and controls sit directly on the
+   screen (the "island in a void" was the box itself). Top-anchored with a small gap
+   under the meta row (not centered), so the word sits high; the footer is still
+   pushed to the bottom by margin-bottom:auto. Top-anchoring also keeps the word put
+   between the question and reveal phases without needing a height pin. */
+.dq-trainer{min-height:0;background:transparent;border:none;box-shadow:none;border-radius:0;padding:0;
+  margin-top:12px;margin-bottom:auto;}
 @keyframes dq-in{from{opacity:0;transform:translateY(6px) scale(.995);}to{opacity:1;transform:none;}}
 /* Shared question/reveal card: the answer pill stays put in both phases, so the
    noun never moves — only the article and lower panel change. The verdict mark
    sits in the top-left corner, out of flow, so it can't shift the noun either. */
-.dq-mark{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;line-height:1;
-  animation:dq-pop .28s cubic-bezier(.2,.8,.3,1.5);}
-.dq-mark-ok{color:#2F7D58;background:rgba(47,125,88,.14);}
-.dq-mark-no{color:#B23A48;background:rgba(178,58,72,.14);}
+/* Shared verdict / self-report badge in a box's top-right corner (article pill +
+   English/plural boxes) so success (✓) / fail (✕) reads identically everywhere. */
+.dq-vmark{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;line-height:1;
+  border:none;padding:0;animation:dq-pop .28s cubic-bezier(.2,.8,.3,1.5);}
+.dq-vmark.ok{color:#2F7D58;background:rgba(47,125,88,.16);}
+.dq-vmark.miss{color:#B23A48;background:rgba(178,58,72,.16);}
 @keyframes dq-pop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:none;}}
-.dq-art-ph,.dq-art-real{grid-area:1/1;transition:opacity .25s ease;}
-.dq-trainer.dq-question .dq-art-real{opacity:0;}
-.dq-trainer.dq-question .dq-art-ph{opacity:1;}
-.dq-trainer.dq-revealed .dq-art-ph{opacity:0;}
-.dq-trainer.dq-revealed .dq-art-real{opacity:1;}
+/* Article ⇄ underscore swap. Sequenced, not a crossfade: on the way back to a
+   question the article fades OUT first, then the underscores fade IN (delayed);
+   on reveal the article fades in promptly. */
+.dq-art-ph,.dq-art-real{grid-area:1/1;}
+.dq-trainer.dq-question .dq-art-real{opacity:0;transition:opacity .16s ease;}
+.dq-trainer.dq-question .dq-art-ph{opacity:1;transition:opacity .18s ease .17s;}
+.dq-trainer.dq-revealed .dq-art-ph{opacity:0;transition:opacity .16s ease;}
+.dq-trainer.dq-revealed .dq-art-real{opacity:1;transition:opacity .2s ease .05s;}
 @keyframes dq-fade{from{opacity:0;}to{opacity:1;}}
-.dq-gloss{color:var(--muted);font-size:15px;text-align:center;}
-.dq-choices{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto;padding-top:26px;
-  animation:dq-fade .26s ease;}
+/* Recall boxes (issue #17): English + plural as prominent, self-report targets. */
+.dq-recall{display:flex;gap:14px;width:100%;flex-wrap:wrap;justify-content:center;}
+/* min-width:0 + break-word let long German compounds wrap instead of overflowing;
+   the extra right padding keeps the wrapped text clear of the corner badge. */
+.dq-recall-box{flex:1 1 0;min-width:0;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;
+  gap:2px;position:relative;padding:11px 38px 11px 14px;border-radius:13px;border:1.5px solid var(--line);
+  background:var(--surface);text-align:left;font:inherit;color:inherit;
+  transition:border-color .15s ease,background-color .15s ease;}
+.dq-recall-box.tappable{cursor:pointer;border-color:var(--ok-border);}
+.dq-recall-box.tappable:hover{filter:brightness(.98);}
+.dq-recall-box.tappable:active{transform:scale(.99);}
+.dq-recall-box.tappable:focus-visible{outline:3px solid var(--brand);outline-offset:2px;}
+.dq-recall-box.missed{border-color:var(--danger-border);background:var(--danger-soft);}
+.dq-recall-label{width:100%;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);}
+.dq-recall-value{width:100%;font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--ink);
+  line-height:1.15;overflow-wrap:break-word;word-break:break-word;hyphens:auto;}
+.dq-recall-box.missed .dq-recall-value{color:var(--danger);text-decoration:line-through;text-decoration-thickness:1.5px;}
+/* Article buttons live in the bottom action zone (App shell), so no top padding. */
+.dq-choices{display:flex;flex-direction:column;gap:14px;width:100%;animation:dq-fade .26s ease;}
 .dq-choice{position:relative;width:100%;min-height:60px;border-radius:13px;border:1.5px solid var(--cb,var(--c));
   background:var(--cs);color:var(--c);font-family:'Fraunces',serif;font-weight:600;font-size:24px;cursor:pointer;
   transition:transform .08s ease,filter .15s ease;}
@@ -102,25 +141,41 @@ html,body,#root{height:100%;margin:0;}
 .dq-choice:focus-visible{outline:3px solid var(--brand);outline-offset:2px;}
 .dq-choice-key{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Space Mono',monospace;
   font-size:12px;font-weight:700;opacity:.55;}
-.dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:10px;cursor:pointer;
+.dq-reveal{display:flex;flex-direction:column;align-items:center;width:100%;gap:14px;cursor:pointer;
   margin-top:26px;animation:dq-fade .26s ease;}
-.dq-answer{display:flex;align-items:baseline;justify-content:center;gap:12px;background:var(--cs);border-radius:14px;
-  padding:14px 22px;white-space:nowrap;transition:background-color .3s ease,width .3s ease;}
+.dq-answer{position:relative;display:flex;align-items:baseline;justify-content:center;gap:12px;background:var(--cs);
+  border:1.5px solid transparent;border-radius:14px;padding:14px 34px 14px 22px;white-space:nowrap;
+  transition:background-color .3s ease,border-color .3s ease,width .3s ease;}
+/* On reveal the noun box shows the same success/fail treatment as the English/
+   plural boxes (green border + surface bg when correct, red border + danger bg
+   when not) instead of the gender color. The article text keeps its gender hue. */
+.dq-answer.correct{background:var(--surface);border-color:var(--ok-border);}
+.dq-answer.incorrect{background:var(--danger-soft);border-color:var(--danger-border);}
+/* Article in neutral ink (matches the noun + the English/plural values). Gender
+   color now lives only on the question der/die/das buttons, not the reveal. */
 .dq-art{display:inline-grid;justify-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:30px;
-  color:var(--c);transition:color .3s ease;}
+  color:var(--ink);transition:color .3s ease;}
 .dq-noun{font-family:'Fraunces',serif;font-weight:600;font-size:34px;color:var(--ink);letter-spacing:-.02em;}
-.dq-plural{font-size:13px;color:var(--muted);font-family:'Space Mono',monospace;}
-.dq-example{font-size:14px;color:var(--text2);font-style:italic;text-align:center;margin-top:2px;}
-.dq-chip{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;justify-content:center;}
-.dq-chip-rating{color:#fff;font-weight:600;font-size:12px;padding:3px 10px;border-radius:7px;letter-spacing:.02em;}
-.dq-chip-data{font-family:'Space Mono',monospace;font-size:12px;color:var(--text2);}
-.dq-override{display:flex;align-items:center;gap:6px;margin-top:6px;cursor:default;flex-wrap:wrap;justify-content:center;}
-.dq-override>span{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;}
-.dq-ov{font-size:11.5px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);background:var(--surface);
-  color:var(--muted);cursor:pointer;}
-.dq-ov.on{border-color:var(--brand);color:var(--brand);font-weight:600;}
-.dq-primary{margin-top:14px;width:100%;min-height:48px;border-radius:12px;border:none;background:var(--btn-bg);
-  color:var(--btn-fg);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;}
+.dq-status{font-family:'Space Mono',monospace;font-size:12px;color:var(--text2);text-align:center;margin-top:4px;}
+/* Grade override parked above the footer (see App shell) — the same full-width
+   row the reveal used to have, just relocated as a secondary control. */
+.dq-adjust{display:flex;gap:14px;cursor:default;width:100%;justify-content:center;}
+.dq-ov{flex:1 1 0;min-width:0;min-height:60px;display:flex;align-items:center;justify-content:center;
+  font-size:16px;padding:9px 6px;border-radius:13px;border:1.5px solid var(--line);
+  background:var(--surface);color:var(--muted);cursor:pointer;transition:transform .08s ease,border-color .15s ease;}
+.dq-ov:hover{border-color:var(--brand-border);color:var(--ink);}
+.dq-ov:active{transform:scale(.97);}
+.dq-ov:focus-visible{outline:3px solid var(--brand);outline-offset:2px;}
+.dq-ov.on{border-color:var(--brand);color:var(--brand);background:var(--brand-soft);font-weight:600;}
+/* Inside the reveal the column's 10px gap already spaces the Continue button, so
+   drop its own margin-top — otherwise it stacks with the gap and the space below
+   the override row reads larger than the space above it. */
+/* Bottom action zone (Continue + override) parked above the footer. Its own gap
+   handles spacing, so the Continue button drops its default top margin here. */
+.dq-actions{display:flex;flex-direction:column;gap:14px;width:100%;}
+.dq-actions .dq-primary{margin-top:0;}
+.dq-primary{margin-top:14px;width:100%;min-height:60px;border-radius:13px;border:none;background:var(--btn-bg);
+  color:var(--btn-fg);font-size:18px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;}
 .dq-primary:hover{background:var(--btn-bg-hover);}
 .dq-secondary{margin-top:8px;width:100%;min-height:44px;border-radius:12px;border:1px solid var(--line);
   background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;
@@ -130,8 +185,9 @@ html,body,#root{height:100%;margin:0;}
   border-radius:11px;background:var(--accent-bg);border:1px solid var(--accent-border);
   color:var(--accent-fg);font-size:12.5px;line-height:1.3;}
 .dq-cram-banner b{font-weight:600;}
-.dq-cram-exit{flex:none;border:1px solid var(--accent-border);background:transparent;color:var(--accent-fg);
-  font-size:11.5px;font-weight:600;padding:3px 11px;border-radius:99px;cursor:pointer;}
+.dq-cram-exit{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  border:1px solid var(--accent-border);background:transparent;color:var(--accent-fg);
+  font-size:11.5px;font-weight:600;padding:3px 14px;border-radius:99px;cursor:pointer;}
 .dq-cram-exit:hover{background:var(--accent-border);}
 .dq-bar-fill.cram{background:linear-gradient(90deg,#BA7517,#EF9F27);}
 .dq-kbd{font-family:'Space Mono',monospace;font-size:11px;opacity:.6;border:1px solid #444;border-radius:5px;padding:1px 6px;}
@@ -146,15 +202,27 @@ html,body,#root{height:100%;margin:0;}
   background:var(--surface,#f4f1ea);border:1px solid var(--line,#e2ddd2);}
 .dq-next-rel{font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--ink,#1c1f24);}
 .dq-next-when{font-size:12px;letter-spacing:.02em;color:var(--muted);}
-.dq-foot{display:flex;align-items:center;justify-content:space-between;padding:0 4px;}
-.dq-toggle{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);cursor:pointer;}
-.dq-toggle input{accent-color:var(--brand);width:15px;height:15px;}
-.dq-link{background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline;}
+/* Divider above the footer zone to separate it from the page. The rule sits on
+   whichever row starts the bottom group — the account row if present (see below),
+   otherwise the footer row. */
+.dq-foot{display:flex;align-items:center;justify-content:space-between;padding:16px 4px 0;margin-top:-8px;
+  border-top:1px solid var(--line);}
+.dq-toggle{display:inline-flex;align-items:center;min-height:30px;gap:7px;font-size:12.5px;color:var(--muted);cursor:pointer;}
+.dq-toggle input{accent-color:var(--brand);width:18px;height:18px;}
+/* Secondary footer/account links stay visually link-like. min-height is a modest
+   tap area (not the full 44px used for the primary controls) to keep the footer
+   rows compact. */
+.dq-link{display:inline-flex;align-items:center;min-height:30px;padding:0 4px;background:none;border:none;
+  color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline;}
 .dq-link:hover{color:var(--ink);}
 .dq-link:disabled{opacity:.5;cursor:default;text-decoration:none;}
 
 /* account / sync row */
-.dq-account{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 4px;font-size:12px;color:var(--muted);}
+.dq-account{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:16px 4px 0;font-size:12px;color:var(--muted);
+  border-top:1px solid var(--line);}
+/* When the account row leads the group it carries the divider; the footer row
+   below it drops its own line and top padding. */
+.dq-account + .dq-foot{border-top:none;padding-top:0;}
 .dq-acct-email{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-weight:500;}
 .dq-sync{font-family:'Space Mono',monospace;font-size:11px;}
 .dq-sync-ok{color:#2F7D58;} .dq-sync-error{color:#B23A48;} .dq-sync-syncing{color:var(--brand);}
@@ -173,12 +241,14 @@ html,body,#root{height:100%;margin:0;}
 .dq-auth-in:focus{outline:2px solid var(--brand);outline-offset:1px;}
 .dq-auth-info{font-size:12.5px;color:var(--muted);line-height:1.4;}
 .dq-auth-err{font-size:12.5px;color:#B23A48;line-height:1.4;}
-.dq-auth-link{align-self:flex-start;background:none;border:none;color:var(--brand);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;}
+.dq-auth-link{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;background:none;border:none;
+  color:var(--brand);font-size:12px;cursor:pointer;text-decoration:underline;padding:0 4px;}
 .dq-auth-link:disabled{opacity:.5;cursor:default;}
 .dq-auth-switch{display:flex;justify-content:space-between;gap:10px;margin-top:2px;}
-.dq-auth-switch button{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;}
+.dq-auth-switch button{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;background:none;border:none;
+  color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;}
 .dq-auth-switch button:hover{color:var(--ink);}
 @media (prefers-reduced-motion:reduce){
-  .dq-card,.dq-reveal,.dq-mark,.dq-choices{animation:none;}
+  .dq-card,.dq-reveal,.dq-vmark,.dq-choices{animation:none;}
   .dq-bar-fill,.dq-art,.dq-art-ph,.dq-art-real,.dq-answer{transition:none;}
 }

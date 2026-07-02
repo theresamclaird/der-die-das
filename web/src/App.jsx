@@ -268,18 +268,27 @@ export default function App() {
     const { card: nextFsrs } = applyRating(preState, inf.rating);
     setPending({
       id: card.id, preState, nextFsrs, tapped, correct, latencyMs,
-      rating: inf.rating, recallMs: inf.recallMs, discarded: inf.discarded,
-      why: inf.why, overridden: false, review: reviewOnly,
+      rating: inf.rating, baseRating: inf.rating, recallMs: inf.recallMs, discarded: inf.discarded,
+      why: inf.why, baseWhy: inf.why, overridden: false, review: reviewOnly,
+      missedTranslation: false, missedPlural: false,
     });
     setPhase("revealed");
   }, [phase, card, reviewOnly]);
 
   // ---- manual override (recompute from pre-answer state) ----
   const override = useCallback((rating) => {
+    setPending((p) => (p ? reconcilePending({ ...p, baseRating: rating, overridden: true }) : p));
+  }, []);
+
+  // ---- self-reported miss on translation/plural (issue #17) ----
+  // Marking either dimension missed coerces the card to Again so it stays in
+  // rotation this session and — via FSRS relearning — across future ones. It
+  // reuses the override recompute path and touches nothing in scheduler/session/db.
+  const toggleMissed = useCallback((kind) => {
     setPending((p) => {
       if (!p) return p;
-      const { card: nextFsrs } = applyRating(p.preState, rating);
-      return { ...p, rating, nextFsrs, overridden: true, why: `manual override → ${RATING_NAME[rating]}` };
+      const key = kind === "plural" ? "missedPlural" : "missedTranslation";
+      return reconcilePending({ ...p, [key]: !p[key] });
     });
   }, []);
 
@@ -369,9 +378,14 @@ export default function App() {
         latency_ms: Math.round(p.latencyMs),
         recall_ms: p.recallMs != null ? Math.round(p.recallMs) : null,
         discarded: p.discarded, overridden: p.overridden,
+        missed_translation: !!p.missedTranslation, missed_plural: !!p.missedPlural,
       });
     }
-    if (p.correct && !p.discarded && p.recallMs != null) baselineRef.current.push(p.recallMs);
+    // A self-reported miss (rating coerced to Again) means the answer wasn't a
+    // clean recall, so keep its timing out of the baseline even if the article
+    // tap itself was correct.
+    const missedRecall = p.missedTranslation || p.missedPlural;
+    if (p.correct && !p.discarded && !missedRecall && p.recallMs != null) baselineRef.current.push(p.recallMs);
 
     const graduates = willGraduate(p.nextFsrs);
     const { queue: next, addedNew } = applyAdvance(
@@ -540,8 +554,8 @@ export default function App() {
       <div className="dq-shell">
         <header className="dq-head">
           <div className="dq-brand">
-            <span className="dq-logo">der<span style={{ color: GENDER.die.main }}>·</span>die<span style={{ color: GENDER.das.main }}>·</span>das</span>
-            <span className="dq-sub">{levelSummary(levels)} · article trainer</span>
+            <img className="dq-fox" src="/logo-fox.svg" alt="" width="36" height="36" />
+            <span className="dq-logo">Artikel Fuchs</span>
           </div>
           <div className="dq-head-actions">
             <button className={"dq-pill" + (showLevels ? " on" : "")} onClick={() => { setShowLevels((v) => !v); setShowInfo(false); }} aria-label="Choose levels">{levelSummary(levels)}</button>
@@ -609,44 +623,31 @@ export default function App() {
           // mutate in place — the pill recolors to neutral and resizes to the
           // next word instead of the whole card fading out and back in.
           <main className={"dq-card dq-trainer dq-" + phase}>
-            {/* Verdict mark in the top-right corner (absolutely positioned, so it
-                never shifts the noun): a green check when correct, a red ✕ when not. */}
-            {phase === "revealed" && pending && (
-              <div className={"dq-mark " + (pending.correct ? "dq-mark-ok" : "dq-mark-no")}
-                   aria-label={pending.correct ? "correct" : `incorrect — you tapped ${pending.tapped}`}>
-                {pending.correct ? "✓" : "✕"}
-              </div>
-            )}
-
             {/* Shared answer pill, identical in both phases: the underscores fade
-                out as the real article fades in, and the noun never moves. */}
-            <div className="dq-answer" ref={pillRef} style={{ "--c": answerColor.main, "--cs": answerColor.soft }}>
+                out as the real article fades in, and the noun never moves. The
+                verdict mark sits in the pill's own corner — the same badge the
+                English/plural boxes use — so success/fail reads consistently. */}
+            <div className={"dq-answer" + (phase === "revealed" && pending ? (pending.correct ? " correct" : " incorrect") : "")}
+                 ref={pillRef} style={{ "--c": answerColor.main, "--cs": answerColor.soft }}>
               <span className="dq-art">
                 <span className="dq-art-ph">___</span>
                 <span className="dq-art-real">{card.article}</span>
               </span>
               <span className="dq-noun">{card.lemma}</span>
+              {phase === "revealed" && pending && (
+                <span className={"dq-vmark " + (pending.correct ? "ok" : "miss")}
+                      aria-label={pending.correct ? "correct" : `incorrect — you tapped ${pending.tapped}`}>
+                  {pending.correct ? "✓" : "✕"}
+                </span>
+              )}
             </div>
 
-            {/* Lower panel: the article buttons on the question, the reveal detail
-                on the answer — cross-faded so only this region changes. */}
-            {phase === "question" ? (
-              <div className="dq-choices">
-                {ARTICLES.map((art, i) => (
-                  <button
-                    key={art}
-                    className="dq-choice"
-                    style={swatch(art)}
-                    onClick={() => answer(art)}
-                  >
-                    <span className="dq-choice-key">{i + 1}</span>
-                    {art}
-                  </button>
-                ))}
-              </div>
-            ) : (
+            {/* On reveal, the answer detail sits under the pill. The article
+                buttons (question) live in the bottom action zone — see App shell —
+                so the tappable controls stay in the same thumb zone in both phases. */}
+            {phase === "revealed" && (
               <Reveal card={card} pending={pending} cram={cram} review={reviewOnly}
-                      onOverride={override} onContinue={commit} />
+                      onMissed={toggleMissed} onContinue={commit} />
             )}
           </main>
         )}
@@ -724,6 +725,36 @@ export default function App() {
           </main>
         )}
 
+        {/* Bottom action zone. The tappable controls live here in both phases —
+            the der/die/das buttons on the question, Continue + override on the
+            reveal — so the user's thumb stays in the same lower area throughout. */}
+        {phase === "question" && card && (
+          <div className="dq-choices">
+            {ARTICLES.map((art, i) => (
+              <button key={art} className="dq-choice" style={swatch(art)} onClick={() => answer(art)}>
+                <span className="dq-choice-key">{i + 1}</span>
+                {art}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {phase === "revealed" && pending && (
+          <div className="dq-actions">
+            <button className="dq-primary" onClick={commit}>
+              Continue <span className="dq-kbd">space</span>
+            </button>
+            {!cram && !reviewOnly && (
+              <div className="dq-adjust" onClick={(e) => e.stopPropagation()}>
+                {[RATING.Again, RATING.Hard, RATING.Good, RATING.Easy].map((r) => (
+                  <button key={r} className={"dq-ov" + (pending.rating === r ? " on" : "")}
+                          onClick={() => override(r)}>{RATING_NAME[r]}</button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {amplifyConfigured && (
           <div className="dq-account">
             {authUser ? (
@@ -758,59 +789,85 @@ export default function App() {
   );
 }
 
-function Reveal({ card, pending, cram, review, onOverride, onContinue }) {
-  const ratingColor = { [RATING.Again]: "#B23A48", [RATING.Hard]: "#C9772F", [RATING.Good]: "#2F7D58", [RATING.Easy]: "#2D68A8" }[pending.rating];
-  const days = (new Date(pending.nextFsrs.due).getTime() - Date.now()) / 86400000;
-  // Cram and recycled filler are both off-schedule: no rating applied, no due
-  // date change — show raw timing only, never an FSRS interval or override.
+// Derive the applied rating from the graded/overridden base plus any self-reported
+// misses (issue #17). A missed translation or plural coerces the card to Again so
+// it is kept in rotation; clearing both restores the base grade. Recomputes the
+// FSRS preview from the pre-answer state, mirroring the manual-override path.
+function reconcilePending(p) {
+  const anyMissed = p.missedTranslation || p.missedPlural;
+  const rating = anyMissed ? RATING.Again : p.baseRating;
+  const { card: nextFsrs } = applyRating(p.preState, rating);
+  const missedLabels = [p.missedTranslation && "English", p.missedPlural && "plural"].filter(Boolean);
+  const why = anyMissed
+    ? `kept in rotation → Again (missed ${missedLabels.join(" + ")})`
+    : (p.overridden ? `manual override → ${RATING_NAME[rating]}` : p.baseWhy);
+  return { ...p, rating, nextFsrs, why };
+}
+
+// One prominent, self-report box for a recall dimension (English / plural). When
+// interactive it's a toggle button: tap it only if you didn't know the answer.
+function RecallBox({ label, value, missed, interactive, onToggle }) {
+  const cls = "dq-recall-box" + (missed ? " missed" : "") + (interactive ? " tappable" : "");
+  const inner = (
+    <>
+      <span className="dq-recall-label">{label}</span>
+      <span className="dq-recall-value">{value}</span>
+      {interactive && <span className={"dq-vmark " + (missed ? "miss" : "ok")} aria-hidden="true">{missed ? "✕" : "✓"}</span>}
+    </>
+  );
+  if (!interactive) return <div className={cls}>{inner}</div>;
+  return (
+    <button
+      type="button"
+      className={cls}
+      aria-pressed={missed}
+      aria-label={`${label}: ${value}. ${missed ? "Marked as missed — tap to unmark." : "Tap if you didn't know it."}`}
+      onClick={onToggle}
+    >
+      {inner}
+    </button>
+  );
+}
+
+function Reveal({ card, pending, cram, review, onMissed, onContinue }) {
+  // Cram and recycled filler are both off-schedule: no rating is applied and no
+  // due date changes, so there are no override controls — just a status line.
   const offSchedule = cram || review;
-  // The verdict and the article+noun pill are rendered by the shared card so they
-  // stay put across the question→reveal transition; this panel is everything that
-  // fades in beneath them.
+  // Off-schedule status (timing metrics are intentionally hidden during practice).
+  const statusParts = [];
+  if (!pending.correct) statusParts.push(cram ? "missed — will re-show this round" : "missed");
+  if (review) statusParts.push("review only");
+  const status = statusParts.join(" · ");
+  // The article+noun pill and its verdict mark live in the shared card so they
+  // stay put across the question→reveal transition; this panel fades in beneath.
   return (
     <div className="dq-reveal" onClick={onContinue}>
-      {card.translation && (
-        <div className="dq-gloss">English: {card.gloss_def === false ? "" : "the "}{card.translation}</div>
-      )}
-      <div className="dq-plural">{card.plural ? `plural: die ${card.plural}` : "no plural (mass noun)"}</div>
-      {card.example && <div className="dq-example">{card.example}</div>}
+      {/* Translation + plural are learning targets in their own right (issue #17),
+          so they get equal-weight boxes. Tapping a box self-reports a miss, which
+          keeps the card in rotation. stopPropagation so a tap doesn't advance. */}
+      <div className="dq-recall" onClick={(e) => e.stopPropagation()}>
+        {card.translation && (
+          <RecallBox
+            label="English"
+            value={`${card.gloss_def === false ? "" : "the "}${card.translation}`}
+            missed={pending.missedTranslation}
+            interactive={!offSchedule}
+            onToggle={() => onMissed("translation")}
+          />
+        )}
+        <RecallBox
+          label="Plural"
+          value={card.plural ? `die ${card.plural}` : "no plural (mass noun)"}
+          missed={pending.missedPlural}
+          interactive={!offSchedule && !!card.plural}
+          onToggle={() => onMissed("plural")}
+        />
+      </div>
 
-      {offSchedule ? (
-        /* Off-schedule: no rating is applied and no due date changes, so we show
-           only the raw timing — not an FSRS interval or the override controls.
-           A recycled-filler card (review) is shown once and does not re-drill. */
-        <div className="dq-chip">
-          <span className="dq-chip-data">
-            {Math.round(pending.latencyMs)}ms
-            {pending.recallMs != null && !pending.discarded ? ` · recall ${Math.round(pending.recallMs)}ms` : ""}
-            {pending.correct ? "" : (cram ? " · missed — will re-show this round" : " · missed")}
-            {review ? " · review only" : ""}
-          </span>
-        </div>
-      ) : (
-        <>
-          <div className="dq-chip">
-            <span className="dq-chip-rating" style={{ background: ratingColor }}>{RATING_NAME[pending.rating]}</span>
-            <span className="dq-chip-data">
-              {Math.round(pending.latencyMs)}ms
-              {pending.recallMs != null && !pending.discarded ? ` · recall ${Math.round(pending.recallMs)}ms` : ""}
-              {` · next in ${fmtInterval(days)}`}
-            </span>
-          </div>
-
-          <div className="dq-override" onClick={(e) => e.stopPropagation()}>
-            <span>override:</span>
-            {[RATING.Again, RATING.Hard, RATING.Good, RATING.Easy].map((r) => (
-              <button key={r} className={"dq-ov" + (pending.rating === r ? " on" : "")}
-                      onClick={() => onOverride(r)}>{RATING_NAME[r]}</button>
-            ))}
-          </div>
-        </>
-      )}
-
-      <button className="dq-primary" onClick={(e) => { e.stopPropagation(); onContinue(); }}>
-        Continue <span className="dq-kbd">space</span>
-      </button>
+      {/* Continue + the grade override live down near the footer (see the App
+          shell) so Continue keeps a consistent position regardless of how many
+          lines the answer boxes take. Tapping this top area still advances. */}
+      {offSchedule && status && <div className="dq-status">{status}</div>}
     </div>
   );
 }

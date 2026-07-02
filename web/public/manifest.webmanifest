@@ -1,7 +1,7 @@
 {
-  "name": "der · die · das — A1 article trainer",
-  "short_name": "der·die·das",
-  "description": "Practice German noun genders with implicit, latency-based grading.",
+  "name": "Artikel Fuchs — German trainer",
+  "short_name": "Artikel Fuchs",
+  "description": "Practice German with implicit, latency-based grading — articles now, more word types soon.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#E9EBEE",

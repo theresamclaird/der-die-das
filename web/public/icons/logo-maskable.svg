@@ -1,11 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="der die das logo">
-  <title>der die das (maskable)</title>
-  <rect x="0" y="0"      width="512" height="170.667" fill="#2563eb"/>
-  <rect x="0" y="170.667" width="512" height="170.667" fill="#dc2626"/>
-  <rect x="0" y="341.333" width="512" height="170.667" fill="#16a34a"/>
-  <g font-family="DejaVu Sans, Arial, sans-serif" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="central" letter-spacing="-2">
-    <text x="256" y="100" font-size="78">der</text>
-    <text x="256" y="256" font-size="78">die</text>
-    <text x="256" y="412" font-size="78">das</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="artikelfuchs">
+  <title>artikelfuchs (maskable)</title>
+  <rect x="0" y="0" width="512" height="512" fill="#16191d"/>
+  <g transform="translate(256,256) scale(5.5) translate(-32,-32)">
+    <polygon points="32,24 14,6 8,27 12,41 32,54" fill="#2563eb"/>
+    <polygon points="32,24 50,6 56,27 52,41 32,54" fill="#dc2626"/>
+    <polygon points="22,42 42,42 32,57" fill="#16a34a"/>
+    <polygon points="19,30 26,29 22,34" fill="#f4f1ea"/>
+    <polygon points="45,30 38,29 42,34" fill="#f4f1ea"/>
+    <polygon points="29,51 35,51 32,57" fill="#16191d"/>
   </g>
 </svg>
