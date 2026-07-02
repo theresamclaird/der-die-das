@@ -132,7 +132,7 @@ export default function App() {
   const [queue, setQueue] = useState([]);
   const [phase, setPhase] = useState("question"); // question | revealed | done
   const [pending, setPending] = useState(null);
-  const [colorCoding, setColorCoding] = useState(true);
+  const colorCoding = true; // gender colors are always on (no in-app toggle for now)
   const [showInfo, setShowInfo] = useState(false);
   const [showLevels, setShowLevels] = useState(false);
   const [levels, setLevels] = useState(DEFAULT_LEVELS);
@@ -140,7 +140,7 @@ export default function App() {
   const [cram, setCram] = useState(false); // off-schedule practice mode
   const [authUser, setAuthUser] = useState(null); // {email} when signed in
   const [showAuth, setShowAuth] = useState(false);
-  const [sync, setSync] = useState({ state: "idle", at: null, error: null }); // sync status
+  const [, setSync] = useState({ state: "idle", at: null, error: null }); // sync status (tracked internally; not shown)
   const [stateTick, setStateTick] = useState(0); // bump to re-render after sync pulls
 
   // Gender palette + neutral fallback, chosen from the OS theme.
@@ -516,6 +516,14 @@ export default function App() {
     window.addEventListener("online", on);
     return () => window.removeEventListener("online", on);
   }, [authUser, runSync]);
+  // Automatic sync: push local reviews up once activity settles (signed-in only).
+  // Debounced on the answered count so a burst of taps triggers a single sync,
+  // which is why there's no manual "sync now" control.
+  useEffect(() => {
+    if (!authUser || !stats.answered) return;
+    const t = setTimeout(() => runSync(), 2000);
+    return () => clearTimeout(t);
+  }, [authUser, stats.answered, runSync]);
 
   // Change the active levels: persist, rebuild the queue from the new pool,
   // and start a fresh session over it. Clearing the inferred-pending state
@@ -786,31 +794,19 @@ export default function App() {
           </div>
         )}
 
-        {amplifyConfigured && (
-          <div className="dq-account">
-            {authUser ? (
-              <>
-                <span className="dq-acct-email" title={authUser.email}>{authUser.email}</span>
-                <span className={"dq-sync dq-sync-" + sync.state}>
-                  {sync.state === "syncing" ? "syncing…"
-                    : sync.state === "error" ? "sync failed"
-                    : sync.at ? `synced ${new Date(sync.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`
-                    : "not synced yet"}
-                </span>
-                <button className="dq-link" onClick={runSync} disabled={sync.state === "syncing"}>sync now</button>
-                <button className="dq-link" onClick={doSignOut}>sign out</button>
-              </>
-            ) : (
-              <button className="dq-link dq-signin" onClick={() => setShowAuth(true)}>Sign in to sync across devices</button>
-            )}
-          </div>
-        )}
-
+        {/* Footer: two evenly-split links. Sign in/out reflects auth state (and
+            syncing is automatic while signed in — no manual control). Reset lives
+            on the right. */}
         <footer className="dq-foot">
-          <label className="dq-toggle">
-            <input type="checkbox" checked={colorCoding} onChange={(e) => setColorCoding(e.target.checked)} />
-            <span>gender colors</span>
-          </label>
+          {amplifyConfigured ? (
+            authUser ? (
+              <button className="dq-link" onClick={doSignOut}>sign out</button>
+            ) : (
+              <button className="dq-link" onClick={() => setShowAuth(true)}>sign in</button>
+            )
+          ) : (
+            <span />
+          )}
           <button className="dq-link" onClick={resetAll}>reset progress</button>
         </footer>
       </div>
