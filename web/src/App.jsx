@@ -128,6 +128,7 @@ function nextDueInfo(activeNouns, statesById, now = new Date()) {
 
 export default function App() {
   const [ready, setReady] = useState(false);
+  const [initError, setInitError] = useState(false);
   const [queue, setQueue] = useState([]);
   const [phase, setPhase] = useState("question"); // question | revealed | done
   const [pending, setPending] = useState(null);
@@ -202,40 +203,46 @@ export default function App() {
   useEffect(() => {
     let alive = true;
     (async () => {
-      const db = await Store.open();
-      dbRef.current = db;
-      const cards = await db.getAllCards();
-      const m = new Map();
-      cards.forEach((row) => m.set(row.id, row.fsrs));
-      statesRef.current = m;
-      // seed baseline from recent correct, non-discarded recall times
-      const log = await db.getRecentLog(100);
-      const recalls = log.filter((e) => e.correct && !e.discarded && e.recall_ms != null).map((e) => e.recall_ms);
-      baselineRef.current = new Baseline(undefined, recalls);
+      try {
+        const db = await Store.open();
+        dbRef.current = db;
+        const cards = await db.getAllCards();
+        const m = new Map();
+        cards.forEach((row) => m.set(row.id, row.fsrs));
+        statesRef.current = m;
+        // seed baseline from recent correct, non-discarded recall times
+        const log = await db.getRecentLog(100);
+        const recalls = log.filter((e) => e.correct && !e.discarded && e.recall_ms != null).map((e) => e.recall_ms);
+        baselineRef.current = new Baseline(undefined, recalls);
 
-      // restore the saved level selection (default A1)
-      const saved = await db.getMeta(LEVELS_META_KEY);
-      const lv = Array.isArray(saved) && saved.length ? saved.filter((l) => ALL_LEVELS.includes(l)) : DEFAULT_LEVELS;
-      const pool = NOUNS.filter((c) => lv.includes(c.level));
+        // restore the saved level selection (default A1)
+        const saved = await db.getMeta(LEVELS_META_KEY);
+        const lv = Array.isArray(saved) && saved.length ? saved.filter((l) => ALL_LEVELS.includes(l)) : DEFAULT_LEVELS;
+        const pool = NOUNS.filter((c) => lv.includes(c.level));
 
-      const { queue: q, reserve } = buildSession(pool, m, NEW_PER_SESSION);
-      if (!alive) return;
-      reserveRef.current = reserve;
-      fillerRef.current = new Set();
-      setLevels(lv.length ? lv : DEFAULT_LEVELS);
-      setQueue(q);
-      setStats((s) => ({ ...s, intro: q.length }));
-      setReady(true);
+        const { queue: q, reserve } = buildSession(pool, m, NEW_PER_SESSION);
+        if (!alive) return;
+        reserveRef.current = reserve;
+        fillerRef.current = new Set();
+        setLevels(lv.length ? lv : DEFAULT_LEVELS);
+        setQueue(q);
+        setStats((s) => ({ ...s, intro: q.length }));
+        setReady(true);
 
-      // Sync engine: local-only until a deployed backend AND a sign-in exist.
-      syncRef.current = new SyncEngine(db, new LocalOnlyAdapter());
-      if (amplifyConfigured) {
-        try {
-          const { AmplifyAdapter } = await import("./lib/amplifyAdapter.js");
-          syncRef.current.setAdapter(new AmplifyAdapter());
-          const u = await currentUser();
-          if (alive && u) { setAuthUser(u); runSync(); }
-        } catch { /* stay local-only */ }
+        // Sync engine: local-only until a deployed backend AND a sign-in exist.
+        syncRef.current = new SyncEngine(db, new LocalOnlyAdapter());
+        if (amplifyConfigured) {
+          try {
+            const { AmplifyAdapter } = await import("./lib/amplifyAdapter.js");
+            syncRef.current.setAdapter(new AmplifyAdapter());
+            const u = await currentUser();
+            if (alive && u) { setAuthUser(u); runSync(); }
+          } catch { /* stay local-only */ }
+        }
+      } catch (err) {
+        // Storage init failed (e.g. the iOS Safari open() hang, issue #12).
+        // Surface a recoverable error instead of an indefinite "Loading…".
+        if (alive) setInitError(true);
       }
     })();
     return () => { alive = false; };
@@ -411,13 +418,13 @@ export default function App() {
   // with transitions off, then release to the new width so CSS eases it.
   const pillRef = useRef(null);
   const prevPillW = useRef(null);
-  useLayoutEffect(() => {
+  const measurePill = useCallback((animate = true) => {
     const el = pillRef.current;
     if (!el) { prevPillW.current = null; return; }
     const from = prevPillW.current;
     el.style.width = "auto";
     const target = el.offsetWidth;
-    if (from != null && from !== target) {
+    if (animate && from != null && from !== target) {
       el.style.transition = "none";
       el.style.width = from + "px";
       void el.offsetWidth; // force reflow so the next change animates
@@ -427,7 +434,21 @@ export default function App() {
       el.style.width = target + "px";
     }
     prevPillW.current = target;
-  }, [currentId]);
+  }, []);
+  useLayoutEffect(() => { measurePill(); }, [currentId, measurePill]);
+
+  // The pill width is locked to a pixel measurement. Fraunces loads async, so a
+  // first paint measured with the fallback font can lock in a too-wide box that
+  // overflows the card (issue #12). Re-measure once the real fonts are ready,
+  // snapping (no morph) to the corrected width.
+  useEffect(() => {
+    if (!document.fonts?.ready) return;
+    let alive = true;
+    document.fonts.ready.then(() => {
+      if (alive) { prevPillW.current = null; measurePill(false); }
+    });
+    return () => { alive = false; };
+  }, [measurePill]);
 
   // ---- keyboard ----
   useEffect(() => {
@@ -547,6 +568,16 @@ export default function App() {
     : 0;
   const nextDue = nextDueInfo(activeNouns, statesRef.current, now);
 
+  if (initError) {
+    return (
+      <div className="dq-root">
+        <div className="dq-loading dq-error">
+          <p>Couldn't open local storage on this device.</p>
+          <button className="dq-primary" onClick={() => window.location.reload()}>Retry</button>
+        </div>
+      </div>
+    );
+  }
   if (!ready) return <div className="dq-root"><div className="dq-loading">Loading…</div></div>;
 
   return (
