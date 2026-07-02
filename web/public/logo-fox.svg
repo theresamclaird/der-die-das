@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="artikelfuchs">
+  <title>artikelfuchs</title>
+  <desc>A geometric fox head split into the three German article colours: der (blue), die (red), das (green).</desc>
+  <!-- left face + ear: der -->
+  <polygon points="32,24 14,6 8,27 12,41 32,54" fill="#2563eb"/>
+  <!-- right face + ear: die -->
+  <polygon points="32,24 50,6 56,27 52,41 32,54" fill="#dc2626"/>
+  <!-- muzzle: das -->
+  <polygon points="22,42 42,42 32,57" fill="#16a34a"/>
+  <!-- eyes -->
+  <polygon points="19,30 26,29 22,34" fill="#f4f1ea"/>
+  <polygon points="45,30 38,29 42,34" fill="#f4f1ea"/>
+  <!-- nose -->
+  <polygon points="29,51 35,51 32,57" fill="#16191d"/>
+</svg>
